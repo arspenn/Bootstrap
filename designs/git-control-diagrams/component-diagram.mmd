@@ -1,0 +1,61 @@
+graph TB
+    subgraph "Claude Code System"
+        subgraph "Core Components"
+            A[CLAUDE.md<br/>Main Configuration]
+            B[Rule Loader<br/>Loads and parses rules]
+            C[Rule Engine<br/>Applies rules to operations]
+            D[Git Command Executor<br/>Runs Git commands]
+        end
+        
+        subgraph "Safety Components"
+            E[Conflict Detector<br/>Identifies rule conflicts]
+            F[Validation Engine<br/>Pre-execution checks]
+            G[Security Enforcer<br/>Ensures safe operations]
+        end
+    end
+    
+    subgraph "Rule Storage System"
+        subgraph ".claude/rules/"
+            H[git/<br/>Git operation rules]
+            I[config/<br/>User preferences]
+            J[README.md<br/>Navigation index]
+        end
+        
+        subgraph ".claude/templates/"
+            K[Commit Templates<br/>Message formats]
+            L[Branch Templates<br/>Naming patterns]
+        end
+    end
+    
+    subgraph "External Systems"
+        M[Git CLI<br/>Local Git installation]
+        N[File System<br/>Local repository]
+        O[Terminal<br/>User interface]
+    end
+    
+    %% Relationships
+    A --> B
+    B --> H
+    B --> I
+    B --> C
+    C --> E
+    C --> F
+    C --> G
+    C --> D
+    D --> M
+    D --> K
+    D --> L
+    M --> N
+    D --> O
+    E --> I
+    
+    %% Styling
+    classDef core fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef safety fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef storage fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef external fill:#efebe9,stroke:#3e2723,stroke-width:2px
+    
+    class A,B,C,D core
+    class E,F,G safety
+    class H,I,J,K,L storage
+    class M,N,O external

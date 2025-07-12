@@ -1,0 +1,11 @@
+1. The end goal is to have every operation available, but for now make rules for all the basic commands like add, commit, push, and pull. Also create a single branching strategy. Other strategies and features like conflict resolution, and tag management can be added to the todo list. 
+2. Every feature that is available for git must also be available for Github. If there are critical differences we can identify these as we go. Advanced Github functionality can be added to the todo list.
+3. Use this https://www.conventionalcommits.org/en/v1.0.0/ for formating and check that it integrates with Github. Make messages highly informative, with critical details well explained, but stay as consise as possible. Leave full descriptions for the documentation. Issue reference requirements can be added the to todo list. Character recommendation is less than 250 characters, but put the limit at 2000 characters.
+4. Add workflow patters to the todo list. Name branches after the feature and the version of the main branch at the time of the branch. Release processes and hotfix procedures can be added to the todo list.
+5. User experience level customization can be added to the todo list.
+6. Saftey and recovery can be added to the todo list.
+7. Use existing CLAUDE.md conventions, but add enhance CLAUDE.md conventions to the todo list. Add CI/CD to the todo list. Add pre-commit hooks to the todo list. Add Team collaboration to the todo list.
+8. Use https://git-scm.com/docs as a reference for grouping. New additions should be written with the intention of being made modular.
+9. For documentation that is identical to the reference material, provide a direct link to that. Otherwise documentation for each feature should prioritize how the user can control and interact with each feature. Examples, common scenarios and solutions, troubleshooting, and quick reference section can be added to the todo list.
+
+Any time you have a thought relevant to a topic on the todo list, you should add it to that topic's section on on the planning board. And ask again if you are still unsure.

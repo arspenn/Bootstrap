@@ -1,0 +1,16 @@
+C4Context
+    title System Context diagram for Git Control Rules
+    
+    Person(developer, "Developer", "Software developer using Claude Code")
+    System(claude_code, "Claude Code", "AI-powered development assistant with Git control rules")
+    System(local_git, "Local Git Repository", "Version control on developer machine")
+    System_Ext(github, "GitHub", "Remote repository hosting and collaboration platform")
+    System_Ext(git_docs, "Git Documentation", "Official Git reference documentation")
+    
+    Rel(developer, claude_code, "Requests Git operations", "Natural language commands")
+    Rel(claude_code, local_git, "Executes Git commands", "Git CLI following rules")
+    Rel(local_git, github, "Pushes/Pulls changes", "HTTPS/SSH")
+    Rel(claude_code, developer, "Provides feedback and guidance", "Terminal output")
+    Rel(claude_code, git_docs, "References documentation", "HTTPS links")
+    
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

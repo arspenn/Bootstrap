@@ -1,0 +1,48 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant CC as Claude Code
+    participant RL as Rule Loader
+    participant RE as Rule Engine
+    participant CD as Conflict Detector
+    participant GE as Git Executor
+    participant Git as Git CLI
+    participant FS as File System
+    
+    Dev->>CC: "commit these changes with message about new feature"
+    CC->>RL: Load Git rules
+    RL->>RL: Parse .claude/rules/git/*
+    RL-->>CC: Rules loaded
+    
+    CC->>RE: Apply commit rules
+    RE->>RE: Check git-commit-format rule
+    RE->>RE: Load commit template
+    RE->>CD: Check for conflicts
+    CD-->>RE: No conflicts
+    
+    RE->>GE: Execute git add with safety checks
+    GE->>Git: git status
+    Git-->>GE: File list
+    GE->>GE: Validate no sensitive files
+    GE->>Git: git add [specific files]
+    Git-->>GE: Files staged
+    
+    RE->>GE: Execute commit with format
+    GE->>GE: Generate conventional commit message
+    Note right of GE: feat: add new feature<br/><br/>Detailed description
+    GE->>Git: git commit -m "..."
+    Git->>FS: Create commit
+    FS-->>Git: Commit created
+    Git-->>GE: Success
+    
+    GE-->>CC: Operation complete
+    CC-->>Dev: "Created commit: feat: add new feature"
+    
+    opt User requests push
+        Dev->>CC: "push to remote"
+        CC->>RE: Apply push rules
+        RE->>GE: Execute push with validation
+        GE->>Git: git push origin [branch]
+        Git-->>GE: Push complete
+        GE-->>CC: Success
+        CC-->>Dev: "Pushed to origin/[branch]"
+    end

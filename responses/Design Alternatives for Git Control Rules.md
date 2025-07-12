@@ -1,0 +1,5 @@
+1. Use best practices for the most secure by default. Ensure that the sures are are well defined so that the different states of the rules can be well understood. The rules themselves should not be changed by the user, instead the user's configuration should be stored in a seperate file and that should be changed.
+2. Rules should not conflict. If they do there has been a problem with the definition of the rules. If a rule conflict is detected ask the user for singlular decision in each instance and note the conflict for resolution as a task(can be converted to Github issues in the future).
+3. The easiest way I think would be to have one single rule per file so that as much description as necessary can be given to each rule without worrying about confusing where one rule ends and another starts. With this we can use relative paths and file names as the reference.
+
+As part of the design process, try to estimate the increase in computational complexity this will add to the project and the increase in my use of Claude Code tokens.
