@@ -3,19 +3,32 @@
 ## Current Tasks
 
 ### Git Control Feature Design - 2025-07-12
-- [ ] Design Git control rules for CLAUDE.md
-- [ ] Create modular rule structure
-- [ ] Document basic Git operations (add, commit, push, pull)
-- [ ] Define branching strategy
-- [ ] Implement Conventional Commits standard
-- [ ] Create documentation structure
+- [x] Design Git control rules for CLAUDE.md
+- [x] Create modular rule structure
+- [x] Document basic Git operations (add, commit, push, pull)
+- [x] Define branching strategy
+- [x] Implement Conventional Commits standard
+- [x] Create documentation structure
+
+### Claude Memory Integration - 2025-07-12
+- [x] Design Claude memory integration with rule/doc separation
+- [x] Create master import infrastructure
+- [x] Restructure all 5 Git rules to instructions-only format
+- [x] Move documentation to separate files with full content
+- [x] Implement bidirectional references
+- [x] Achieve 84.3% token reduction (exceeded 80% target)
+- [x] Validate import mechanism and YAML syntax
+- [x] Maintain user preference compatibility
 
 ## Completed Tasks
-- None yet
+- Git Control Feature Design (2025-07-12)
+- Claude Memory Integration (2025-07-12)
 
 ## Discovered During Work
 - Need to create PLANNING.md (completed)
 - Need to create TASK.md (completed)
+- Virtual environment (venv_linux) mentioned in CLAUDE.md doesn't exist yet
+- Test scripts created in root directory (consider moving to tests/ folder)
 
 ## Future Features Backlog
 - Create standardized validation plans
@@ -76,3 +89,7 @@
   - Credit Conventional Commits specification
   - Credit https://github.com/coleam00 for inspiration
   - Add any other attributions as discovered
+- Add rule to always add content before deleting if possible
+- Optimize rules index.md
+- At rule to add testing scripts to testing folder by default
+- Check implementation of user preferences

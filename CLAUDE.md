@@ -58,9 +58,5 @@
 - **Always confirm file paths and module names** exist before referencing them in code or tests.
 - **Never delete or overwrite existing code** unless explicitly instructed to or if part of a task from `TASK.md`.
 
-### 📋 Git Control Rules
-- **Load Git behavior rules from `.claude/rules/git/`**
-- Rules define safe Git operations and standards
-- User preferences in `.claude/rules/config/user-preferences.yaml`
-- Templates in `.claude/templates/` for consistency
-- See `.claude/rules/README.md` for navigation
+### 📋 Direct Imports of Rules
+@.claude/MASTER_IMPORTS.md

@@ -1,4 +1,34 @@
-# Git Control Rules User Guide
+# Git Rules Documentation
+
+This directory contains comprehensive documentation for all Git control rules used by Claude.
+
+## Rule Documentation Files
+
+- [Git Add Safety](git-add-safety.md) - Safe file staging practices
+- [Git Commit Format](git-commit-format.md) - Conventional Commits standard
+- [Git Push Validation](git-push-validation.md) - Pre-push safety checks
+- [Git Pull Strategy](git-pull-strategy.md) - Safe branch synchronization
+- [Git Branch Naming](git-branch-naming.md) - Branch naming conventions
+
+## Structure
+
+Each documentation file contains:
+- **Overview** - Purpose and benefits of the rule
+- **Rationale** - Why the rule exists and what problems it solves
+- **Examples** - Good and bad practices with code samples
+- **Best Practices** - Recommended approaches
+- **Common Scenarios** - Real-world usage patterns
+- **Troubleshooting** - Solutions to common issues
+- **References** - Links to relevant documentation
+
+## Rule Files
+
+The actual rule instructions that Claude imports are located in:
+`.claude/rules/git/`
+
+These instruction files are kept minimal (~500-800 bytes) for efficient token usage, while this documentation provides comprehensive guidance for users.
+
+## User Guide
 
 This guide explains how Git control rules work in Claude Code and how to configure them for your workflow.
 
