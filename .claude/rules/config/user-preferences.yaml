@@ -1,0 +1,87 @@
+# Claude Rules User Preferences
+# 
+# This file controls which rules are active and their configurations.
+# Rules themselves are immutable, but you can enable/disable them here.
+#
+# Format:
+#   category:
+#     rules:
+#       rule-name: enabled|disabled
+#     config:
+#       setting: value
+
+# Git Rules Configuration
+git:
+  # Enable/disable specific rules
+  rules:
+    git-add-safety: enabled       # Prevents unsafe bulk staging
+    git-commit-format: enabled    # Enforces Conventional Commits
+    git-push-validation: enabled  # Pre-push safety checks
+    git-pull-strategy: enabled    # Pull with rebase by default
+    git-branch-naming: enabled    # Structured branch names
+  
+  # Rule-specific configurations
+  config:
+    # Commit format preferences
+    commit_format:
+      max_subject_length: 250     # Recommended character limit
+      require_body_for_types:     # Types requiring detailed body
+        - feat
+        - fix
+        - refactor
+    
+    # Branch naming preferences
+    branch_naming:
+      allowed_types:              # Valid branch type prefixes
+        - feature
+        - fix
+        - docs
+        - refactor
+        - test
+        - chore
+      
+    # Pull strategy preferences  
+    pull_strategy:
+      default: rebase             # rebase|merge|ff-only
+      auto_stash: true           # Stash uncommitted changes
+    
+    # Push validation preferences
+    push_validation:
+      protected_branches:         # Branches with extra protection
+        - main
+        - master
+        - develop
+        - release/*
+      prevent_force_push: true    # Block force push to protected
+
+# Future Rule Categories (examples)
+# testing:
+#   rules:
+#     test-coverage-minimum: enabled
+#     test-naming-convention: enabled
+#   config:
+#     min_coverage: 80
+#     test_framework: pytest
+
+# documentation:
+#   rules:
+#     doc-string-required: enabled
+#     readme-updates: enabled
+#   config:
+#     style: google
+
+# Global Settings
+global:
+  # Rule loading behavior
+  strict_mode: false              # Fail on invalid rules
+  log_conflicts: true             # Log rule conflicts
+  
+  # Performance settings
+  cache_rules: true               # Cache parsed rules
+  lazy_load: true                # Load rules on demand
+
+# Notes:
+# - Changes take effect on next Claude Code session
+# - Invalid settings are ignored with warnings
+# - Check conflict-log.md for rule conflicts
+# - Rules not listed here use default settings

@@ -1,0 +1,56 @@
+# Commit Message Template
+# 
+# Format: <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+#
+# Types:
+#   feat     - New feature for users
+#   fix      - Bug fix for users  
+#   docs     - Documentation changes
+#   style    - Code style/formatting (no logic change)
+#   refactor - Code restructuring (no behavior change)
+#   test     - Test additions or modifications
+#   chore    - Maintenance tasks
+#   perf     - Performance improvements
+#   ci       - CI/CD changes
+#   build    - Build system changes
+#
+# Scope: Optional module/component name in parentheses
+#
+# Subject: Complete the sentence "This commit will..."
+#   - Use imperative mood (add, not added/adds)
+#   - Don't capitalize first letter
+#   - No period at the end
+#   - Limit to 250 characters (recommended)
+#
+# Body: Explain what and why, not how
+#   - Wrap at 72 characters
+#   - Use bullet points for multiple items
+#   - Separate from subject with blank line
+#
+# Footer: References and breaking changes
+#   - Fixes #123
+#   - Closes #456
+#   - BREAKING CHANGE: description
+#
+# Example:
+# feat(auth): add OAuth2 integration for Google login
+#
+# - Implement OAuth2 flow with Google provider
+# - Add token refresh mechanism  
+# - Update user model with OAuth fields
+# - Add integration tests
+#
+# This enables users to sign in with their Google accounts,
+# reducing friction in the registration process.
+#
+# Closes #789
+
+<TYPE>(<SCOPE>): <SUBJECT>
+
+<BODY>
+
+<FOOTER>

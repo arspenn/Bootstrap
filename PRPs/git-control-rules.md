@@ -108,8 +108,9 @@ Bootstrap/
 │       ├── commit-message.template    # Commit format
 │       └── branch-name.template      # Branch naming
 ├── docs/
-│   └── git-control/            # Feature documentation
-│       └── README.md           # User guide
+│   └── rules/                  # Rule documentation
+│       └── git/               # Git rules documentation
+│           └── README.md      # User guide
 └── tests/
     └── test_git_rules.py       # Rule validation tests
 ```
@@ -246,7 +247,7 @@ CREATE .claude/rules/config/conflict-log.md:
   - Example entry
 
 Task 12 - Create Documentation:
-CREATE docs/git-control/README.md:
+CREATE docs/rules/git/README.md:
   - User guide for Git control rules
   - How rules work
   - Configuration options
@@ -315,7 +316,7 @@ Directory Structure:
   - pattern: One rule per file
   
 Documentation:
-  - create: docs/git-control/README.md
+  - create: docs/rules/git/README.md
   - update: README.md with Git control feature note
 ```
 
@@ -359,10 +360,10 @@ find .claude/rules/git -name "*.md" -type f | sort
 ### Level 4: Documentation Test
 ```bash
 # Verify documentation exists
-test -f docs/git-control/README.md && echo "Docs exist"
+test -f docs/rules/git/README.md && echo "Docs exist"
 
 # Check for user guide sections
-grep -E "(How it works|Configuration|Examples)" docs/git-control/README.md
+grep -E "(How it works|Configuration|Examples)" docs/rules/git/README.md
 ```
 
 ## Final Validation Checklist
@@ -371,7 +372,7 @@ grep -E "(How it works|Configuration|Examples)" docs/git-control/README.md
 - [ ] All 5 git rules implemented with proper format
 - [ ] Templates created for commits and branches
 - [ ] User configuration examples provided
-- [ ] Documentation complete in docs/git-control/
+- [ ] Documentation complete in docs/rules/git/
 - [ ] Tests pass: `python -m pytest tests/test_git_rules.py -v`
 - [ ] No broken links to external documentation
 - [ ] All rules marked as immutable (but can be disabled via preferences)

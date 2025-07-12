@@ -1,0 +1,43 @@
+# Branch Name Template
+#
+# Format: <type>/<description>-<base-version>
+#
+# Types:
+#   feature  - New functionality
+#   fix      - Bug fixes
+#   docs     - Documentation only changes
+#   refactor - Code restructuring
+#   test     - Test additions or changes
+#   chore    - Maintenance tasks
+#
+# Description:
+#   - Use kebab-case (words-separated-by-hyphens)
+#   - Keep it concise but descriptive
+#   - All lowercase
+#   - No special characters or spaces
+#
+# Base Version:
+#   - 7-character short hash of the base commit
+#   - Get with: git rev-parse --short HEAD
+#   - Shows where branch was created from
+#
+# Examples:
+#   feature/user-authentication-ad87b9f
+#   fix/login-timeout-error-b8964e0
+#   docs/api-documentation-c7d9e1f
+#   refactor/database-queries-d2e3f4g
+#   test/integration-coverage-e5f6g7h
+#   chore/update-dependencies-f8g9h0i
+#
+# Bad Examples (don't do these):
+#   feature_new_thing         # Use hyphens not underscores
+#   FEATURE/SOMETHING        # Use lowercase
+#   feature/cool            # Missing base version
+#   wip/stuff              # Invalid type
+#   feature/my feature      # No spaces allowed
+#
+# Quick Command:
+# BASE=$(git rev-parse --short HEAD)
+# git checkout -b <type>/<description>-$BASE
+
+<TYPE>/<DESCRIPTION>-<BASE-VERSION>
