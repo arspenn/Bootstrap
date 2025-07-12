@@ -6,7 +6,7 @@ Accepted
 ## Context
 The Bootstrap project needs a system for defining Git and GitHub behavior rules that Claude Code will follow. These rules must be:
 - Modular and extensible for future growth
-- Secure by default with no ability to disable security features
+- Secure by default with user control over which rules are active
 - Clear and unambiguous in scope
 - Efficient in terms of token usage
 - Easy to reference and maintain
@@ -22,7 +22,7 @@ We will implement a structured rules directory under `.claude/rules/` with one r
 - Define clear trigger conditions and actions
 - Include security level indicators
 - Estimate token impact
-- Be immutable (users can only configure allowed behaviors, not modify rules)
+- Be immutable (users can enable/disable rules via preferences, but cannot modify rule definitions)
 
 User preferences will be stored separately in `.claude/rules/config/user-preferences.yaml`.
 
@@ -31,7 +31,7 @@ User preferences will be stored separately in `.claude/rules/config/user-prefere
 ### Positive
 - **Scalability**: Unlimited rule categories without directory clutter
 - **Clarity**: One rule per file prevents confusion about rule boundaries
-- **Security**: Rules cannot be weakened, only made more restrictive
+- **Security**: Rule definitions are immutable, though users can disable rules via preferences
 - **Maintainability**: Each rule can be updated independently
 - **Discoverability**: Clear file structure and naming conventions
 - **Performance**: Minimal token overhead (~5-10% increase for Git operations)

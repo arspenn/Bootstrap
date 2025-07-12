@@ -15,7 +15,7 @@ This design document outlines the implementation of Git control rules for Claude
 
 ### Non-Functional Requirements
 - **Performance**: Minimal token overhead (~5-10% increase)
-- **Security**: Rules must be secure by default and immutable
+- **Security**: Rules must be secure by default with immutable definitions
 - **Scalability**: Support unlimited rule additions without clutter
 - **Usability**: Clear documentation with links to official references
 - **Compatibility**: Full integration with existing CLAUDE.md conventions
@@ -32,7 +32,7 @@ The Bootstrap project currently has:
 ## Proposed Design
 
 ### Overview
-Implement a structured rule system under `.claude/rules/` with one rule per file, organized by category. Rules are immutable and secure by default, with user preferences stored separately.
+Implement a structured rule system under `.claude/rules/` with one rule per file, organized by category. Rule definitions are immutable and secure by default, with user preferences stored separately to control which rules are active.
 
 ### Architecture
 
@@ -184,8 +184,8 @@ validations: [Checks to perform]
   - **Mitigation**: One rule per file with clear examples
 
 ### Project Risks
-- **Risk**: Users bypassing safety rules
-  - **Mitigation**: Rules are immutable; only additions allowed
+- **Risk**: Users disabling important safety rules
+  - **Mitigation**: Rules are secure by default; users must explicitly disable rules via preferences
 
 - **Risk**: Future rule categories cluttering structure
   - **Mitigation**: Organized directory hierarchy
@@ -195,7 +195,7 @@ validations: [Checks to perform]
 2. Claude Code correctly implements full range of GitHub operations
 3. Comprehensive documentation in docs/ folder
 4. Token overhead remains under 10%
-5. Zero security rules can be disabled
+5. All rules have immutable definitions (users control activation via preferences)
 6. All basic Git operations have defined rules
 
 ## Next Steps
