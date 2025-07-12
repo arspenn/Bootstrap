@@ -1,0 +1,16 @@
+C4Context
+    title System Context diagram for Claude Memory Integration
+    
+    Person(developer, "Developer", "Software developer using Claude Code")
+    System(claude_code, "Claude Code", "AI development assistant")
+    System(rule_system, "Rule System", "Modular behavioral rules")
+    System(import_system, "Import System", "Claude memory @import mechanism")
+    System_Ext(filesystem, "File System", "Local project files")
+    
+    Rel(developer, claude_code, "Interacts with", "Terminal/IDE")
+    Rel(claude_code, import_system, "Loads rules via", "@import syntax")
+    Rel(import_system, rule_system, "Imports", "Rule files")
+    Rel(import_system, filesystem, "Reads", "File access")
+    Rel(developer, rule_system, "Configures", "User preferences")
+    
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

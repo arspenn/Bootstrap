@@ -23,7 +23,11 @@ This is a bootstrap template for software design and development with Claude AI,
 - Test everything
 
 ## Future Enhancements
-- Git control rules (in progress)
+- Git control rules (completed)
 - Enhanced CLAUDE.md conventions
 - CI/CD integration
 - Team collaboration patterns
+- Conversation management rules for Claude Code --continue/--resume
+  - Checkpoint creation rules
+  - Context preservation standards
+  - Resume workflow automation

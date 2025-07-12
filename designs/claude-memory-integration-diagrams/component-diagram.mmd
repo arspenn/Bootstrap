@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Claude Memory System"
+        A[CLAUDE.md<br/>Main entry point]
+        B[MASTER_IMPORTS.md<br/>Import orchestrator]
+        C[Import Processor<br/>@file handler]
+    end
+    
+    subgraph "Rule System"
+        subgraph "Instructions"
+            D[Rule Files<br/>.claude/rules/]
+            E[Git Rules<br/>Instructions only]
+            F[Future Rules<br/>Test, Docs, etc.]
+        end
+        
+        subgraph "Documentation"
+            G[Doc Files<br/>docs/rules/]
+            H[Git Docs<br/>Examples & guides]
+            I[Future Docs<br/>Test, Docs, etc.]
+        end
+    end
+    
+    subgraph "Configuration"
+        J[user-preferences.yaml<br/>Enable/disable rules]
+        K[Rule Metadata<br/>ID, Status, Security]
+    end
+    
+    %% Relationships
+    A -->|@import| B
+    B -->|Conditional imports| C
+    C -->|Load active rules| D
+    D --> E
+    D --> F
+    E -.->|References| H
+    H -.->|References| E
+    J -->|Controls| B
+    K -->|Embedded in| D
+    K -->|Copied to| G
+    
+    %% Styling
+    classDef memory fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef rules fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef docs fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef config fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    
+    class A,B,C memory
+    class D,E,F rules
+    class G,H,I docs
+    class J,K config

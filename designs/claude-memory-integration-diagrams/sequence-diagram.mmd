@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant CC as Claude Code
+    participant CM as CLAUDE.md
+    participant MI as MASTER_IMPORTS.md
+    participant UP as user-preferences.yaml
+    participant RF as Rule Files
+    participant DF as Doc Files
+    
+    Dev->>CC: Start Claude Code session
+    CC->>CM: Load CLAUDE.md
+    CM->>CM: Process instructions
+    CM->>MI: @.claude/MASTER_IMPORTS.md
+    
+    MI->>UP: Check user preferences
+    UP-->>MI: Return enabled rules
+    
+    loop For each enabled rule category
+        MI->>RF: @.claude/rules/category/rule.md
+        RF-->>MI: Rule instructions loaded
+    end
+    
+    MI-->>CC: All rules imported
+    CC-->>Dev: Ready with loaded rules
+    
+    Dev->>CC: "git add file.py"
+    CC->>CC: Check git-add-safety rule
+    Note over CC: Apply rule validations
+    CC->>Dev: Execute with safety checks
+    
+    opt Developer needs documentation
+        Dev->>DF: Read docs/rules/git/git-add-safety.md
+        DF-->>Dev: Examples and explanations
+    end
