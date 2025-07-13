@@ -1,6 +1,6 @@
 # Git Push Validation - Documentation
 
-**Rule Reference:** `.claude/rules/git/git-push-validation.md`
+📚 **Rule Definition**: [.claude/rules/git/git-push-validation.md](../../../.claude/rules/git/git-push-validation.md)
 
 ## ID: git/git-push-validation
 ## Status: Active

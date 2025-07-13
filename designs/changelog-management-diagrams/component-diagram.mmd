@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Changelog Management System"
+        A[CHANGELOG.md]
+        B[Changelog Rules]
+        C[STANDARDS.md]
+        D[Entry Template]
+        
+        subgraph "Git Rules"
+            E[changelog-update.md]
+            F[changelog-format.md]
+            G[version-management.md]
+        end
+        
+        subgraph "Integration Points"
+            H[Git Commit Hooks]
+            I[Task Completion]
+            J[Version Release]
+        end
+    end
+    
+    B --> E
+    B --> F
+    B --> G
+    
+    E --> H
+    F --> A
+    G --> J
+    
+    D --> A
+    C --> F
+    I --> E
+    
+    H --> |Triggers| E
+    I --> |Checks| A
+    J --> |Updates| A
+    
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px

@@ -54,6 +54,31 @@ git:
         - release/*
       prevent_force_push: true    # Block force push to protected
 
+# Project Management Rules Configuration
+project:
+  # Enable/disable specific rules
+  rules:
+    changelog-update: enabled        # Remind to update changelog
+    changelog-format: enabled        # Enforce Keep a Changelog format
+    version-management: enabled      # Manage version bumps
+    test-file-location: enabled      # Ensure tests go in tests/ folder
+  
+  # Rule-specific configurations
+  config:
+    # Changelog update preferences
+    changelog_reminder_level: "suggest"  # suggest, warn, require
+    ignore_patterns:                     # Skip reminders for these
+      - "WIP:*"
+      - "*[skip-changelog]*"
+    
+    # Version management preferences
+    auto_version_bump: false            # Require confirmation
+    version_prefix: "v"                 # Tag prefix (e.g., v1.0.0)
+    prerelease_identifier: "beta"       # Default prerelease tag
+    version_files:                      # Additional version files
+      # - "src/__version__.py"
+      # - "helm/Chart.yaml"
+
 # Future Rule Categories (examples)
 # testing:
 #   rules:

@@ -8,6 +8,12 @@
 @.claude/rules/git/git-pull-strategy.md
 @.claude/rules/git/git-branch-naming.md
 
+## Project Management Rules
+@.claude/rules/project/changelog-update.md
+@.claude/rules/project/changelog-format.md
+@.claude/rules/project/version-management.md
+@.claude/rules/project/test-file-location.md
+
 ## Future Rule Categories
 # @.claude/rules/testing/*.md
 # @.claude/rules/documentation/*.md

@@ -1,6 +1,6 @@
 # Git Add Safety - Documentation
 
-**Rule Reference:** `.claude/rules/git/git-add-safety.md`
+📚 **Rule Definition**: [.claude/rules/git/git-add-safety.md](../../../.claude/rules/git/git-add-safety.md)
 
 ## ID: git/git-add-safety
 ## Status: Active

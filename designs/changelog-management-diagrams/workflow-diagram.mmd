@@ -1,0 +1,24 @@
+graph TD
+    A[Developer Makes Changes] --> B{Significant Change?}
+    B -->|Yes| C[Git Rule Reminder]
+    B -->|No| D[Normal Commit]
+    
+    C --> E[Open CHANGELOG_entry.md Template]
+    E --> F[Write Entry Under Unreleased]
+    F --> G[Commit with Changes]
+    
+    H[Complete Task in TASK.md] --> I{Changelog Updated?}
+    I -->|No| J[Reminder to Update]
+    I -->|Yes| K[Task Marked Complete]
+    
+    L[Version Release] --> M[Move Unreleased to Version]
+    M --> N[Update VERSION File]
+    N --> O[Tag Release]
+    
+    P[Automated Checks] --> Q{Format Valid?}
+    Q -->|No| R[Format Warning]
+    Q -->|Yes| S[Proceed]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style G fill:#9f9,stroke:#333,stroke-width:2px
+    style O fill:#9f9,stroke:#333,stroke-width:2px

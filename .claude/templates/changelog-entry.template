@@ -1,0 +1,115 @@
+# Changelog Entry Template
+
+Use this template when adding entries to CHANGELOG.md. Copy the relevant sections to the Unreleased section of the changelog.
+
+## Instructions
+
+1. Choose the appropriate category for your change
+2. Write a user-focused description
+3. Add to the Unreleased section of CHANGELOG.md
+4. Delete categories that don't apply
+5. Keep descriptions concise but complete
+
+## Template
+
+Copy the sections below that apply to your changes:
+
+### Added
+- [Brief description of new feature or capability]
+- [Another new feature if applicable]
+
+Examples:
+- Git merge control rules for safer branch integration
+- Automated changelog reminders for significant changes
+- Support for custom workflow patterns
+
+### Changed
+- [Brief description of changed functionality]
+- [Another change if applicable]
+
+Examples:
+- Improved token efficiency by 83% through rule restructuring
+- Updated Git commit format to support extended descriptions
+- Enhanced error messages for failed operations
+
+### Deprecated
+- [Feature that will be removed in future version]
+- [Include migration path if applicable]
+
+Examples:
+- Legacy import syntax (use @import instead)
+- Manual rule loading (now automatic via imports)
+
+### Removed
+- [Feature or capability that was removed]
+- [Explain why if not obvious]
+
+Examples:
+- Redundant configuration options
+- Deprecated API endpoints
+- Legacy file formats
+
+### Fixed
+- [Brief description of what was broken and is now fixed]
+- [Another fix if applicable]
+
+Examples:
+- Git push validation now correctly handles force pushes
+- Memory leak in rule processing resolved
+- Incorrect error handling in branch operations
+
+### Security
+- [Security issue that was addressed]
+- [DO NOT include exploit details]
+
+Examples:
+- Prevented accidental commit of sensitive files
+- Enhanced validation of user inputs
+- Updated dependencies to patch vulnerabilities
+
+## Writing Guidelines
+
+### DO:
+- Write for users, not developers
+- Use clear, simple language
+- Start with what changed, not how
+- Group related changes together
+- Be specific but concise
+
+### DON'T:
+- Don't use technical implementation details
+- Don't reference commit hashes or PR numbers
+- Don't use developer jargon
+- Don't write novels - keep it brief
+- Don't combine different categories
+
+## Examples of Good vs Bad Entries
+
+❌ **Bad**: Fixed bug in utils.py line 42
+✅ **Good**: Fixed error when processing files with special characters
+
+❌ **Bad**: Refactored AbstractFactoryManager class
+✅ **Good**: Improved performance of project initialization
+
+❌ **Bad**: git commit -m "feat: stuff" now works
+✅ **Good**: Added support for multiline commit messages
+
+## Quick Checklist
+
+Before adding your entry:
+- [ ] Is it user-focused?
+- [ ] Is the category correct?
+- [ ] Is it clear and concise?
+- [ ] Would a user understand it?
+- [ ] Is it in the Unreleased section?
+
+## Integration with Workflow
+
+1. Make your changes
+2. When prompted by changelog-update rule, use this template
+3. Copy relevant sections to CHANGELOG.md
+4. Commit both your changes and changelog update
+
+---
+
+Remember: The changelog is for users, not developers. Write accordingly!

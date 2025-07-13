@@ -1,11 +1,11 @@
 # Git Commit Format - Documentation
 
-**Rule Reference:** `.claude/rules/git/git-commit-format.md`
+📚 **Rule Definition**: [.claude/rules/git/git-commit-format.md](../../../.claude/rules/git/git-commit-format.md)
 
 ## ID: git/git-commit-format
 ## Status: Active
 ## Security Level: Medium
-## Token Impact: ~80 tokens per commit operation
+## Token Impact: ~40 tokens per commit operation
 
 ## Description
 Enforces Conventional Commits v1.0.0 standard for all commit messages, ensuring consistent, searchable, and automation-friendly commit history. Includes character limits and format validation.

@@ -55,6 +55,9 @@ Thumbs.db
 *.tmp
 *.temp
 *.bak
+temp/SuperClaude/.git
+temp
+temp/SuperClaude
 
 # Documentation builds
 docs/_build/

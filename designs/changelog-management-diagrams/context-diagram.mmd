@@ -1,0 +1,22 @@
+C4Context
+    title System Context diagram for Changelog Management
+    
+    Person(dev, "Developer", "Creates features and fixes")
+    Person(user, "End User", "Reads changelog for updates")
+    Person(maintainer, "Maintainer", "Manages releases")
+    
+    System(bootstrap, "Bootstrap Framework", "AI Development Framework")
+    
+    System_Boundary(b1, "Changelog System") {
+        System(changelog, "Changelog Management", "Tracks and documents changes")
+    }
+    
+    System_Ext(git, "Git", "Version control system")
+    System_Ext(github, "GitHub/GitLab", "Code hosting platform")
+    
+    Rel(dev, changelog, "Updates", "Following templates")
+    Rel(changelog, git, "Reads", "Commit history")
+    Rel(changelog, bootstrap, "Integrates with", "Git rules")
+    Rel(maintainer, changelog, "Manages", "Versions and releases")
+    Rel(user, changelog, "Reads", "CHANGELOG.md")
+    Rel(changelog, github, "Links to", "PRs and issues")

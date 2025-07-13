@@ -1,6 +1,6 @@
 # Git Pull Strategy - Documentation
 
-**Rule Reference:** `.claude/rules/git/git-pull-strategy.md`
+📚 **Rule Definition**: [.claude/rules/git/git-pull-strategy.md](../../../.claude/rules/git/git-pull-strategy.md)
 
 ## ID: git/git-pull-strategy
 ## Status: Active

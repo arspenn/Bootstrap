@@ -1,6 +1,6 @@
 # Git Branch Naming - Documentation
 
-**Rule Reference:** `.claude/rules/git/git-branch-naming.md`
+📚 **Rule Definition**: [.claude/rules/git/git-branch-naming.md](../../../.claude/rules/git/git-branch-naming.md)
 
 ## ID: git/git-branch-naming
 ## Status: Active
@@ -271,3 +271,7 @@ git merge-base main feature/something-ad87b9f
 - [Git Branch Documentation](https://git-scm.com/docs/git-branch)
 - [GitHub Flow](https://guides.github.com/introduction/flow/)
 - [Git Branching Best Practices](https://nvie.com/posts/a-successful-git-branching-model/)
+
+---
+
+📚 **Rule Definition**: [.claude/rules/git/git-branch-naming.md](../../../.claude/rules/git/git-branch-naming.md)

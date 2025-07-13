@@ -1,0 +1,7 @@
+1. Yes we need to create the initial CHANGELOG documenting the past updates as best as we can. Yes i think it would be best to have an automated changelog system. Perhaps more rules, maybe a new section on project management or we could put them in the git section. Yes ensure that we include detailed standards. Put a an template CHANGELOG_entry.md with the format decided on in a new folder `docs/templates` And yes we definitely should add the rules and commands we need for Claude to control this feature.
+2. I would say just version releases, unless otherwise specified as important by the user. However all of the changes, as consise as possible, should be in the change log, so it may be best to update it in real time for now with under the perspective next version number based on our roadmap. Add links to PRs or issues if relevant.
+3. Use https://keepachangelog.com/ as the standard. Add this standard, the previous conventional commits standard, and all future standards to a STANDARDS.md, so we can ensure that we know what version we are using and can easily keep them up to date.
+4. As a rule it will be semi-automated by default. Add tasks to created rules for different levels of automation.
+5. This should integrate with the current ruleset unless it is determined that there is a major conflict. We will address that if it happens. Version tags and CI is still in the future.
+
+Make as many seperate design documents as you need to ensure that all the features are accurately and concisely implemented.
