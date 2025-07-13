@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-07-12
+
 ### Added
-- Comprehensive changelog management system with semi-automated approach
+- Comprehensive changelog management system with semi-automated approach ([7938310](../../commit/7938310))
 - Project management rules for changelog updates, format validation, and version management
 - Test file location rule to ensure tests are properly organized
-- CHANGELOG_entry.md template for consistent changelog entries
+- Changelog entry template for consistent changelog entries
 - ROADMAP.md outlining 10-phase development plan for comprehensive AI framework
 - CREDITS.md acknowledging key inspirations and dependencies
 - ADR-006 documenting pivot to comprehensive framework vision
@@ -71,7 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Virtual environment support
 - Basic project structure and workflows
 
-[Unreleased]: https://github.com/user/repo/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/user/repo/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/user/repo/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/user/repo/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/user/repo/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/user/repo/releases/tag/v0.1.0
