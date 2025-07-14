@@ -1,0 +1,27 @@
+# {Folder Name} Structure
+
+## Purpose
+{Brief description of what this folder contains}
+
+## Structure
+```
+{folder}/
+├── {required-file.ext}    # {Description} (REQUIRED)
+├── {optional-file.ext}    # {Description} (OPTIONAL)
+└── {subfolder}/          # {Description}
+```
+
+## Naming Conventions
+- Pattern: `{naming-pattern-here}`
+- Examples: {list examples}
+
+## Required Contents
+- {What must be in every item}
+- {Another requirement}
+
+## Relationship to Other Folders
+- **{Related Folder}**: {How they connect}
+- **{Another Folder}**: {Relationship}
+
+## ⚠️ UNDEFINED STRUCTURE WARNING ⚠️
+**This section needs definition. Please update during implementation.**

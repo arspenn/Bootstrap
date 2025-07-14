@@ -1,0 +1,39 @@
+stateDiagram-v2
+    [*] --> Draft: Create Design
+    Draft --> Approved: Review & Approve
+    Approved --> Implementing: Start Work
+    Implementing --> Completed: Finish Implementation
+    Completed --> Archived: No Longer Needed
+    
+    Draft --> Archived: Abandon
+    Approved --> Archived: Cancel
+    
+    note right of Draft
+        Initial creation
+        Work in progress
+        May have multiple revisions
+    end note
+    
+    note right of Approved
+        Reviewed and accepted
+        Ready for implementation
+        Frozen design
+    end note
+    
+    note right of Implementing
+        Active development
+        May link to PR/branch
+        Status in TASK.md
+    end note
+    
+    note right of Completed
+        Implementation done
+        Deployed/merged
+        Historical record
+    end note
+    
+    note right of Archived
+        No longer relevant
+        Kept for history
+        Not actively maintained
+    end note

@@ -1,0 +1,19 @@
+graph TB
+    subgraph "Design Management System Context"
+        Dev[Developer]
+        DS[Design System]
+        CLI[CLI Tools]
+        Git[Git/GitHub]
+        CI[CI/CD Pipeline]
+        
+        Dev -->|Creates/Updates| DS
+        Dev -->|Runs| CLI
+        CLI -->|Indexes/Validates| DS
+        DS -->|Version Controlled| Git
+        Git -->|Triggers| CI
+        CI -->|Validates| DS
+    end
+    
+    style Dev fill:#f9f,stroke:#333,stroke-width:2px
+    style DS fill:#9f9,stroke:#333,stroke-width:2px
+    style CLI fill:#99f,stroke:#333,stroke-width:2px

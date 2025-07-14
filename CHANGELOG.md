@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-07-14
+
+### Added
+- Critical git-safe file operations rule system to prevent accidental data loss
+  - Intercepts rm, rmdir, and mv commands on tracked files
+  - Suggests git-safe alternatives (git rm, git mv)
+  - Blocks operations on files with uncommitted changes
+  - Provides --force-unsafe override for advanced users
+- Comprehensive design documentation (007-feature-git-safe-file-operations)
+  - ADR-001: No automatic fallback to unsafe operations
+  - ADR-002: Medium security level for user override capability
+  - ADR-003: Path-specific git status checks for performance
+- Integration documentation for git-safe file operations
+- Migration guide for updating project documentation to use git-safe commands
+- Test scenarios for validating git-safe operations
+- Design structure standardization rule for consistent design folders
+
+### Changed
+- Design folder structure standardized to `{sequence}-{type}-{description}/` format
+- Existing designs migrated to new numbered structure:
+  - 001-feature-git-control
+  - 002-feature-claude-memory
+  - 003-feature-changelog-management
+  - 004-system-standards-documentation
+  - 005-feature-standardize-designs
+  - 006-feature-analyze-command
+  - 007-feature-git-safe-file-operations
+
+### Security
+- Default file operations now use git-safe commands to prevent accidental deletion of tracked files with uncommitted changes
+
 ## [0.4.0] - 2025-07-12
 
 ### Added
@@ -73,7 +104,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Virtual environment support
 - Basic project structure and workflows
 
-[Unreleased]: https://github.com/user/repo/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/user/repo/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/user/repo/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/user/repo/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/user/repo/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/user/repo/compare/v0.1.0...v0.2.0

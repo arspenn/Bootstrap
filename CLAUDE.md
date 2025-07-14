@@ -1,3 +1,8 @@
+### 📋 Direct Imports of Rules
+- **Always import rules first**
+@.claude/MASTER_IMPORTS.md
+- **Always report to the user after rules have been loaded**
+
 ### 🔄 Project Awareness & Context
 - **Always read `PLANNING.md`** at the start of a new conversation to understand the project's architecture, goals, style, and constraints. Add this file if not already present.
 - **Check `TASK.md`** before starting a new task. If the task isn’t listed, add it with a brief description and today's date. Add this file if not already present.
@@ -33,6 +38,8 @@
 - **Follow PEP8**, use type hints, and format with `black`.
 - **Use `pydantic` for data validation**.
 - Use `FastAPI` for APIs and `SQLAlchemy` or `SQLModel` for ORM if applicable.
+- **Follow design folder structure**: `{sequence}-{type}-{description}/` (e.g., `001-feature-task-management/`)
+- **Check for design addendums**: When reading a design, also look for `design-addendum-*.md` files marked with `temporary-addendum` tag and treat them as part of the main design until integrated.
 - Write **docstrings for every function** using the Google style:
   ```python
   def example():
@@ -57,6 +64,3 @@
 - **Never hallucinate libraries or functions** – only use known, verified Python packages.
 - **Always confirm file paths and module names** exist before referencing them in code or tests.
 - **Never delete or overwrite existing code** unless explicitly instructed to or if part of a task from `TASK.md`.
-
-### 📋 Direct Imports of Rules
-@.claude/MASTER_IMPORTS.md

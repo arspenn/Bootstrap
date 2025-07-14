@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Standardized Designs Folder Structure"
+        Root[designs/]
+        Root --> Index[.index.yaml<br/>Auto-generated]
+        Root --> Templates[templates/<br/>Design templates]
+        Root --> Designs[Numbered Designs]
+        
+        Templates --> T1[feature-design.template.md]
+        Templates --> T2[adr.template.md]
+        Templates --> T3[refactor-design.template.md]
+        
+        Designs --> D1[001-feature-task-management/]
+        Designs --> D2[002-refactor-auth-system/]
+        Designs --> D3[003-fix-token-overflow/]
+        
+        D1 --> D1F[design.md<br/>with frontmatter]
+        D1 --> D1A[adrs/]
+        D1 --> D1D[diagrams/]
+        
+        D1A --> A1[ADR-001-storage.md]
+        D1A --> A2[ADR-002-api.md]
+        
+        D1D --> DG1[context.mmd]
+        D1D --> DG2[components.mmd]
+    end
+    
+    style Root fill:#ff9,stroke:#333,stroke-width:3px
+    style Index fill:#9ff,stroke:#333,stroke-width:2px
+    style D1F fill:#f9f,stroke:#333,stroke-width:2px

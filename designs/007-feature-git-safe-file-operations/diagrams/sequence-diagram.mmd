@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant U as User
+    participant C as Claude Code
+    participant R as Git-Safe Rule
+    participant G as Git
+    participant F as File System
+    
+    U->>C: "Delete src/old-module/"
+    C->>R: Check operation safety
+    R->>G: git status --porcelain src/old-module/
+    G-->>R: Shows uncommitted changes
+    
+    R-->>C: Block: Uncommitted changes
+    C-->>U: ERROR: Cannot delete<br/>Uncommitted changes detected
+    
+    Note over U,C: User fixes issue
+    
+    U->>C: "Delete src/old-module/" (after commit)
+    C->>R: Check operation safety
+    R->>G: git status --porcelain src/old-module/
+    G-->>R: Clean status
+    
+    R->>G: Check if tracked
+    G-->>R: Files are tracked
+    
+    R->>C: Safe to proceed, use git rm
+    C->>G: git rm -r src/old-module/
+    G->>F: Remove files
+    F-->>G: Success
+    G-->>C: Success
+    C-->>U: Deleted successfully

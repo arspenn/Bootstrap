@@ -1,3 +1,15 @@
+---
+title: Changelog Management System Design
+status: completed
+created: 2024-12-10
+updated: 2024-12-10
+type: feature
+author: Bootstrap Team
+tags: [changelog, documentation, automation]
+estimated_effort: medium
+actual_effort: medium
+---
+
 # Changelog Management System Design Document
 
 ## Executive Summary
@@ -155,15 +167,15 @@ docs/
 ## Diagrams
 
 ### System Context
-See: [context-diagram.mmd](changelog-management-diagrams/context-diagram.mmd)
+See: [context-diagram.mmd](diagrams/context-diagram.mmd)
 
 ### Component Architecture
-See: [component-diagram.mmd](changelog-management-diagrams/component-diagram.mmd)
+See: [component-diagram.mmd](diagrams/component-diagram.mmd)
 
 ### Workflow Process
-See: [workflow-diagram.mmd](changelog-management-diagrams/workflow-diagram.mmd)
+See: [workflow-diagram.mmd](diagrams/workflow-diagram.mmd)
 
 ## Related Documents
 
 - [ADR-007: Changelog Automation Level](../docs/ADRs/ADR-007-changelog-automation-level.md)
-- [Standards Documentation Design](standards-documentation-design.md)
+- [Standards Documentation Design](../004-system-standards-documentation/design.md)

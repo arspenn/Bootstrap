@@ -1,0 +1,14 @@
+C4Context
+    title System Context diagram for Git-Safe File Operations
+    
+    Person(user, "Developer", "Uses Claude Code for development")
+    System(claude, "Claude Code", "AI development assistant")
+    System(git, "Git Repository", "Version control system")
+    System_Ext(filesystem, "File System", "Operating system file storage")
+    
+    Rel(user, claude, "Requests file operations", "Natural language")
+    Rel(claude, git, "Checks status, uses git commands", "Git CLI")
+    Rel(claude, filesystem, "Performs file operations", "System calls")
+    Rel(git, filesystem, "Tracks file changes", "File monitoring")
+    
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

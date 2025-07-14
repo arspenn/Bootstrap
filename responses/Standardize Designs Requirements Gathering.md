@@ -1,0 +1,8 @@
+1. I would say what ever is the easiest to implement and uses the least storage and tokens. Probably meta-data based. If Github has a way of doing this follow that style.
+2. Actually, we could just them with the number with they were created in. That would make it simple and reduce complex naming structures. Yes adding the general design type to the name will make them easier to understand, and help to ensure that we aren't making our designs outside of the scope they should be.
+3. The README.md index should be automatically updated. It should be created and updated by CLI. Included info should be status and title or related keywords. Consider using a different format for index that would be more token efficient and programatic, like YAML or other structured format.
+4. Currently we already have a folder for project templates like we are creating at `docs/templates` Currently it is empty though, so if it it makes more sense to have templates in the designs folder rather than leaving them in the documents folder we can move it. In the end every document that we produce needs a template so that we can make. But this feature is about standardizing the naming conventions and file structures, so all of those ideas can be put into TASK
+5. Don't worry about integration beyond what current standards are. Full workflow integration is not a priority yet.
+6. Since there are so few designs, we will migrate them manually.
+
+Think about this and ask again if you still have questions.

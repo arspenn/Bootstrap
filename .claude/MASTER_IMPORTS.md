@@ -7,12 +7,14 @@
 @.claude/rules/git/git-push-validation.md
 @.claude/rules/git/git-pull-strategy.md
 @.claude/rules/git/git-branch-naming.md
+@.claude/rules/git/git-safe-file-operations.md
 
 ## Project Management Rules
 @.claude/rules/project/changelog-update.md
 @.claude/rules/project/changelog-format.md
 @.claude/rules/project/version-management.md
 @.claude/rules/project/test-file-location.md
+@.claude/rules/project/design-structure.md
 
 ## Future Rule Categories
 # @.claude/rules/testing/*.md
