@@ -1,3 +1,15 @@
+---
+title: Git Control System Design
+status: completed
+created: 2024-12-01
+updated: 2024-12-01
+type: feature
+author: Bootstrap Team
+tags: [git, version-control, rules]
+estimated_effort: medium
+actual_effort: medium
+---
+
 # Git Control Feature Design Document
 
 ## Executive Summary

@@ -19,6 +19,7 @@ git:
     git-push-validation: enabled  # Pre-push safety checks
     git-pull-strategy: enabled    # Pull with rebase by default
     git-branch-naming: enabled    # Structured branch names
+    git-safe-file-operations: enabled  # Prevent unsafe file operations
   
   # Rule-specific configurations
   config:
@@ -53,6 +54,13 @@ git:
         - develop
         - release/*
       prevent_force_push: true    # Block force push to protected
+    
+    # File operation safety
+    file_operations:
+      check_uncommitted: true          # Block if uncommitted changes
+      check_untracked: true           # Warn about untracked files
+      suggest_git_commands: true      # Recommend git rm/mv
+      allow_force_unsafe: true        # Allow --force-unsafe override
 
 # Project Management Rules Configuration
 project:

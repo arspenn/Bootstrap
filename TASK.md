@@ -14,12 +14,36 @@
 ## Completed Tasks
 - Git Control Feature Design (2025-07-12)
 - Claude Memory Integration (2025-07-12)
+- Changelog Management System (2025-07-12)
+  - Created changelog-update rule for reminders
+  - Created changelog-format rule for validation
+  - Created version-management rule for releases
+  - Created changelog entry template
+  - Created initial CHANGELOG.md with full history
+  - Standardized template naming (.template extension)
+- Test File Location Rule (2025-07-12)
+- Framework Documentation (2025-07-12)
+  - Created ROADMAP.md with 10-phase plan
+  - Created CREDITS.md for attributions
+  - Updated README.md to reflect comprehensive framework
+  - Created ADR-006 for framework pivot
+  - Created ADR-007 for changelog approach
+- Git Documentation Updates (2025-07-12)
+  - Added clickable rule definition links
+  - Fixed token impact discrepancies
+- Released Version 0.4.0 (2025-07-12)
+- Merged to main branch (2025-07-12)
 
 ## Discovered During Work
 - Need to create PLANNING.md (completed)
 - Need to create TASK.md (completed)
 - Virtual environment (venv_linux) mentioned in CLAUDE.md doesn't exist yet
-- Test scripts created in root directory (consider moving to tests/ folder)
+- Test scripts created in root directory (completed - added test-file-location rule)
+- Need to standardize user-preferences.yaml structure (2025-01-13)
+  - Current file has inconsistent indentation and organization
+  - Configuration sections need better organization
+  - Add validation for config structure
+  - Create template for new rule configurations
 
 ## Future Features Backlog
 - Git merge control rules (moved to current tasks)
@@ -61,10 +85,10 @@
   - Instruction writing patterns and best practices
   - Template for converting rules to direct instructions
   - Guidelines for emphasis, formatting, and structure
-- Create robust benchmarks system
+- Create robust benchmarks system (partially completed)
   - Performance metrics tracking
-  - Token usage analysis
-  - Context management metrics
+  - Token usage analysis (completed - created benchmarks/)
+  - Context management metrics (completed - 83.6% reduction documented)
   - Rule effectiveness measurement
 - Detailed rules testing scenarios
   - Test Claude's rule import validation
@@ -89,8 +113,8 @@
   - Add transparency about data sources
 - Add rule to always add content before deleting if possible
 - Optimize rules index.md
-- Add rule to add testing scripts to testing folder by default
-- Check implementation of user preferences
+- Add rule to add testing scripts to testing folder by default (completed)
+- Check implementation of user preferences (completed)
 - Add ability to store complex agent questions and generate response forms
 - Add MCP capability
 - Add agent suggestions for commits
@@ -107,3 +131,28 @@
 - Update templates first rule
 - Add rule testing and validation
 - Post commit changelog update rule
+- Rule to put first drafts, prototypes, and otherwise unplanned features into `designs/examples` with description.
+- Saftey and scalling policy
+- Move ADR automatically to documentation after implementation is complete
+- Research alternatives to markdown
+- Add periodic re-read of rules
+- Determine what rules should be re-written as commands
+- Check if README template should be moved
+- Standardize naming conventions (esp prps)
+- update /design-feature command
+- standardize documentation
+- Standardize Claude files
+- Standardize benchmarks
+- Standardize testing
+- Finsh migration of design diagrams and change design 005 to system and include addendums to designs
+- .claude git rules index file generalization
+- make template for claude rules and commands
+- retest token impact
+- enhanced documentation style
+- Author is user
+- Ensure use of Git commands to preserve file history
+- change feature request to CAR
+- add processes for status change of documents to READMEs
+- add ideas from design process to possible future features
+- Ignore historical documents like PRP when updating
+- Add version.txt

@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Git-Safe File Operations"
+        A[File Operation Request] --> B{Operation Type?}
+        
+        B -->|rm/rmdir| C[Deletion Handler]
+        B -->|mv| D[Move Handler]
+        B -->|Other| E[Pass Through]
+        
+        C --> F[Check Git Status]
+        D --> F
+        
+        F --> G{Has Uncommitted?}
+        G -->|Yes| H[Block Operation]
+        G -->|No| I{Is Tracked?}
+        
+        I -->|Yes| J[Use Git Command]
+        I -->|No| K[Use System Command]
+        
+        H --> L[Show Error & Guidance]
+        J --> M[Execute git rm/mv]
+        K --> N[Execute rm/mv]
+        
+        M --> O{Success?}
+        O -->|No| L
+        O -->|Yes| P[Complete]
+        N --> P
+    end
+    
+    subgraph "Configuration"
+        Q[User Preferences]
+        R[Rule Settings]
+        S[Security Level]
+        
+        Q --> B
+        R --> F
+        S --> G
+    end

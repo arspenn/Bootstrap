@@ -1,3 +1,14 @@
+---
+title: Standards Documentation Design
+status: approved
+created: 2024-12-11
+updated: 2024-12-11
+type: system
+author: Bootstrap Team
+tags: [standards, documentation, conventions]
+estimated_effort: small
+---
+
 # Standards Documentation Design
 
 ## Executive Summary

@@ -1,3 +1,15 @@
+---
+title: Claude Memory Integration Design
+status: completed
+created: 2024-12-05
+updated: 2024-12-05
+type: feature
+author: Bootstrap Team
+tags: [claude, memory, import, rules]
+estimated_effort: medium
+actual_effort: medium
+---
+
 # Claude Memory Integration Design Document
 
 ## Executive Summary
