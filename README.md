@@ -151,7 +151,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 Bootstrap builds on great ideas from:
 - [SuperClaude](https://github.com/NomenAK/SuperClaude) - Command concepts
 - [Conventional Commits](https://www.conventionalcommits.org/) - Commit standards
-- [bolt.new](https://github.com/coleam00) - AI development patterns
+- [Cole Medin](https://github.com/coleam00) - AI development patterns
 
 See [CREDITS.md](CREDITS.md) for full attributions.
 
