@@ -1,7 +1,7 @@
-# ADR-001: No Automatic Fallback to Unsafe Operations
+# ADR-009: No Automatic Fallback Principle
 
 ## Status
-Proposed
+Accepted
 
 ## Context
 

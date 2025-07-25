@@ -59,6 +59,21 @@
 - **Comment non-obvious code** and ensure everything is understandable to a mid-level developer.
 - When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what.
 
+### 🏛️ Architecture Decision Records (ADRs)
+- **Use ADRs to document significant architectural decisions** that affect the project's structure, technology choices, or development workflow.
+- **Project-wide ADRs** go in `docs/ADRs/` when they:
+  - Affect multiple features or the entire codebase
+  - Establish conventions or standards
+  - Define technology choices or architectural patterns
+  - Set security, performance, or workflow policies
+- **Design-specific ADRs** stay with their feature in `designs/*/adrs/` when they:
+  - Only affect that specific feature implementation
+  - Document trade-offs unique to that feature
+  - Explain implementation choices within established conventions
+- **Follow the ADR template** in `templates/design-templates/adr.template.md`
+- **Update the ADR Index** at `docs/ADRs/INDEX.md` when creating new ADRs
+- **Use the ADR tools** to validate and manage ADRs: `python scripts/adr-tools.py --help`
+
 ### 🧠 AI Behavior Rules
 - **Never assume missing context. Ask questions if uncertain.**
 - **Never hallucinate libraries or functions** – only use known, verified Python packages.

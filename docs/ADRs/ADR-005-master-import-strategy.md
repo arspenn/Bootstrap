@@ -1,7 +1,7 @@
 # ADR-005: Master Import File Strategy
 
 ## Status
-Proposed
+Accepted
 
 ## Context
 Claude Code supports importing additional instructions using @file syntax in CLAUDE.md. We need a strategy for importing our modular rule system that:

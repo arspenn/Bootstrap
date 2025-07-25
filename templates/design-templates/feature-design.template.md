@@ -79,6 +79,25 @@ estimated_effort: {small|medium|large}
 2. {Second implementation step}
 3. {Continue as needed...}
 
+## Architecture Decision Records
+
+{If this feature requires significant architectural decisions, create ADRs to document them.}
+
+### Placement Guidelines:
+- **Create design-specific ADRs** in `adrs/` subdirectory when decisions:
+  - Only affect this feature's implementation
+  - Document feature-specific trade-offs
+  - Don't impact other parts of the system
+
+- **Create project-wide ADRs** in `docs/ADRs/` when decisions:
+  - Affect multiple features or establish patterns
+  - Define new conventions or standards
+  - Impact the overall architecture
+
+### ADRs for this feature:
+- {Link to ADR if created, e.g., [ADR-001: API Design Pattern](adrs/ADR-001-api-design-pattern.md)}
+- {Or note: "No ADRs required - follows existing patterns"}
+
 ## Risks and Mitigations
 
 | Risk | Impact | Likelihood | Mitigation |

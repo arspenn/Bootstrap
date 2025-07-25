@@ -1,7 +1,7 @@
 # ADR-004: Separation of Rule Instructions from Documentation
 
 ## Status
-Proposed
+Accepted
 
 ## Context
 Our Git control rules currently mix behavioral instructions with documentation (examples, rationale, scenarios). Claude Code's memory import feature (@file syntax) expects direct instructions, not reference documentation. This mixing violates the principle that rules should be direct behavioral instructions for Claude to follow.

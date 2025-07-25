@@ -1,7 +1,7 @@
-# ADR-002: Sequential Numbering Scheme
+# ADR-008: Design Numbering Convention
 
 ## Status
-Proposed
+Accepted
 
 ## Context
 We need a consistent way to identify and order designs. Options considered:
