@@ -1,0 +1,24 @@
+graph TD
+    A[User Instructions<br/>Priority: 1000] --> B{Rule Evaluation}
+    C[TASK.md Requirements<br/>Priority: 900] --> B
+    D[Individual Rules<br/>Priority: 100-800] --> B
+    E[CLAUDE.md Defaults<br/>Priority: 100] --> B
+    
+    B --> F[Applied Rule<br/>Highest Priority Wins]
+    
+    subgraph "Example Rules with Priorities"
+        G[planning-context<br/>Priority: 800]
+        H[code-structure<br/>Priority: 700]
+        I[code-style<br/>Priority: 600]
+        J[docstring-format<br/>Priority: 500]
+    end
+    
+    D --> G
+    D --> H
+    D --> I
+    D --> J
+    
+    style A fill:#f96,stroke:#333,stroke-width:2px
+    style C fill:#fc6,stroke:#333,stroke-width:2px
+    style D fill:#6cf,stroke:#333,stroke-width:2px
+    style E fill:#ccc,stroke:#333,stroke-width:2px

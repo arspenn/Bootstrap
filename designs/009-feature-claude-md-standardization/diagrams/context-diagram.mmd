@@ -1,0 +1,23 @@
+C4Context
+    title System Context diagram for CLAUDE.md Standardization
+
+    Person(dev, "Developer", "Uses Claude AI for development")
+    Person(claude, "Claude AI", "AI assistant following rules")
+    
+    System_Boundary(b1, "Rule System") {
+        System(claudemd, "CLAUDE.md", "Minimal configuration loader")
+        System(rules, "Rule Files", "Individual rule definitions")
+        System(config, "Config System", "Project configuration")
+    }
+    
+    System_Ext(project, "Project Files", "Source code and documentation")
+    System_Ext(git, "Git Repository", "Version control")
+    
+    Rel(dev, claude, "Interacts with", "Natural language")
+    Rel(claude, claudemd, "Loads configuration", "Import")
+    Rel(claudemd, rules, "Imports rules", "@import")
+    Rel(claudemd, config, "Reads config", "YAML")
+    Rel(rules, project, "Govern changes to", "Validation")
+    Rel(rules, git, "Control operations", "Git commands")
+    
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="3")

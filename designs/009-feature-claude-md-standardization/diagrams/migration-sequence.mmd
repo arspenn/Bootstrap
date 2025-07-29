@@ -1,0 +1,39 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant System as Migration System
+    participant Rules as Rule Files
+    participant Config as Configuration
+    participant Tests as Test Suite
+    participant Docs as Documentation
+    
+    Note over Dev,Docs: Phase 1: Infrastructure Setup
+    Dev->>System: Enhance metadata schema
+    System->>System: Add priority support
+    System->>System: Add dependency resolution
+    System->>Tests: Create validation tools
+    
+    Note over Dev,Docs: Phase 2: Core Rules Migration
+    loop For each core rule
+        Dev->>System: Extract rule from CLAUDE.md
+        System->>Rules: Create standardized rule file
+        System->>Rules: Add metadata (priority, dependencies)
+        System->>Tests: Run rule validation
+        Tests-->>Dev: Validation results
+        System->>Docs: Update documentation
+    end
+    
+    Note over Dev,Docs: Phase 3: Language Rules Migration
+    loop For each Python rule
+        Dev->>System: Extract rule from CLAUDE.md
+        System->>Rules: Create standardized rule file
+        System->>Tests: Test with dependencies
+        Tests-->>Dev: Test results
+    end
+    
+    Note over Dev,Docs: Phase 4: Configuration Separation
+    Dev->>Config: Create config.yaml
+    Dev->>System: Update CLAUDE.md to minimal loader
+    System->>System: Remove migrated content
+    System->>Tests: Full integration test
+    Tests-->>Dev: Final validation
+    Dev->>Docs: Final documentation update

@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Current State"
+        A[CLAUDE.md<br/>Monolithic File]
+        A --> A1[Direct Imports]
+        A --> A2[Project Context]
+        A --> A3[Code Structure Rules]
+        A --> A4[Testing Rules]
+        A --> A5[Style Conventions]
+        A --> A6[AI Behavior]
+    end
+    
+    subgraph "Target State"
+        B[CLAUDE.md<br/>Minimal Loader]
+        C[MASTER_IMPORTS.md<br/>Rule Registry]
+        D[config.yaml<br/>Project Config]
+        
+        B --> C
+        B --> D
+        
+        C --> E[project/<br/>Rules]
+        C --> F[python/<br/>Rules]
+        C --> G[testing/<br/>Rules]
+        C --> H[documentation/<br/>Rules]
+        
+        E --> E1[planning-context.md]
+        E --> E2[code-structure.md]
+        E --> E3[adr-management.md]
+        
+        F --> F1[code-style.md]
+        F --> F2[environment-management.md]
+        
+        G --> G1[pytest-requirements.md]
+        
+        H --> H1[docstring-format.md]
+    end
+    
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#9f9,stroke:#333,stroke-width:4px
