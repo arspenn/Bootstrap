@@ -19,8 +19,16 @@
 @.claude/rules/project/code-structure.md
 @.claude/rules/project/adr-management.md
 
+## Python Rules
+@.claude/rules/python/environment-management.md
+@.claude/rules/python/code-style.md
+
+## Documentation Rules
+@.claude/rules/documentation/docstring-format.md
+
+## Testing Rules
+@.claude/rules/testing/pytest-requirements.md
+
 ## Future Rule Categories
-# @.claude/rules/testing/*.md
-# @.claude/rules/documentation/*.md
 # @.claude/rules/security/*.md
 # @.claude/rules/performance/*.md

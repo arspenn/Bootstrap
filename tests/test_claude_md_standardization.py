@@ -132,22 +132,74 @@ class TestPhase2CoreRules:
         assert "@.claude/rules/project/adr-management.md" in content
 
 class TestPhase3LanguageRules:
-    """Phase 3: Language Rules Migration Tests (placeholder)"""
+    """Phase 3: Language Rules Migration Tests"""
     
-    @pytest.mark.skip(reason="Phase 3 not yet implemented")
     def test_python_rules_exist(self):
-        """Test that Python rules are created."""
-        pass
+        """Test that Python rules are created with metadata."""
+        root = get_project_root()
+        
+        # Check code-style rule
+        code_style = root / ".claude/rules/python/code-style.md"
+        assert code_style.exists()
+        content = code_style.read_text()
+        assert "Priority: 600" in content
+        assert 'Dependencies: ["python/environment-management"]' in content
+        
+        # Check environment-management rule
+        env_mgmt = root / ".claude/rules/python/environment-management.md"
+        assert env_mgmt.exists()
+        content = env_mgmt.read_text()
+        assert "Priority: 700" in content
+        assert "venv_linux" in content
     
-    @pytest.mark.skip(reason="Phase 3 not yet implemented")
     def test_documentation_rules_exist(self):
         """Test that documentation rules are created."""
-        pass
+        root = get_project_root()
+        
+        docstring = root / ".claude/rules/documentation/docstring-format.md"
+        assert docstring.exists()
+        content = docstring.read_text()
+        assert "Priority: 500" in content
+        assert 'Dependencies: ["python/code-style"]' in content
+        assert "Google" in content or "google" in content
     
-    @pytest.mark.skip(reason="Phase 3 not yet implemented")
     def test_testing_rules_exist(self):
         """Test that testing rules are created."""
-        pass
+        root = get_project_root()
+        
+        pytest_rule = root / ".claude/rules/testing/pytest-requirements.md"
+        assert pytest_rule.exists()
+        content = pytest_rule.read_text()
+        assert "Priority: 600" in content
+        assert "happy_path" in content
+        assert "edge_case" in content
+        assert "error_case" in content
+    
+    def test_all_phase3_docs_exist(self):
+        """Test that all documentation files exist."""
+        root = get_project_root()
+        
+        docs = [
+            "docs/rules/python/code-style.md",
+            "docs/rules/python/environment-management.md",
+            "docs/rules/documentation/docstring-format.md",
+            "docs/rules/testing/pytest-requirements.md"
+        ]
+        
+        for doc_path in docs:
+            doc_file = root / doc_path
+            assert doc_file.exists(), f"{doc_path} not found"
+    
+    def test_master_imports_has_new_sections(self):
+        """Test that MASTER_IMPORTS has new sections."""
+        root = get_project_root()
+        imports = root / ".claude/MASTER_IMPORTS.md"
+        
+        content = imports.read_text()
+        assert "## Python Rules" in content
+        assert "## Documentation Rules" in content
+        assert "## Testing Rules" in content
+        assert "@.claude/rules/python/code-style.md" in content
 
 class TestPhase4Configuration:
     """Phase 4: Configuration and Finalization Tests (placeholder)"""
