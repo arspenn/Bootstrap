@@ -15,6 +15,9 @@
 @.claude/rules/project/version-management.md
 @.claude/rules/project/test-file-location.md
 @.claude/rules/project/design-structure.md
+@.claude/rules/project/planning-context.md
+@.claude/rules/project/code-structure.md
+@.claude/rules/project/adr-management.md
 
 ## Future Rule Categories
 # @.claude/rules/testing/*.md

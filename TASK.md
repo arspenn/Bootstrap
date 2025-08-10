@@ -11,6 +11,19 @@
 - [ ] Integrate with existing pull/push rules
 - [ ] Test various merge scenarios
 
+### CLAUDE.md Standardization - 2025-07-29
+- [x] Phase 1: Infrastructure Enhancement (completed)
+- [x] Phase 2: Core Rules Migration (completed 2025-08-10)
+- [ ] Phase 3: Language Rules Migration  
+- [ ] Phase 4: Configuration and Finalization
+
+### Fix Existing Git Rules Issues - 2025-07-29
+- [ ] Add "Git Control Rules" section to CLAUDE.md
+- [ ] Add documentation links to git-pull-strategy.md
+- [ ] Fix security level format in git rules (use "- Security Level:" not "## Security Level:")
+- [ ] Create missing documentation files in docs/rules/git/
+- [ ] Update test expectations to match actual rule format
+
 ## Completed Tasks
 - Git Control Feature Design (2025-07-12)
 - Claude Memory Integration (2025-07-12)
