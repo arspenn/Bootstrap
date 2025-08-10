@@ -202,22 +202,118 @@ class TestPhase3LanguageRules:
         assert "@.claude/rules/python/code-style.md" in content
 
 class TestPhase4Configuration:
-    """Phase 4: Configuration and Finalization Tests (placeholder)"""
+    """Phase 4: Configuration and Finalization Tests"""
     
-    @pytest.mark.skip(reason="Phase 4 not yet implemented")
     def test_config_yaml_exists(self):
-        """Test that config.yaml is created."""
-        pass
+        """Test that config.yaml is created and valid."""
+        root = get_project_root()
+        config = root / ".claude/config.yaml"
+        
+        assert config.exists(), "config.yaml not found"
+        
+        # Validate YAML
+        with open(config) as f:
+            data = yaml.safe_load(f)
+        
+        assert "project" in data
+        assert data["project"]["name"] == "Bootstrap"
+        assert data["project"]["environment"] == "venv_linux"
+        
+        assert "defaults" in data
+        assert data["defaults"]["max_line_limit"] == 500
+        assert data["defaults"]["test_framework"] == "pytest"
+        
+        assert "features" in data
+        assert "tools" in data
     
-    @pytest.mark.skip(reason="Phase 4 not yet implemented")
     def test_claude_md_updated(self):
         """Test that CLAUDE.md is properly updated."""
-        pass
+        root = get_project_root()
+        claude_md = root / "CLAUDE.md"
+        content = claude_md.read_text()
+        
+        # Check it's minimal
+        lines = content.split('\n')
+        assert len(lines) < 200, f"CLAUDE.md too large: {len(lines)} lines"
+        
+        # Check key sections exist
+        assert "## Rule Loading" in content
+        assert "@.claude/MASTER_IMPORTS.md" in content
+        assert "## Project Context" in content
+        assert ".claude/config.yaml" in content
+        assert "## AI Behavior Rules" in content
+        
+        # Check AI rules are enhanced
+        assert "When file paths are ambiguous" in content
+        assert "Use `Glob` to list possible matches" in content
+        assert "Check requirements.txt or pyproject.toml" in content
+        assert "Use `Read` to check current content" in content
+        assert "Run `git status {file}`" in content
+        
+        # Check removed content
+        assert "**Never create a file longer than 500 lines" not in content
+        assert "**Follow PEP8**" not in content
+        assert "**Always create Pytest unit tests" not in content
+        assert "Architecture Decision Records" not in content
     
-    @pytest.mark.skip(reason="Phase 4 not yet implemented")
-    def test_master_imports_updated(self):
-        """Test that MASTER_IMPORTS.md includes new rules."""
-        pass
+    def test_all_rules_extracted(self):
+        """Test that all planned rules were extracted."""
+        root = get_project_root()
+        
+        extracted_rules = [
+            ".claude/rules/project/planning-context.md",
+            ".claude/rules/project/code-structure.md",
+            ".claude/rules/project/adr-management.md",
+            ".claude/rules/python/code-style.md",
+            ".claude/rules/python/environment-management.md",
+            ".claude/rules/documentation/docstring-format.md",
+            ".claude/rules/testing/pytest-requirements.md"
+        ]
+        
+        for rule_path in extracted_rules:
+            rule_file = root / rule_path
+            assert rule_file.exists(), f"{rule_path} not found"
+    
+    def test_master_imports_complete(self):
+        """Test that MASTER_IMPORTS.md is complete."""
+        root = get_project_root()
+        imports = root / ".claude/MASTER_IMPORTS.md"
+        content = imports.read_text()
+        
+        # Check all sections exist
+        sections = [
+            "## Git Rules",
+            "## Project Management Rules", 
+            "## Python Rules",
+            "## Documentation Rules",
+            "## Testing Rules"
+        ]
+        
+        for section in sections:
+            assert section in content, f"Section '{section}' missing"
+        
+        # Check specific imports
+        assert content.count("@.claude/rules/") >= 16, "Missing imports"
+    
+    def test_full_system_integration(self):
+        """Test that the entire system works together."""
+        root = get_project_root()
+        
+        # All key files exist
+        assert (root / "CLAUDE.md").exists()
+        assert (root / ".claude/config.yaml").exists()
+        assert (root / ".claude/MASTER_IMPORTS.md").exists()
+        
+        # All rule directories populated
+        assert len(list((root / ".claude/rules/git").glob("*.md"))) >= 6
+        assert len(list((root / ".claude/rules/project").glob("*.md"))) >= 8
+        assert len(list((root / ".claude/rules/python").glob("*.md"))) >= 2
+        assert len(list((root / ".claude/rules/documentation").glob("*.md"))) >= 1
+        assert len(list((root / ".claude/rules/testing").glob("*.md"))) >= 1
+        
+        # Documentation complete
+        assert (root / "docs/rules").exists()
+        assert (root / "docs/patterns/enhanced-rule-metadata.md").exists()
 
 def test_existing_tests_still_pass():
     """Ensure our changes don't break existing functionality."""

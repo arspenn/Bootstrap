@@ -1,81 +1,171 @@
-### 📋 Direct Imports of Rules
-- **Always import rules first**
+# Claude Configuration
+
+## Rule Loading
 @.claude/MASTER_IMPORTS.md
-- **Always report to the user after rules have been loaded**
 
-### 🔄 Project Awareness & Context
-- **Always read `PLANNING.md`** at the start of a new conversation to understand the project's architecture, goals, style, and constraints. Add this file if not already present.
-- **Check `TASK.md`** before starting a new task. If the task isn’t listed, add it with a brief description and today's date. Add this file if not already present.
-- **Use consistent naming conventions, file structure, and architecture patterns** as described in `PLANNING.md`.
-- **Use venv_linux** (the virtual environment) whenever executing Python commands, including for unit tests.
+## Project Context
+Loaded from: .claude/config.yaml
 
-### 🧱 Code Structure & Modularity
-- **Never create a file longer than 500 lines of code.** If a file approaches this limit, refactor by splitting it into modules or helper files.
-- **Organize code into clearly separated modules**, grouped by feature or responsibility.
-  For agents this looks like:
-    - `agent.py` - Main agent definition and execution logic 
-    - `tools.py` - Tool functions used by the agent 
-    - `prompts.py` - System prompts
-- **Use clear, consistent imports** (prefer relative imports within packages).
-- **Use clear, consistent imports** (prefer relative imports within packages).
-- **Use python_dotenv and load_env()** for environment variables.
+## AI Behavior Rules
 
-### 🧪 Testing & Reliability
-- **Always create Pytest unit tests for new features** (functions, classes, routes, etc).
-- **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
-- **Tests should live in a `/tests` folder** mirroring the main app structure.
-  - Include at least:
-    - 1 test for expected use
-    - 1 edge case
-    - 1 failure case
+### Context Verification
+- **When file paths are ambiguous**: 
+  - Use `Glob` to list possible matches with pattern
+  - Present numbered options to user with full paths
+  - Example: "Did you mean: 1) /src/main.py 2) /tests/test_main.py?"
+  
+- **When requirements are unclear**: 
+  - State your interpretation explicitly
+  - Ask: "I understand you want to [interpretation]. Is this correct?"
+  - Wait for confirmation before proceeding
+  
+- **When multiple approaches exist**: 
+  - Present 2-3 options with trade-offs
+  - Format: "Option A: [approach] - Pros: [list] Cons: [list]"
+  - Include factors: performance, complexity, maintainability, time
 
-### ✅ Task Completion
+### Library and Import Safety
+- **Before using any library**: 
+  - Check requirements.txt or pyproject.toml with `Read` tool
+  - If not found, ask: "This requires {library}. Should I add it to requirements.txt?"
+  - Show install command: `pip install {library}=={version}`
+  
+- **Before importing modules**: 
+  - Verify file exists with `LS` or `Glob` tool
+  - For ambiguous imports, show file structure: "Found modules: ..."
+  
+- **When suggesting new libraries**: 
+  - Include exact command: `pip install pandas==2.1.0`
+  - Mention why this library vs alternatives
+  - Check PyPI for latest stable version
+
+### File System Operations
+- **Before any file operation**: 
+  - Use `Read` to check current content
+  - Handle "file not found" gracefully
+  - Show relevant portion of current content before changes
+  
+- **Before creating files**: 
+  - Use `LS` on parent directory
+  - Confirm: "Creating {file} in {directory}. Proceed?"
+  - Show what will be created
+  
+- **For all paths**: 
+  - Convert to absolute: `Path(path).resolve()`
+  - Show resolved path in operations
+  - Handle path errors with suggestions
+  
+- **After file changes**: 
+  - Show diff-style output: "Changed lines X-Y:"
+  - Include 2 lines of context above/below
+  - Confirm: "{X} lines modified in {file}"
+
+### Code Modification Safety
+- **Requirement for deletion**: 
+  - User must use: "delete", "remove", "clean up", or "get rid of"
+  - Confirm: "This will delete {target}. Continue?"
+  - Show what will be deleted
+  
+- **Requirement for overwrite**: 
+  - User must use: "overwrite", "replace entirely", "start fresh"
+  - Show current content first
+  - Confirm: "This will replace all content. Continue?"
+  
+- **Exception**: 
+  - When TASK.md lists: "Delete {file}" or "Replace {file}"
+  - Still show what will be affected
+  
+- **Git awareness**: 
+  - Run `git status {file}` before operations
+  - Warn if file has uncommitted changes
+  - Suggest: "Commit changes first?"
+
+### Task Completion
 - **Mark completed tasks in `TASK.md`** immediately after finishing them.
-- Add new sub-tasks or TODOs discovered during development to `TASK.md` under a “Discovered During Work” section.
+- Add new sub-tasks or TODOs discovered during development to `TASK.md` under a "Discovered During Work" section.
 
-### 📎 Style & Conventions
-- **Use Python** as the primary language.
-- **Follow PEP8**, use type hints, and format with `black`.
-- **Use `pydantic` for data validation**.
-- Use `FastAPI` for APIs and `SQLAlchemy` or `SQLModel` for ORM if applicable.
-- **Follow design folder structure**: `{sequence}-{type}-{description}/` (e.g., `001-feature-task-management/`)
-- **Check for design addendums**: When reading a design, also look for `design-addendum-*.md` files marked with `temporary-addendum` tag and treat them as part of the main design until integrated.
-- Write **docstrings for every function** using the Google style:
-  ```python
-  def example():
-      """
-      Brief summary.
+### Efficiency and Progress
+- **Tool batching**: 
+  - Group related operations: `Read` multiple files in one call
+  - Example: Read all test files together
+  - Combine file operations when logical
+  
+- **Task tracking**: 
+  - Use `TodoWrite` for tasks with 3+ steps
+  - Update status as you progress
+  - Mark complete immediately when done
+  
+- **Error handling**: 
+  - Show exact error message
+  - Explain what it means
+  - Provide specific fix: "Try: {command}"
+  
+- **Validation**: 
+  - After code changes: `ruff check && mypy {file}`
+  - After tests: `pytest {test_file} -v`
+  - Show validation output
 
-      Args:
-          param1 (type): Description.
+### Communication Standards
+- **Ambiguity resolution**: 
+  - Never guess - always clarify
+  - Use: "Do you mean X or Y?"
+  - Provide examples of each option
+  
+- **Progress updates**: 
+  - For multi-step tasks: "Step 2/5: Creating test file..."
+  - Report completion: "✓ Tests created and passing"
+  
+- **Error transparency**: 
+  - Show full error with context
+  - Include relevant log lines
+  - Explain technical terms
+  
+- **Change confirmation**: 
+  - Use unified diff format when appropriate
+  - Summarize: "Added: X lines, Removed: Y lines, Modified: Z lines"
 
-      Returns:
-          type: Description.
-      """
-  ```
+### Testing and Validation
+- **After creating functions**: 
+  - Create test file immediately
+  - Include 3 test cases minimum
+  - Run tests before claiming complete
+  
+- **After modifying logic**: 
+  - Check: "Do existing tests cover this change?"
+  - Update tests if needed
+  - Show test output
+  
+- **Before claiming completion**: 
+  - Run: `pytest`, `ruff check`, `mypy`
+  - Only claim success if all pass
+  
+- **Test failure handling**: 
+  - Show exact failure
+  - Fix the code, not the test
+  - Explain what was wrong
 
-### 📚 Documentation & Explainability
-- **Update `README.md`** when new features are added, dependencies change, or setup steps are modified.
-- **Comment non-obvious code** and ensure everything is understandable to a mid-level developer.
-- When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what.
+### Documentation Practices
+- **Function creation**: 
+  - Write docstring first
+  - Include parameter types
+  - Add usage example if complex
+  
+- **Complex logic**: 
+  - Add comment: "# This works because..."
+  - Explain non-obvious decisions
+  
+- **API changes**: 
+  - Update relevant .md files
+  - Include migration notes
+  
+- **Examples**: 
+  - Show both input and output
+  - Include edge cases
+  - Make them copy-pasteable
 
-### 🏛️ Architecture Decision Records (ADRs)
-- **Use ADRs to document significant architectural decisions** that affect the project's structure, technology choices, or development workflow.
-- **Project-wide ADRs** go in `docs/ADRs/` when they:
-  - Affect multiple features or the entire codebase
-  - Establish conventions or standards
-  - Define technology choices or architectural patterns
-  - Set security, performance, or workflow policies
-- **Design-specific ADRs** stay with their feature in `designs/*/adrs/` when they:
-  - Only affect that specific feature implementation
-  - Document trade-offs unique to that feature
-  - Explain implementation choices within established conventions
-- **Follow the ADR template** in `templates/design-templates/adr.template.md`
-- **Update the ADR Index** at `docs/ADRs/INDEX.md` when creating new ADRs
-- **Use the ADR tools** to validate and manage ADRs: `python scripts/adr-tools.py --help`
-
-### 🧠 AI Behavior Rules
-- **Never assume missing context. Ask questions if uncertain.**
-- **Never hallucinate libraries or functions** – only use known, verified Python packages.
-- **Always confirm file paths and module names** exist before referencing them in code or tests.
-- **Never delete or overwrite existing code** unless explicitly instructed to or if part of a task from `TASK.md`.
+## Override Hierarchy
+1. User instructions (highest priority)
+2. TASK.md requirements
+3. Individual rule files (by priority)
+4. Config file defaults
+5. AI Behavior Rules (baseline)
