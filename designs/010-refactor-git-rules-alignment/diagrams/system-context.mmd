@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Claude Environment"
+        CR[Claude Runtime]
+        RM[Rule Manager]
+        CP[Config Parser]
+    end
+    
+    subgraph "File System"
+        GR[Git Rules<br/>.claude/rules/git/]
+        CF[Config File<br/>.claude/config.yaml]
+        DC[Documentation<br/>docs/rules/git/]
+    end
+    
+    subgraph "Git Operations"
+        GA[git add]
+        GC[git commit]
+        GP[git push]
+        GPL[git pull]
+        GB[git branch]
+    end
+    
+    CR --> RM
+    RM --> CP
+    CP --> CF
+    RM --> GR
+    GR --> DC
+    
+    GA --> RM
+    GC --> RM
+    GP --> RM
+    GPL --> RM
+    GB --> RM

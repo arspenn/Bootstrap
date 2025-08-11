@@ -1,0 +1,18 @@
+graph LR
+    subgraph "Loading Phase"
+        L1[Read Rule File] --> L2[Parse Metadata]
+        L2 --> L3[Extract Config Refs]
+    end
+    
+    subgraph "Resolution Phase"
+        L3 --> R1[Load config.yaml]
+        R1 --> R2[Resolve References]
+        R2 --> R3[Apply Defaults]
+    end
+    
+    subgraph "Execution Phase"
+        R3 --> E1[Monitor Git Commands]
+        E1 --> E2[Check Conditions]
+        E2 --> E3[Apply Actions]
+        E3 --> E4[Validate Results]
+    end

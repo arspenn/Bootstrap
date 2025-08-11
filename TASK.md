@@ -63,6 +63,22 @@
   - Add validation for config structure
   - Create template for new rule configurations
 
+## Discovered During Work
+### Git Rules Enhancement Opportunities - 2025-08-11
+Found during Git rules alignment design:
+- **git-add-safety**: Overly restrictive on wildcards, could allow safer patterns
+- **git-push-validation**: Missing checks for commit message quality before push  
+- **git-pull-strategy**: No handling of stash/unstash for uncommitted changes
+- **git-commit-format**: Limited to conventional commits, needs flexibility options
+- **git-branch-naming**: Pattern too rigid, doesn't support hotfix/ or release/ branches
+- **git-safe-file-operations**: Could integrate better with git status checks
+- **Automated stashing**: Add automatic stash before pull with uncommitted changes
+- **Commit message validation**: Check quality/format before allowing push
+- **Branch protection patterns**: More flexible protected branch definitions
+- **File pattern learning**: Suggest .gitignore additions for common patterns
+- **Conflict prediction**: Warn about potential conflicts before operations
+- **Hook integration**: Support for pre-commit and pre-push hooks
+
 ## Future Features Backlog
 - Git merge control rules (moved to current tasks)
 - Conflict resolution rules (part of merge control)

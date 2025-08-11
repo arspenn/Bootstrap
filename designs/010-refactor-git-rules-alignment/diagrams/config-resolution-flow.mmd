@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant Rule as Git Rule
+    participant Parser as Config Parser
+    participant Config as config.yaml
+    participant Default as Inline Default
+    
+    Rule->>Parser: {{config.git.max_file_size:10MB}}
+    Parser->>Config: Check git.max_file_size
+    alt Config exists and has value
+        Config-->>Parser: Return "25MB"
+        Parser-->>Rule: Use "25MB"
+    else Config missing or no value
+        Parser->>Default: Extract default
+        Default-->>Parser: Return "10MB"
+        Parser-->>Rule: Use "10MB"
+    end
