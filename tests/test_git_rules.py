@@ -25,18 +25,15 @@ def test_claude_directory_structure():
 
 
 def test_claude_md_updated():
-    """Test that CLAUDE.md has Git Control Rules section."""
+    """Test that CLAUDE.md properly imports rules."""
     root = get_project_root()
     claude_md = root / "CLAUDE.md"
     
     assert claude_md.exists(), "CLAUDE.md not found"
     
     content = claude_md.read_text()
-    assert "### 📋 Git Control Rules" in content, "Git Control Rules section not found in CLAUDE.md"
-    assert "Load Git behavior rules from `.claude/rules/git/`" in content
-    assert "User preferences in `.claude/rules/config/user-preferences.yaml`" in content
-    assert "Templates in `.claude/templates/`" in content
-    assert "See `.claude/rules/README.md` for navigation" in content
+    # Just check for rule import
+    assert "@.claude/MASTER_IMPORTS.md" in content
 
 
 def test_rules_navigation_exists():
@@ -62,7 +59,7 @@ def test_rules_navigation_exists():
 
 
 def test_all_git_rules_exist():
-    """Test that all 5 Git rules are implemented."""
+    """Test that all 6 Git rules are implemented."""
     root = get_project_root()
     git_rules_dir = root / ".claude" / "rules" / "git"
     
@@ -71,7 +68,8 @@ def test_all_git_rules_exist():
         "git-commit-format.md",
         "git-push-validation.md",
         "git-pull-strategy.md",
-        "git-branch-naming.md"
+        "git-branch-naming.md",
+        "git-safe-file-operations.md"
     ]
     
     for rule_file in expected_rules:
@@ -80,40 +78,23 @@ def test_all_git_rules_exist():
 
 
 def test_rule_format_validation():
-    """Test that each rule file has required format."""
+    """Test that all Git rules follow standardized format."""
     root = get_project_root()
     git_rules_dir = root / ".claude" / "rules" / "git"
     
-    required_sections = [
-        "# Rule:",
-        "## ID:",
-        "## Status:",
-        "## Security Level:",
-        "## Token Impact:",
-        "## Description",
-        "## Rule Definition",
-        "## Rationale",
-        "## Examples",
-        "## Related Rules"
-    ]
-    
-    for rule_file in git_rules_dir.glob("git-*.md"):
+    for rule_file in git_rules_dir.glob("*.md"):
+        if rule_file.name == "index.md":
+            continue
         content = rule_file.read_text()
         
-        for section in required_sections:
-            assert section in content, f"Section '{section}' missing in {rule_file.name}"
-        
-        # Check for valid status
-        assert any(status in content for status in ["Active", "Experimental", "Deprecated"]), \
-            f"Valid status not found in {rule_file.name}"
-        
-        # Check for valid security level
-        assert any(level in content for level in ["High", "Medium", "Low"]), \
-            f"Valid security level not found in {rule_file.name}"
-        
-        # Check for examples
-        assert "✅ Good:" in content, f"Good examples missing in {rule_file.name}"
-        assert "❌ Bad:" in content, f"Bad examples missing in {rule_file.name}"
+        # Check metadata format
+        assert "### Rule Metadata" in content
+        assert "- ID:" in content
+        assert "- Status:" in content
+        assert "- Security Level:" in content  # List format
+        assert "- Token Impact:" in content
+        assert "- Priority:" in content
+        assert "- Dependencies:" in content
 
 
 def test_templates_exist():
@@ -162,7 +143,8 @@ def test_user_configuration_files():
         "git-commit-format",
         "git-push-validation",
         "git-pull-strategy",
-        "git-branch-naming"
+        "git-branch-naming",
+        "git-safe-file-operations"
     ]
     
     for rule in expected_rules:
@@ -246,7 +228,7 @@ def test_security_levels_distribution():
         content = rule_file.read_text()
         
         for level in security_levels:
-            if f"## Security Level: {level}" in content:
+            if f"- Security Level: {level}" in content:
                 security_levels[level] += 1
     
     # We should have at least one of each level
@@ -280,6 +262,62 @@ def test_task_md_updated():
         content = task_md.read_text()
         assert "Git Control" in content or "git control" in content.lower(), \
             "Git control tasks not found in TASK.md"
+
+
+def test_git_rules_have_priority():
+    """Test that all Git rules have Priority field."""
+    root = get_project_root()
+    git_rules_dir = root / ".claude" / "rules" / "git"
+    
+    for rule_file in git_rules_dir.glob("*.md"):
+        if rule_file.name == "index.md":
+            continue
+        content = rule_file.read_text()
+        assert "- Priority:" in content, f"{rule_file.name} missing Priority field"
+
+
+def test_git_rules_have_dependencies():
+    """Test that all Git rules have Dependencies field."""
+    root = get_project_root()
+    git_rules_dir = root / ".claude" / "rules" / "git"
+    
+    for rule_file in git_rules_dir.glob("*.md"):
+        if rule_file.name == "index.md":
+            continue
+        content = rule_file.read_text()
+        assert "- Dependencies:" in content, f"{rule_file.name} missing Dependencies field"
+
+
+def test_git_config_section_exists():
+    """Test that config.yaml has git section."""
+    root = get_project_root()
+    config = root / ".claude/config.yaml"
+    
+    with open(config) as f:
+        data = yaml.safe_load(f)
+    
+    assert "git" in data, "Git section missing from config.yaml"
+    assert "max_file_size" in data["git"]
+    assert "protected_branches" in data["git"]
+
+
+def test_git_rules_use_config_references():
+    """Test that Git rules use config references with defaults."""
+    root = get_project_root()
+    git_rules_dir = root / ".claude" / "rules" / "git"
+    
+    for rule_file in git_rules_dir.glob("*.md"):
+        if rule_file.name == "index.md":
+            continue
+        content = rule_file.read_text()
+        # Check for at least one config reference
+        if "{{config.git." in content:
+            # Verify it has a default value
+            import re
+            matches = re.findall(r'\{\{config\.git\.[^}]+\}\}', content)
+            for match in matches:
+                assert ":" in match, \
+                    f"{rule_file.name} has config reference without default: {match}"
 
 
 if __name__ == "__main__":

@@ -1,146 +1,76 @@
-# Git Add Safety - Documentation
+# Git Rule: Add Safety
 
-📚 **Rule Definition**: [.claude/rules/git/git-add-safety.md](../../../.claude/rules/git/git-add-safety.md)
+## Overview
+Prevents accidental addition of sensitive files to Git staging area and enforces explicit file selection for better commit hygiene.
 
-## ID: git/git-add-safety
-## Status: Active
-## Security Level: High
-## Token Impact: ~50 tokens per git add operation
+## Trigger Conditions
+- Command contains `git add` or `git stage`
+- Any file staging operation
 
-## Description
-Ensures safe file staging practices to prevent accidental commits of sensitive data, large files, or unintended changes. This rule enforces explicit file selection and pre-staging review.
+## Actions
 
+### What the Rule Does
+1. Checks Git status before operations
+2. Validates file patterns against forbidden list
+3. Checks file size limits
+4. Warns about binary files
+5. Blocks wildcard operations
 
-## Rationale
-Bulk staging commands like `git add .` can accidentally include:
-- Environment files with secrets
-- Large binary files
-- Temporary or build artifacts
-- Private keys or credentials
-- Files meant to remain local
-
-Requiring explicit paths ensures intentional staging decisions.
-
-## Rule Definition
-```yaml
-trigger: "git add"
-conditions:
-  - command_contains: ["add", "stage"]
-actions:
-  - require_status_check: true
-  - forbid_commands: ["git add .", "git add -A", "git add --all"]
-  - require_explicit_paths: true
-  - check_file_patterns:
-      - "*.env"
-      - "*.key"
-      - "*.pem"
-      - "*_secret*"
-      - "*password*"
-validations:
-  - max_file_size: 10MB
-  - warn_on_binary: true
-  - require_diff_review: true
-```
+### Configuration Options
+| Setting | Default | Config Path | Description |
+|---------|---------|-------------|-------------|
+| max_file_size | 10MB | git.max_file_size | Maximum file size allowed |
+| forbidden_patterns | [*.env,*.key,*.pem,*_secret*,*password*] | git.forbidden_patterns | Patterns to block |
+| warn_on_binary | true | git.warn_on_binary | Warn when adding binary files |
 
 ## Examples
 
-### ✅ Good: Explicit file staging
+### Good Practices
 ```bash
-# Review changes first
+# ✅ Explicit file addition
+git add src/main.py
+git add README.md docs/
+
+# ✅ Review before staging
 git status
-git diff src/utils.py
-
-# Stage specific files
-git add src/utils.py
-git add tests/test_utils.py
-git add docs/utils.md
+git diff src/main.py
+git add src/main.py
 ```
 
-### ✅ Good: Staging with patterns (explicit)
+### Prevented Patterns
 ```bash
-# Stage specific file types in a directory
-git add src/*.py
-git add tests/test_*.py
+# ❌ Blocked operations
+git add .              # Too broad
+git add -A             # Adds everything
+git add *.env          # Sensitive file
+git add large_file.zip # Over size limit
 ```
-
-### ❌ Bad: Bulk staging without review
-```bash
-# DON'T DO THIS - stages everything
-git add .
-git add -A
-git add --all
-
-# DON'T DO THIS - might include secrets
-git add *.env
-```
-
-### ❌ Bad: Staging sensitive files
-```bash
-# DON'T stage these files
-git add .env
-git add private.key
-git add config/secrets.yaml
-```
-
-## Best Practices
-
-1. **Always run `git status` first** to see what files have changed
-2. **Review changes with `git diff`** before staging
-3. **Stage files individually or with specific patterns**
-4. **Use `.gitignore`** for files that should never be staged
-5. **Double-check before staging configuration files**
-
-## Common Scenarios
-
-### Staging multiple related files
-```bash
-# Good: Stage related files together but explicitly
-git add src/feature.py tests/test_feature.py docs/feature.md
-```
-
-### Staging after code review
-```bash
-# Good: Review then stage
-git diff src/
-git add src/module1.py src/module2.py
-```
-
-### Handling accidental staging
-```bash
-# If you accidentally staged a file
-git reset HEAD sensitive_file.env
-```
-
-## Related Rules
-- [git-commit-format](git-commit-format.md) - What happens after staging
-- [git-push-validation](git-push-validation.md) - Final safety check before pushing
 
 ## Troubleshooting
 
-### Rule not triggering
-1. Verify rule is enabled in `.claude/rules/config/user-preferences.yaml`
-2. Check that CLAUDE.md imports the rules correctly
-3. Ensure you're using `git add` command (not GUI tools)
+### Common Issues
+- **Issue**: "File too large" error
+  - **Solution**: Check file size with `ls -lh filename`
+  - Consider using Git LFS for large files
+  - Add to .gitignore if not needed in repo
 
-### Need to stage many files
-- Use specific patterns: `git add src/**/*.py`
-- Stage directory contents: `git add src/module/`
-- Create a staging script for complex patterns
+- **Issue**: "Forbidden pattern" error
+  - **Solution**: File matches sensitive pattern
+  - Use .gitignore for permanent exclusion
+  - Override with explicit path if intentional
 
-### Accidentally staged sensitive file
-```bash
-# Unstage the file
-git reset HEAD sensitive.env
+- **Issue**: "Binary file warning"
+  - **Solution**: Binary files detected
+  - Verify file is intended for repository
+  - Consider alternatives like Git LFS
 
-# Add to .gitignore
-echo "sensitive.env" >> .gitignore
-```
+## Security Considerations
+- Prevents secrets from entering repository
+- Reduces risk of credential exposure
+- Enforces deliberate file selection
+- Protects against accidental data leaks
 
-### Working with generated files
-- Add generated file patterns to `.gitignore`
-- Use `git add -f` only when absolutely necessary and after careful review
-
-## References
-- [Git Add Documentation](https://git-scm.com/docs/git-add)
-- [Git Best Practices](https://about.gitlab.com/topics/version-control/version-control-best-practices/)
-- [.gitignore Documentation](https://git-scm.com/docs/gitignore)
+## Related Rules
+- [git-commit-format](git-commit-format.md) - Commit message standards
+- [git-push-validation](git-push-validation.md) - Push safety checks
+- [git-safe-file-operations](git-safe-file-operations.md) - File operation safety

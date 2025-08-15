@@ -81,3 +81,36 @@ paths:
   designs_root: "designs/"
   features_root: "features/"
   prps_root: "PRPs/"
+
+# Git-specific configuration
+git:
+  # Safety settings
+  max_file_size: "10MB"
+  forbidden_patterns: ["*.env", "*.key", "*.pem", "*_secret*", "*password*"]
+  warn_on_binary: true
+  
+  # Branch management
+  default_branch: "main"
+  protected_branches: ["main", "master", "develop", "release/*"]
+  branch_pattern: "^(feature|fix|docs|refactor|test|chore)/.+-[a-f0-9]{7}$"
+  allowed_types: ["feature", "fix", "docs", "refactor", "test", "chore"]
+  
+  # Commit settings
+  commit_format: "conventional"
+  subject_max_length: 250
+  body_line_length: 72
+  commit_types: ["feat", "fix", "docs", "style", "refactor", "test", "chore", "perf", "ci", "build"]
+  require_body_for: ["feat", "fix", "refactor"]
+  
+  # Pull/Push strategies
+  prefer_rebase: true
+  force_push_protection: true
+  require_upstream_check: true
+  default_pull_strategy: "--rebase"
+  forbid_force_push_to: ["main", "master", "develop", "release/*"]
+  
+  # File operations
+  require_git_check: true
+  block_if_uncommitted: true
+  check_working_directory: "clean"
+  conflict_resolution_strategy: "manual"
