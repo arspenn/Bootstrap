@@ -35,4 +35,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-add-safety.md](../../../docs/rules/git/git-add-safety.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-add-safety.md](../../docs/rules/git/git-add-safety.md)

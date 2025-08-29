@@ -60,7 +60,7 @@ Three core rules extracted with full metadata, documentation, and testing.
 - file: /home/arspenn/Dev/Bootstrap/.claude/rules/project/test-file-location.md
   why: Example of existing project rule format
   
-- file: /home/arspenn/Dev/Bootstrap/docs/rules/project/test-file-location.md
+- file: /home/arspenn/Dev/Bootstrap/.claude/docs/rules/project/test-file-location.md
   why: Example of full documentation format
   
 - file: /home/arspenn/Dev/Bootstrap/designs/009-feature-claude-md-standardization/design.md
@@ -154,10 +154,10 @@ templates:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/planning-context.md](../../../docs/rules/project/planning-context.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/planning-context.md](../../../.claude/docs/rules/project/planning-context.md)
 ```
 
-CREATE docs/rules/project/planning-context.md:
+CREATE .claude/docs/rules/project/planning-context.md:
 [Full documentation following the pattern from test-file-location.md, including:
 - Description
 - Rule Definition
@@ -222,10 +222,10 @@ environment:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/code-structure.md](../../../docs/rules/project/code-structure.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/code-structure.md](../../../.claude/docs/rules/project/code-structure.md)
 ```
 
-CREATE docs/rules/project/code-structure.md:
+CREATE .claude/docs/rules/project/code-structure.md:
 [Full documentation with examples of good/bad structure, refactoring strategies, etc.]
 
 ### Task 3: Create project/adr-management.md
@@ -284,10 +284,10 @@ criteria:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/adr-management.md](../../../docs/rules/project/adr-management.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/adr-management.md](../../../.claude/docs/rules/project/adr-management.md)
 ```
 
-CREATE docs/rules/project/adr-management.md:
+CREATE .claude/docs/rules/project/adr-management.md:
 [Full documentation with ADR examples, template usage, etc.]
 
 ### Task 4: Update MASTER_IMPORTS.md
@@ -318,7 +318,7 @@ class TestPhase2CoreRules:
         assert "project/planning-context" in content
         
         # Check documentation exists
-        doc_file = root / "docs/rules/project/planning-context.md"
+        doc_file = root / ".claude/docs/rules/project/planning-context.md"
         assert doc_file.exists(), "planning-context documentation not found"
     
     def test_code_structure_rule_exists(self):
@@ -335,7 +335,7 @@ class TestPhase2CoreRules:
         assert "max_lines_per_file: 500" in content
         
         # Check documentation exists
-        doc_file = root / "docs/rules/project/code-structure.md"
+        doc_file = root / ".claude/docs/rules/project/code-structure.md"
         assert doc_file.exists(), "code-structure documentation not found"
     
     def test_adr_management_rule_exists(self):
@@ -352,7 +352,7 @@ class TestPhase2CoreRules:
         assert "docs/ADRs/" in content
         
         # Check documentation exists
-        doc_file = root / "docs/rules/project/adr-management.md"
+        doc_file = root / ".claude/docs/rules/project/adr-management.md"
         assert doc_file.exists(), "adr-management documentation not found"
     
     def test_master_imports_updated_phase2(self):
@@ -376,9 +376,9 @@ ls -la .claude/rules/project/code-structure.md
 ls -la .claude/rules/project/adr-management.md
 
 # Verify documentation created
-ls -la docs/rules/project/planning-context.md
-ls -la docs/rules/project/code-structure.md
-ls -la docs/rules/project/adr-management.md
+ls -la .claude/docs/rules/project/planning-context.md
+ls -la .claude/docs/rules/project/code-structure.md
+ls -la .claude/docs/rules/project/adr-management.md
 ```
 
 ### Level 2: Metadata Validation

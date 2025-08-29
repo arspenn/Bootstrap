@@ -45,4 +45,4 @@ templates:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/planning-context.md](../../../docs/rules/project/planning-context.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/planning-context.md](../../docs/rules/project/planning-context.md)

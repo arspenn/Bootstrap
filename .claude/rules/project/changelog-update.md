@@ -29,4 +29,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/changelog-update.md](../../../docs/rules/project/changelog-update.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/changelog-update.md](../../docs/rules/project/changelog-update.md)

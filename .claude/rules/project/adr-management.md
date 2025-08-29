@@ -51,4 +51,4 @@ criteria:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/adr-management.md](../../../docs/rules/project/adr-management.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/adr-management.md](../../docs/rules/project/adr-management.md)

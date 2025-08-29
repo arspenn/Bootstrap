@@ -307,7 +307,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/planning-context.md](../../../docs/rules/project/planning-context.md)
+📚 **Full Documentation**: [.claude/.claude/docs/rules/project/planning-context.md](../../../.claude/.claude/docs/rules/project/planning-context.md)
 ```
 
 ## Next Steps

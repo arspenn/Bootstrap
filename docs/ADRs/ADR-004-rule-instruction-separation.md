@@ -20,7 +20,7 @@ This makes rules verbose and not suitable for direct import as Claude instructio
 ## Decision
 We will separate rule files into two distinct types:
 1. **Rule files** (`.claude/rules/`) - Contain only instructions Claude needs to follow
-2. **Documentation files** (`docs/rules/`) - Contain examples, rationale, and explanations
+2. **Documentation files** (`.claude/docs/rules/`) - Contain examples, rationale, and explanations
 
 Rule files will retain:
 - Metadata headers (ID, Status, Security Level, Token Impact)

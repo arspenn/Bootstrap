@@ -52,7 +52,7 @@ The current Git rules have:
 ### Integration Points
 - `.claude/MASTER_IMPORTS.md`: Already imports all Git rules
 - `.claude/config.yaml`: Needs new `git:` section
-- `docs/rules/git/`: Documentation exists but needs format updates
+- `.claude/.claude/docs/rules/git/`: Documentation exists but needs format updates
 - `tests/test_git_rules.py`: Tests need updating for new format
 
 ## Proposed Design
@@ -166,11 +166,11 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/{rule-name}.md](../../../docs/rules/git/{rule-name}.md)
+📚 **Full Documentation**: [.claude/.claude/docs/rules/git/{rule-name}.md](../../../.claude/.claude/docs/rules/git/{rule-name}.md)
 ```
 
 #### Comprehensive Documentation Format
-Each Git rule will have expanded documentation in `docs/rules/git/` following this structure:
+Each Git rule will have expanded documentation in `.claude/.claude/docs/rules/git/` following this structure:
 
 ```markdown
 # Git Rule: {Rule Name}
@@ -264,7 +264,7 @@ For each rule:
 1. Streamline existing documentation
 2. Ensure consistent format across all Git rule docs
 3. Add missing documentation links
-4. Update README.md in docs/rules/git/
+4. Update README.md in .claude/.claude/docs/rules/git/
 
 #### Phase 4: Test Updates
 1. Update test expectations for new metadata format
@@ -447,7 +447,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-add-safety.md](../../../docs/rules/git/git-add-safety.md)
+📚 **Full Documentation**: [.claude/.claude/docs/rules/git/git-add-safety.md](../../../.claude/.claude/docs/rules/git/git-add-safety.md)
 ```
 
 ### Measurement Methodology

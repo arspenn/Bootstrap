@@ -92,4 +92,4 @@ If Git rules aren't being applied:
 3. Check the conflict log for any rule conflicts
 4. Ensure Claude Code has loaded the rules (check CLAUDE.md)
 
-For more information, see the [Git Control User Guide](../../../docs/rules/git/README.md).
+For more information, see the [Git Control User Guide](../../docs/rules/git/README.md).

@@ -40,4 +40,4 @@ error_handling:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-safe-file-operations.md](../../../docs/rules/git/git-safe-file-operations.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-safe-file-operations.md](../../docs/rules/git/git-safe-file-operations.md)

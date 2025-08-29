@@ -28,4 +28,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/test-file-location.md](../../../docs/rules/project/test-file-location.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/test-file-location.md](../../docs/rules/project/test-file-location.md)

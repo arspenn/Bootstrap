@@ -79,7 +79,7 @@ Implement a clean separation between rule instructions and documentation, using 
         ├── git-commit-format.md   # Instructions only
         └── ...
 
-docs/rules/
+.claude/.claude/docs/rules/
 └── git/
     ├── git-add-safety.md          # Full documentation
     ├── git-commit-format.md       # Full documentation
@@ -111,7 +111,7 @@ validations:
   - require_diff_review: true
 ```
 
-See documentation: `docs/rules/git/git-add-safety.md`
+See documentation: `.claude/.claude/docs/rules/git/git-add-safety.md`
 ```
 
 #### Documentation File Format
@@ -193,11 +193,11 @@ Keep current structure but add imports.
 ### Phase 1: Infrastructure Setup
 1. Create MASTER_IMPORTS.md file
 2. Update CLAUDE.md with single import
-3. Create docs/rules/git/ directory structure
+3. Create .claude/.claude/docs/rules/git/ directory structure
 
 ### Phase 2: Rule Extraction
 For each existing rule:
-1. Copy file to docs/rules/git/
+1. Copy file to .claude/.claude/docs/rules/git/
 2. Extract instructions to keep in .claude/rules/git/
 3. Add cross-references
 4. Reduce rule file to essentials
@@ -242,7 +242,7 @@ For each existing rule:
 ## Implementation Checklist
 - [ ] Create MASTER_IMPORTS.md
 - [ ] Update CLAUDE.md with import
-- [ ] Create docs/rules/git/ structure
+- [ ] Create .claude/.claude/docs/rules/git/ structure
 - [ ] Extract instructions for all 5 Git rules
 - [ ] Move documentation content
 - [ ] Add cross-references

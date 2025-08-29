@@ -57,7 +57,7 @@ This design introduces a comprehensive safety system for file operations within 
 
 1. **Git Rules Structure**
    - Rules in `.claude/rules/git/` with YAML configuration
-   - Separate documentation in `docs/rules/git/`
+   - Separate documentation in `.claude/.claude/docs/rules/git/`
    - User preferences in `.claude/rules/config/user-preferences.yaml`
    - Template support for common patterns
 

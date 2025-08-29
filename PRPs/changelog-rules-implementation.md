@@ -35,7 +35,7 @@ Create a semi-automated changelog management system through rules that:
 - [ ] changelog-format.md rule implemented
 - [ ] version-management.md rule implemented
 - [ ] Rules imported via MASTER_IMPORTS.md
-- [ ] Documentation created in `docs/rules/project/`
+- [ ] Documentation created in `.claude/docs/rules/project/`
 - [ ] Integration with Git workflow tested
 - [ ] User preferences support added
 
@@ -67,7 +67,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/[rule-name].md](../../../docs/rules/project/[rule-name].md)
+📚 **Full Documentation**: [.claude/docs/rules/project/[rule-name].md](../../../.claude/docs/rules/project/[rule-name].md)
 ```
 
 ### Integration Points
@@ -87,7 +87,7 @@ validations:
 ### Task 1: Create Project Rules Directory
 ```bash
 mkdir -p .claude/rules/project
-mkdir -p docs/rules/project
+mkdir -p .claude/docs/rules/project
 ```
 
 ### Task 2: Implement changelog-update.md
@@ -122,7 +122,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/changelog-update.md](../../../docs/rules/project/changelog-update.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/changelog-update.md](../../../.claude/docs/rules/project/changelog-update.md)
 ```
 
 ### Task 3: Implement changelog-format.md
@@ -158,7 +158,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/changelog-format.md](../../../docs/rules/project/changelog-format.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/changelog-format.md](../../../.claude/docs/rules/project/changelog-format.md)
 ```
 
 ### Task 4: Implement version-management.md
@@ -198,7 +198,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/version-management.md](../../../docs/rules/project/version-management.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/version-management.md](../../../.claude/docs/rules/project/version-management.md)
 ```
 
 ### Task 5: Create Documentation Files

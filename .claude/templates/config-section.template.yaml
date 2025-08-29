@@ -1,0 +1,43 @@
+# Configuration Section Template
+# Add this section to .claude/config.yaml
+
+{section_name}:
+  # Basic settings
+  {setting_name}: {default_value}        # {Description of what this controls}
+  {another_setting}: {default_value}     # {Description}
+  
+  # List configuration
+  {list_setting}:
+    - {item_1}                          # {Why this item}
+    - {item_2}                          # {Why this item}
+    - {item_3}                          # {Why this item}
+  
+  # Nested configuration
+  {subsection}:
+    {nested_setting}: {value}           # {Description}
+    {another_nested}: {value}           # {Description}
+  
+  # Boolean flags
+  {feature_flag}: true                  # {What this enables/disables}
+  {another_flag}: false                 # {What this controls}
+  
+  # Numeric values
+  {threshold_value}: 100                # {Units and meaning}
+  {timeout_value}: 30000                # {Milliseconds, seconds, etc.}
+  
+  # Path configurations
+  {directory_path}: "path/to/directory" # {What this path is used for}
+  {file_path}: "path/to/file.ext"      # {What file this references}
+  
+  # Pattern matching
+  {pattern_setting}: "^(pattern|regex)$" # {What this pattern matches}
+  
+  # Template references
+  {template_location}: ".claude/templates/{template}.template" # {What template this uses}
+
+# Usage in rules:
+# Rules can reference these values using:
+# {{config.{section_name}.{setting_name}:{default_if_missing}}}
+#
+# Example:
+# {{config.{section_name}.{threshold_value}:100}}

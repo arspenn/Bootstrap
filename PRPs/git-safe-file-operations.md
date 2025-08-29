@@ -158,12 +158,12 @@ error_handling:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-safe-file-operations.md](../../../docs/rules/git/git-safe-file-operations.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-safe-file-operations.md](../../../.claude/docs/rules/git/git-safe-file-operations.md)
 ```
 
 ### Task 2: Create Full Documentation
 
-CREATE docs/rules/git/git-safe-file-operations.md:
+CREATE .claude/docs/rules/git/git-safe-file-operations.md:
 ```markdown
 # Git-Safe File Operations Documentation
 
@@ -447,7 +447,7 @@ class TestGitSafeFileOperations:
 ls -la .claude/rules/git/git-safe-file-operations.md
 
 # Check documentation exists  
-ls -la docs/rules/git/git-safe-file-operations.md
+ls -la .claude/docs/rules/git/git-safe-file-operations.md
 
 # Check rule is imported
 grep -n "git-safe-file-operations" .claude/MASTER_IMPORTS.md

@@ -57,4 +57,4 @@ designs/
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/design-structure.md](../../../docs/rules/project/design-structure.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/design-structure.md](../../docs/rules/project/design-structure.md)

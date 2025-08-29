@@ -16,8 +16,35 @@
 - [ ] Add "Git Control Rules" section to CLAUDE.md
 - [ ] Add documentation links to git-pull-strategy.md
 - [ ] Fix security level format in git rules (use "- Security Level:" not "## Security Level:")
-- [ ] Create missing documentation files in docs/rules/git/
+- [ ] Create missing documentation files in .claude/docs/rules/git/
 - [ ] Update test expectations to match actual rule format
+
+## Future Features
+
+### Documentation Enhancements
+- [ ] Create how-to guides in .claude/docs/guides/
+  - Creating Features guide
+  - Writing Rules guide
+  - Design Process guide
+  - PRP Workflow guide
+  - Testing Strategy guide
+- [ ] Create reference documentation in .claude/docs/reference/
+  - Rule Metadata Specification
+  - Configuration Schema
+  - Command API documentation
+  - Template Variables reference
+
+### Framework Improvements
+- [ ] Advanced documentation search functionality
+- [ ] Customization points for framework extensions in projects
+- [ ] Auto-read documentation when Claude needs clarification
+- [ ] Auto-read rules when Claude has questions about behavior
+- [ ] Cleanup script to prepare framework for new projects
+- [ ] Rework version control system
+
+### Workflow Enhancements
+- [ ] Documentation versioning strategy
+- [ ] Cross-reference linking between rules and documentation
 
 ## Completed Tasks
 - CLAUDE.md Standardization (2025-07-29 - 2025-08-10)

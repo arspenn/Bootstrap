@@ -38,7 +38,7 @@ User-visible behavior:
 ### Success Criteria
 - [ ] MASTER_IMPORTS.md created and imported by CLAUDE.md
 - [ ] All 5 Git rules restructured to instructions-only format
-- [ ] Documentation moved to docs/rules/git/ with full content
+- [ ] Documentation moved to .claude/docs/rules/git/ with full content
 - [ ] Bidirectional references work (rules→docs, docs→rules)
 - [ ] Token usage reduced by >80% for rule imports
 - [ ] Import mechanism tested and functional
@@ -111,7 +111,7 @@ CLAUDE.md (references but doesn't import rules)
 └── templates/
     └── commit-message.md
 
-docs/rules/
+.claude/docs/rules/
 └── git/
     ├── git-add-safety.md (NEW - full documentation)
     ├── git-commit-format.md (NEW - full documentation)
@@ -153,7 +153,7 @@ validations:
   - [validation list]
 ```
 
-See documentation: `docs/rules/[category]/[rule-name].md`
+See documentation: `.claude/docs/rules/[category]/[rule-name].md`
 ```
 
 **Documentation Format**:
@@ -189,11 +189,11 @@ See documentation: `docs/rules/[category]/[rule-name].md`
    - Test import mechanism
 
 2. **Create documentation directory structure**
-   - Create `docs/rules/git/` directory
+   - Create `.claude/docs/rules/git/` directory
    - Create index file for navigation
 
 3. **Process git-add-safety rule**
-   - Copy current file to `docs/rules/git/git-add-safety.md`
+   - Copy current file to `.claude/docs/rules/git/git-add-safety.md`
    - Extract instructions to keep in `.claude/rules/git/git-add-safety.md`
    - Add cross-references
    - Verify YAML formatting
@@ -253,7 +253,7 @@ See documentation: `docs/rules/[category]/[rule-name].md`
 ```
 For each rule file:
 1. Read current content
-2. Copy entire file to docs/rules/git/[name].md
+2. Copy entire file to .claude/docs/rules/git/[name].md
 3. In documentation file:
    - Add "Documentation" suffix to title
    - Add rule reference at top
@@ -328,15 +328,15 @@ def test_bidirectional_references():
     for rule_name in ['git-add-safety', 'git-commit-format']:
         # Check rule references doc
         with open(f'.claude/rules/git/{rule_name}.md') as f:
-            assert f'docs/rules/git/{rule_name}.md' in f.read()
+            assert f'.claude/docs/rules/git/{rule_name}.md' in f.read()
         # Check doc references rule
-        with open(f'docs/rules/git/{rule_name}.md') as f:
+        with open(f'.claude/docs/rules/git/{rule_name}.md') as f:
             assert f'.claude/rules/git/{rule_name}.md' in f.read()
 
 def test_rule_size_reduction():
     for rule_name in ['git-add-safety']:
         rule_size = os.path.getsize(f'.claude/rules/git/{rule_name}.md')
-        doc_size = os.path.getsize(f'docs/rules/git/{rule_name}.md')
+        doc_size = os.path.getsize(f'.claude/docs/rules/git/{rule_name}.md')
         assert rule_size < 1000  # Under 1KB
         assert doc_size > 2000   # Documentation preserved
 ```

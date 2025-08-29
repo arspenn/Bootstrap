@@ -68,7 +68,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/python/code-style.md](../../../docs/rules/python/code-style.md)
+📚 **Full Documentation**: [.claude/docs/rules/python/code-style.md](../../../.claude/docs/rules/python/code-style.md)
 ```
 
 ## Override Hierarchy

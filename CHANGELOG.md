@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-08-28
+
+### Added
+- **Framework Documentation Separation** - Complete reorganization of documentation
+  - Created `.claude/docs/` as central location for all framework documentation
+  - Added 5 core framework guides (getting-started, configuration, rule-system, command-system, workflow)
+  - Added 5 framework templates for rules, commands, and configuration
+  - Created comprehensive documentation index at `.claude/docs/README.md`
+- **CLAUDE.md Standardization** - Transformed into minimal rule loader (170 lines from 600+)
+  - Extracted all rules to modular `.claude/rules/` system
+  - Created `.claude/config.yaml` for centralized configuration
+  - Implemented MASTER_IMPORTS.md for rule management
+  - Enhanced AI behavior rules with specific validation patterns
+- **Git Rules Alignment** - Standardized all git rules to consistent format
+  - Added comprehensive rule metadata (priority, security level, token impact)
+  - Implemented dual-structure: concise rules + detailed documentation
+  - Created rule templates for consistency
+- **ADR Standardization** - Established consistent ADR format and numbering
+  - Created ADR index for navigation
+  - Added ADR template for future decisions
+  - Documented key architectural decisions (ADR-008, ADR-009)
+
+### Changed
+- **Documentation Structure** - Moved all rule documentation from `/docs/rules/` to `.claude/docs/rules/`
+  - Preserved git history for all 20 moved files
+  - Updated all references throughout codebase
+  - Removed empty directories after migration
+- **Rule System** - Enhanced with comprehensive metadata and configuration
+  - All rules now include priority levels (0-1000)
+  - Added security levels (Critical, High, Medium, Low)
+  - Implemented token impact tracking
+  - Added dependency management between rules
+
+### Fixed
+- Rule documentation references now correctly point to `.claude/docs/rules/`
+- Test files updated to validate new documentation structure
+- Consistent formatting across all rule files
+
+### Developer Experience
+- Clear separation between framework documentation (reusable) and project documentation (specific)
+- Bootstrap framework now fully self-contained in `.claude/` directory
+- Improved token efficiency through concise rule structure
+- Comprehensive templates for creating new rules and commands
+
 ## [0.5.0] - 2025-07-14
 
 ### Added
@@ -66,7 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Rule files restructured to contain only direct instructions
-- Documentation moved to separate files in docs/rules/
+- Documentation moved to separate files in .claude/docs/rules/
 - Token overhead reduced from 5,400 to 900 tokens
 
 ## [0.2.0] - 2025-07-12

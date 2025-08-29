@@ -166,10 +166,10 @@ def test_documentation_exists():
     root = get_project_root()
     docs_dir = root / "docs" / "rules" / "git"
     
-    assert docs_dir.exists(), "docs/rules/git directory not found"
+    assert docs_dir.exists(), ".claude/docs/rules/git directory not found"
     
     readme = docs_dir / "README.md"
-    assert readme.exists(), "docs/rules/git/README.md not found"
+    assert readme.exists(), ".claude/docs/rules/git/README.md not found"
     
     content = readme.read_text()
     assert "Git Control Rules User Guide" in content

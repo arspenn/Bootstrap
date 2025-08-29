@@ -53,4 +53,4 @@ requirements:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/testing/pytest-requirements.md](../../../docs/rules/testing/pytest-requirements.md)
+📚 **Full Documentation**: [.claude/docs/rules/testing/pytest-requirements.md](../../docs/rules/testing/pytest-requirements.md)

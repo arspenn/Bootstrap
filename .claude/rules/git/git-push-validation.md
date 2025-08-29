@@ -38,4 +38,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-push-validation.md](../../../docs/rules/git/git-push-validation.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-push-validation.md](../../docs/rules/git/git-push-validation.md)

@@ -9,7 +9,7 @@ Based on failing tests and code review, the Git rules have several problems:
 ### 1. Missing/Incorrect Documentation
 - Missing "Git Control Rules" section in documentation
 - `git-pull-strategy.md` lacks documentation links
-- Documentation files in `docs/rules/git/` are missing or incomplete
+- Documentation files in `.claude/docs/rules/git/` are missing or incomplete
 
 ### 2. Inconsistent Metadata Format
 - Security levels use incorrect format (e.g., `## Security Level:` instead of `- Security Level:`)
@@ -61,7 +61,7 @@ Restructure each Git rule to follow the new pattern:
 - Proper documentation links
 
 ### Phase 4: Documentation Completion
-- Create comprehensive docs in `docs/rules/git/`
+- Create comprehensive docs in `.claude/docs/rules/git/`
 - Add "Git Control Rules" section where needed
 - Include examples and troubleshooting
 - Add links to Git documentation
@@ -103,7 +103,7 @@ Restructure each Git rule to follow the new pattern:
 - [ ] Security levels use correct format (`- Security Level:`)
 - [ ] Git configuration extracted to config.yaml
 - [ ] All rules reference config instead of hardcoding values
-- [ ] Documentation exists for all Git rules in `docs/rules/git/`
+- [ ] Documentation exists for all Git rules in `.claude/docs/rules/git/`
 - [ ] All Git rule tests pass
 - [ ] Consistent structure across all Git rules
 - [ ] Token impact reduced through config references
@@ -127,7 +127,7 @@ Restructure each Git rule to follow the new pattern:
    - Add Priority based on security level
 
 4. **Complete Documentation**
-   - Create missing docs in `docs/rules/git/`
+   - Create missing docs in `.claude/docs/rules/git/`
    - Add examples and scenarios
    - Include troubleshooting guides
    - Add external documentation links
@@ -168,5 +168,5 @@ From TASK.md:
 - Add "Git Control Rules" section to CLAUDE.md
 - Add documentation links to git-pull-strategy.md
 - Fix security level format in git rules
-- Create missing documentation files in docs/rules/git/
+- Create missing documentation files in .claude/docs/rules/git/
 - Update test expectations to match actual rule format

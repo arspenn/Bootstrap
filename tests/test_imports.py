@@ -30,10 +30,10 @@ def test_bidirectional_references():
         # Check rule references doc
         with open(f'.claude/rules/git/{rule_name}.md') as f:
             rule_content = f.read()
-        assert f'docs/rules/git/{rule_name}.md' in rule_content, f"Rule {rule_name} missing doc reference"
+        assert f'.claude/docs/rules/git/{rule_name}.md' in rule_content, f"Rule {rule_name} missing doc reference"
         
         # Check doc references rule
-        with open(f'docs/rules/git/{rule_name}.md') as f:
+        with open(f'.claude/docs/rules/git/{rule_name}.md') as f:
             doc_content = f.read()
         assert f'.claude/rules/git/{rule_name}.md' in doc_content, f"Doc {rule_name} missing rule reference"
     
@@ -55,7 +55,7 @@ def test_rule_size_reduction():
     
     for rule_name in original_sizes:
         rule_size = os.path.getsize(f'.claude/rules/git/{rule_name}.md')
-        doc_size = os.path.getsize(f'docs/rules/git/{rule_name}.md')
+        doc_size = os.path.getsize(f'.claude/docs/rules/git/{rule_name}.md')
         
         total_old += original_sizes[rule_name]
         total_new += rule_size

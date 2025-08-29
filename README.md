@@ -132,7 +132,7 @@ See [ROADMAP.md](ROADMAP.md) for complete development plan.
 
 ## 📚 Documentation
 
-- **For Users**: See `docs/rules/git/` for comprehensive guides
+- **For Users**: See `.claude/docs/rules/git/` for comprehensive guides
 - **For Contributors**: Check `docs/ADRs/` for design decisions
 - **For Developers**: Read `CLAUDE.md` for AI conventions
 

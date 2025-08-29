@@ -67,4 +67,4 @@ template: |
 
 ---
 
-📚 **Full Documentation**: [docs/rules/documentation/docstring-format.md](../../../docs/rules/documentation/docstring-format.md)
+📚 **Full Documentation**: [.claude/docs/rules/documentation/docstring-format.md](../../docs/rules/documentation/docstring-format.md)

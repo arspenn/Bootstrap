@@ -227,7 +227,7 @@ grep -A 5 "git-safe-file-operations" .claude/rules/config/user-preferences.yaml
 ls -la .claude/rules/git/git-safe-file-operations.md
 
 # Check documentation
-ls -la docs/rules/git/git-safe-file-operations*.md
+ls -la .claude/docs/rules/git/git-safe-file-operations*.md
 ```
 
 ## Expected Behaviors Summary

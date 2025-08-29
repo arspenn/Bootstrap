@@ -20,7 +20,7 @@
 - [Claude Memory System]: https://docs.anthropic.com/en/docs/claude-code/memory
 - [Import Syntax]: Uses @path/to/file for importing additional instructions
 - [Memory Hierarchy]: Project memory (./CLAUDE.md) vs User memory (~/.claude/CLAUDE.md)
-- Internal docs: `.claude/rules/README.md`, `docs/rules/git/README.md`
+- Internal docs: `.claude/rules/README.md`, `.claude/docs/rules/git/README.md`
 
 ## OTHER CONSIDERATIONS:
 
@@ -30,7 +30,7 @@
 - [User experience] Clear distinction between what Claude follows vs what users read
 - [Timeline] Should be implemented before adding more rule categories
 - CRITICAL: Rules are direct instructions, not documentation
-- CRITICAL: All examples, rationale, and explanations move to docs/rules/
+- CRITICAL: All examples, rationale, and explanations move to .claude/docs/rules/
 - This affects all existing Git rules and future rule categories
 - Must maintain backward compatibility with user preferences system
 

@@ -37,4 +37,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-pull-strategy.md](../../../docs/rules/git/git-pull-strategy.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-pull-strategy.md](../../docs/rules/git/git-pull-strategy.md)

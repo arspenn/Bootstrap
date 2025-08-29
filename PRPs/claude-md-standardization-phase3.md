@@ -172,10 +172,10 @@ standards:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/python/code-style.md](../../../docs/rules/python/code-style.md)
+📚 **Full Documentation**: [.claude/docs/rules/python/code-style.md](../../../.claude/docs/rules/python/code-style.md)
 ```
 
-CREATE docs/rules/python/code-style.md:
+CREATE .claude/docs/rules/python/code-style.md:
 [Full documentation including:
 - PEP8 key points
 - Type hint examples
@@ -234,10 +234,10 @@ commands:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/python/environment-management.md](../../../docs/rules/python/environment-management.md)
+📚 **Full Documentation**: [.claude/docs/rules/python/environment-management.md](../../../.claude/docs/rules/python/environment-management.md)
 ```
 
-CREATE docs/rules/python/environment-management.md:
+CREATE .claude/docs/rules/python/environment-management.md:
 [Full documentation including:
 - Virtual environment best practices
 - python-dotenv usage examples
@@ -317,10 +317,10 @@ template: |
 
 ---
 
-📚 **Full Documentation**: [docs/rules/documentation/docstring-format.md](../../../docs/rules/documentation/docstring-format.md)
+📚 **Full Documentation**: [.claude/docs/rules/documentation/docstring-format.md](../../../.claude/docs/rules/documentation/docstring-format.md)
 ```
 
-CREATE docs/rules/documentation/docstring-format.md:
+CREATE .claude/docs/rules/documentation/docstring-format.md:
 [Full documentation including:
 - Complete Google style guide
 - Examples for different function types
@@ -386,10 +386,10 @@ requirements:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/testing/pytest-requirements.md](../../../docs/rules/testing/pytest-requirements.md)
+📚 **Full Documentation**: [.claude/docs/rules/testing/pytest-requirements.md](../../../.claude/docs/rules/testing/pytest-requirements.md)
 ```
 
-CREATE docs/rules/testing/pytest-requirements.md:
+CREATE .claude/docs/rules/testing/pytest-requirements.md:
 [Full documentation including:
 - Pytest best practices
 - Test structure examples
@@ -464,10 +464,10 @@ class TestPhase3LanguageRules:
         root = get_project_root()
         
         docs = [
-            "docs/rules/python/code-style.md",
-            "docs/rules/python/environment-management.md",
-            "docs/rules/documentation/docstring-format.md",
-            "docs/rules/testing/pytest-requirements.md"
+            ".claude/docs/rules/python/code-style.md",
+            ".claude/docs/rules/python/environment-management.md",
+            ".claude/docs/rules/documentation/docstring-format.md",
+            ".claude/docs/rules/testing/pytest-requirements.md"
         ]
         
         for doc_path in docs:
@@ -499,9 +499,9 @@ ls -la .claude/rules/documentation/docstring-format.md
 ls -la .claude/rules/testing/pytest-requirements.md
 
 # Check documentation
-ls -la docs/rules/python/
-ls -la docs/rules/documentation/
-ls -la docs/rules/testing/
+ls -la .claude/docs/rules/python/
+ls -la .claude/docs/rules/documentation/
+ls -la .claude/docs/rules/testing/
 ```
 
 ### Level 2: Metadata and Dependencies

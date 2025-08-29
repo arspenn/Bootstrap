@@ -33,4 +33,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/version-management.md](../../../docs/rules/project/version-management.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/version-management.md](../../docs/rules/project/version-management.md)

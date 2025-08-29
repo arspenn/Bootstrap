@@ -36,4 +36,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-branch-naming.md](../../../docs/rules/git/git-branch-naming.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-branch-naming.md](../../docs/rules/git/git-branch-naming.md)

@@ -48,4 +48,4 @@ environment:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/code-structure.md](../../../docs/rules/project/code-structure.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/code-structure.md](../../docs/rules/project/code-structure.md)

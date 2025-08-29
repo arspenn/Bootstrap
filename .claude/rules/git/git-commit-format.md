@@ -35,4 +35,4 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-commit-format.md](../../../docs/rules/git/git-commit-format.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-commit-format.md](../../docs/rules/git/git-commit-format.md)

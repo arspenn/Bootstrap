@@ -28,7 +28,7 @@ rules = ['git-add-safety', 'git-commit-format', 'git-push-validation',
 all_converted = True
 for rule in rules:
     rule_path = f'.claude/rules/git/{rule}.md'
-    doc_path = f'docs/rules/git/{rule}.md'
+    doc_path = f'.claude/docs/rules/git/{rule}.md'
     if os.path.exists(rule_path) and os.path.exists(doc_path):
         rule_size = os.path.getsize(rule_path)
         if rule_size < 1000:
@@ -46,9 +46,9 @@ else:
 refs_ok = True
 for rule in rules:
     with open(f'.claude/rules/git/{rule}.md') as f:
-        if f'docs/rules/git/{rule}.md' not in f.read():
+        if f'.claude/docs/rules/git/{rule}.md' not in f.read():
             refs_ok = False
-    with open(f'docs/rules/git/{rule}.md') as f:
+    with open(f'.claude/docs/rules/git/{rule}.md') as f:
         if f'.claude/rules/git/{rule}.md' not in f.read():
             refs_ok = False
 
@@ -92,7 +92,7 @@ else:
 sizes_ok = True
 for rule in rules:
     rule_size = os.path.getsize(f'.claude/rules/git/{rule}.md')
-    doc_size = os.path.getsize(f'docs/rules/git/{rule}.md')
+    doc_size = os.path.getsize(f'.claude/docs/rules/git/{rule}.md')
     if rule_size > 1000 or doc_size < 2000:
         sizes_ok = False
         break

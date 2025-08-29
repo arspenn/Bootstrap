@@ -45,4 +45,4 @@ commands:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/python/environment-management.md](../../../docs/rules/python/environment-management.md)
+📚 **Full Documentation**: [.claude/docs/rules/python/environment-management.md](../../docs/rules/python/environment-management.md)

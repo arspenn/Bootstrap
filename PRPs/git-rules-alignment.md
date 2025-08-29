@@ -7,7 +7,7 @@ Refactor all 6 Git rules to align with standardization patterns established in C
 ## Core Principles
 1. **Config References with Inline Defaults**: `{{config.path:default}}` syntax
 2. **Enhanced Metadata**: Add Priority and Dependencies fields
-3. **Comprehensive Documentation**: Expand docs in `docs/rules/git/`
+3. **Comprehensive Documentation**: Expand docs in `.claude/docs/rules/git/`
 4. **Maintain Behavior**: Pure refactoring, no functional changes
 5. **Token Efficiency**: Reduce rule size by 20-30%
 
@@ -72,7 +72,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/project/code-structure.md](../../../docs/rules/project/code-structure.md)
+📚 **Full Documentation**: [.claude/docs/rules/project/code-structure.md](../../../.claude/docs/rules/project/code-structure.md)
 ```
 
 ### Priority Assignment Strategy
@@ -98,7 +98,7 @@ Examples:
 Arrays in defaults use comma separation without spaces.
 
 ### Documentation Template
-Each rule gets comprehensive docs in `docs/rules/git/{rule-name}.md`:
+Each rule gets comprehensive docs in `.claude/docs/rules/git/{rule-name}.md`:
 ```markdown
 # Git Rule: {Rule Name}
 
@@ -225,7 +225,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-add-safety.md](../../../docs/rules/git/git-add-safety.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-add-safety.md](../../../.claude/docs/rules/git/git-add-safety.md)
 ```
 
 ### Task 3: Refactor git-commit-format.md
@@ -268,7 +268,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-commit-format.md](../../../docs/rules/git/git-commit-format.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-commit-format.md](../../../.claude/docs/rules/git/git-commit-format.md)
 ```
 
 ### Task 4: Refactor git-push-validation.md
@@ -314,7 +314,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-push-validation.md](../../../docs/rules/git/git-push-validation.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-push-validation.md](../../../.claude/docs/rules/git/git-push-validation.md)
 ```
 
 ### Task 5: Refactor git-pull-strategy.md
@@ -359,7 +359,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-pull-strategy.md](../../../docs/rules/git/git-pull-strategy.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-pull-strategy.md](../../../.claude/docs/rules/git/git-pull-strategy.md)
 ```
 
 ### Task 6: Refactor git-branch-naming.md
@@ -403,7 +403,7 @@ validations:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-branch-naming.md](../../../docs/rules/git/git-branch-naming.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-branch-naming.md](../../../.claude/docs/rules/git/git-branch-naming.md)
 ```
 
 ### Task 7: Refactor git-safe-file-operations.md
@@ -451,14 +451,14 @@ error_handling:
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-safe-file-operations.md](../../../docs/rules/git/git-safe-file-operations.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-safe-file-operations.md](../../../.claude/docs/rules/git/git-safe-file-operations.md)
 ```
 
 ### Task 8: Create Comprehensive Documentation
-For each rule, CREATE docs/rules/git/{rule-name}.md following the template.
+For each rule, CREATE .claude/docs/rules/git/{rule-name}.md following the template.
 
 Example for git-add-safety.md:
-CREATE docs/rules/git/git-add-safety.md:
+CREATE .claude/docs/rules/git/git-add-safety.md:
 ```markdown
 # Git Rule: Add Safety
 

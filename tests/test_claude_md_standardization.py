@@ -84,7 +84,7 @@ class TestPhase2CoreRules:
         assert "project/planning-context" in content
         
         # Check documentation exists
-        doc_file = root / "docs/rules/project/planning-context.md"
+        doc_file = root / ".claude/docs/rules/project/planning-context.md"
         assert doc_file.exists(), "planning-context documentation not found"
     
     def test_code_structure_rule_exists(self):
@@ -101,7 +101,7 @@ class TestPhase2CoreRules:
         assert "max_lines_per_file: 500" in content
         
         # Check documentation exists
-        doc_file = root / "docs/rules/project/code-structure.md"
+        doc_file = root / ".claude/docs/rules/project/code-structure.md"
         assert doc_file.exists(), "code-structure documentation not found"
     
     def test_adr_management_rule_exists(self):
@@ -118,7 +118,7 @@ class TestPhase2CoreRules:
         assert "docs/ADRs/" in content
         
         # Check documentation exists
-        doc_file = root / "docs/rules/project/adr-management.md"
+        doc_file = root / ".claude/docs/rules/project/adr-management.md"
         assert doc_file.exists(), "adr-management documentation not found"
     
     def test_master_imports_updated_phase2(self):
@@ -180,10 +180,10 @@ class TestPhase3LanguageRules:
         root = get_project_root()
         
         docs = [
-            "docs/rules/python/code-style.md",
-            "docs/rules/python/environment-management.md",
-            "docs/rules/documentation/docstring-format.md",
-            "docs/rules/testing/pytest-requirements.md"
+            ".claude/docs/rules/python/code-style.md",
+            ".claude/docs/rules/python/environment-management.md",
+            ".claude/docs/rules/documentation/docstring-format.md",
+            ".claude/docs/rules/testing/pytest-requirements.md"
         ]
         
         for doc_path in docs:
