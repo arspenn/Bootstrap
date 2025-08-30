@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-08-30
+
+### Added
+- **Enhanced Task Management System** - Structured task tracking with metadata
+  - Created task-management rule for enforcing TASK.md format
+  - Created task-discovery rule for tracking work discovered during implementation  
+  - Created task-commit-integration rule for linking commits to tasks
+  - Added 4 task commands: `/task-add`, `/task-update`, `/task-summary`, `/task-audit`
+  - Added task templates (task.template.md, task-commit.template.md, task-discovered.template.md)
+  - Implemented sequential task ID system (TASK-XXX format)
+
+- **Rule Loading Command** - Dynamic rule loading and context management
+  - Created `/load-rules` command for refreshing rule context
+  - Provides loading reports with success/failure counts
+  - Supports graceful degradation for missing rules
+
+### Changed
+- **TASK.md Structure** - Migrated to enhanced structured format
+  - Reorganized ~120 tasks from unstructured list to structured format with metadata
+  - Tasks now organized by status (Current/Backlog/Completed) and priority levels
+  - Each task includes Priority, Created date, Estimate, and Status fields
+  - Consolidated duplicate sections and removed redundant items
+
+- **Git Commit Format** - Enhanced for task integration
+  - Updated subject line limit from 50 to 250 characters
+  - Added task reference support in commit footers (Completed: TASK-XXX, Refs: TASK-XXX)
+
+### Fixed
+- MASTER_IMPORTS.md updated to include new task-related rules
+- Identified and documented already-implemented items from legacy task list
+- Reorganized miscellaneous tasks into appropriate categories
+
+### Developer Experience
+- Systematic task tracking with unique IDs prevents duplicates
+- Task discovery during implementation is now standardized
+- Git commits can reference tasks for better traceability
+- Migration tool (`/task-audit --migrate`) preserves task history
+
 ## [0.6.0] - 2025-08-28
 
 ### Added
@@ -148,7 +186,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Virtual environment support
 - Basic project structure and workflows
 
-[Unreleased]: https://github.com/user/repo/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/user/repo/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/user/repo/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/user/repo/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/user/repo/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/user/repo/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/user/repo/compare/v0.2.0...v0.3.0
