@@ -19,7 +19,7 @@ conditions:
   - long_term_implications: true
 actions:
   - create_adr: true
-  - follow_template: "templates/design-templates/adr.template.md"
+  - follow_template: ".claude/templates/adr.template.md"
   - update_index: "docs/ADRs/INDEX.md"
   - validate_with_tools: "python scripts/adr-tools.py"
 locations:

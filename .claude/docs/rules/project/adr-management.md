@@ -234,7 +234,7 @@ project:
   rules:
     adr-management: enabled
   config:
-    adr_template: "templates/design-templates/adr.template.md"
+    adr_template: ".claude/templates/adr.template.md"
     project_adr_path: "docs/ADRs/"
     design_adr_path: "designs/*/adrs/"
     index_file: "docs/ADRs/INDEX.md"

@@ -221,6 +221,47 @@ Apply the sequential-file-naming rule pattern to TASK.md task IDs.
 - [ ] Update task commands to auto-generate next sequential ID
 - [ ] Ensure no gaps in numbering sequence
 
+#### TASK-026: PRP System Modernization
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-01  
+**Estimate**: 1w  
+**Status**: pending  
+
+Update PRP process, templates, and commands to align with current project patterns and conventions.
+
+**Context**: Evaluation revealed the PRP system works well but has minor misalignments with newer patterns. These updates should be done as part of a larger "Bootstrap Framework v2" initiative rather than immediately.
+
+**Design Updates**:
+- [ ] Update design-feature command to use sequential-file-naming rule
+- [ ] Modify save structure to use ###-type-description/design.md pattern
+- [ ] Update ADR and diagram organization to match current conventions
+- [ ] Add automatic TASK.md integration for identified tasks
+
+**Template Improvements**:
+- [ ] Keep prp_base.md as generic template
+- [ ] Create prp_bootstrap.md for Bootstrap-specific patterns
+- [ ] Add references to rule system and command patterns
+- [ ] Update validation commands for broader language support (not just Python)
+- [ ] Include TodoWrite tool patterns in templates
+
+**Command Enhancements**:
+- [ ] Update execute-prp to automatically use TodoWrite for task tracking
+- [ ] Add references to .claude/rules/ for pattern checking
+- [ ] Update tool usage patterns (venv_linux instead of uv run)
+- [ ] Add MultiEdit tool references for complex updates
+- [ ] Integrate with task management system
+
+**New Validation Command**:
+- [ ] Create /validate-prp command to check PRP compliance
+- [ ] Verify referenced files exist
+- [ ] Check validation commands are appropriate for project type
+- [ ] Validate against current Bootstrap patterns
+
+**Documentation**:
+- [ ] Document workarounds for current system
+- [ ] Create migration guide for existing PRPs
+- [ ] Update command help text with new patterns
+
 ### Low Priority
 
 #### TASK-021: Design-Feature Template Check
@@ -395,6 +436,20 @@ Various small improvements and features.
 ## Completed
 
 ### Recent Completions
+
+#### TASK-027: Template Consolidation and Standardization
+**Priority**: [HIGH]  
+**Completed**: 2025-09-01  
+
+Consolidated all templates into .claude/templates/ with standardized naming.
+
+- Moved 3 design templates to .claude/templates/ (preserving git history)
+- Deleted 4 unused templates (fix, refactor, spike, system designs)
+- Updated references in active rules and docs (2 files)
+- Created template-management rule for enforcement
+- Removed obsolete templates directory
+- Maintained kebab-case naming (except README.template.md)
+- Preserved historical records (no updates to PRPs/designs)
 
 #### TASK-024: Project Requirements Gathering System
 **Priority**: [HIGH]  

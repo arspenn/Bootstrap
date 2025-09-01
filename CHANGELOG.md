@@ -7,7 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.8.0] - 2025-09-01
+## [0.9.0] - 2025-09-01
+
+### Added
+- **Template Management Rule** - Enforces template location and naming standards
+  - Created template-management rule in .claude/rules/project/
+  - Enforces all templates must be in .claude/templates/
+  - Requires kebab-case naming pattern: {name}.template.{ext}
+  - Exception for README.template.md to maintain uppercase
+
+### Changed
+- **Template Consolidation** - Centralized all templates to .claude/templates/
+  - Moved ADR, README, and feature-design templates from templates/design-templates/
+  - Preserved git history using git mv for all moves
+  - Updated references in adr-management rule and documentation
+  - Removed obsolete templates directory structure
+  
+- **Template Cleanup** - Removed unused design templates
+  - Deleted fix-design.template.md (redundant with feature-design)
+  - Deleted refactor-design.template.md (redundant with feature-design)
+  - Deleted spike-design.template.md (not actively used)
+  - Deleted system-design.template.md (not actively used)
+
+### Fixed
+- Template path references in adr-management rule now point to correct location
+- Documentation consistency between rule files and their documentation
+
+### Developer Experience
+- All templates now in single, predictable location (.claude/templates/)
+- Consistent kebab-case naming makes templates easier to find
+- Reduced template redundancy simplifies template selection
+- Historical records (PRPs, designs) remain unchanged for accuracy
+
+## [0.8.0] - 2025-09-01 [ea2b2a0](https://github.com/anthropics/bootstrap/commit/ea2b2a0)
 
 ### Added
 - **Project Requirements Gathering Command** - Interactive project-level requirements collection
