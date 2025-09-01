@@ -1,0 +1,48 @@
+graph TB
+    subgraph "User Interface"
+        U[User]
+    end
+    
+    subgraph "Claude Commands"
+        QF["/quick-feature"]
+        GFR["/gather-feature-requirements"]
+        DF["/design-feature"]
+    end
+    
+    subgraph "Templates"
+        QFT["feature-quick.template.md"]
+        EFT["feature-enhanced.template.md"]
+    end
+    
+    subgraph "Features Directory"
+        FF["Feature Files"]
+    end
+    
+    subgraph "Quick-Feature Components"
+        QFP["Input Parser"]
+        QFC["Complexity Analyzer"]
+        QFG["Question Generator"]
+        QFF["File Generator"]
+        QFE["Escalation Handler"]
+    end
+    
+    U -->|"quick input"| QF
+    U -->|"detailed input"| GFR
+    
+    QF --> QFP
+    QFP --> QFC
+    QFC -->|"simple"| QFG
+    QFC -->|"complex"| QFE
+    QFG --> QFF
+    QFF --> QFT
+    QFT --> FF
+    
+    QFE -->|"context summary"| GFR
+    GFR --> EFT
+    EFT --> FF
+    
+    FF --> DF
+    
+    style QF fill:#90EE90
+    style QFC fill:#FFE4B5
+    style QFE fill:#FFA07A

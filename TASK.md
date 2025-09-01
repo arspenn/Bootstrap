@@ -207,7 +207,32 @@ Build cleanup tool for fresh project starts.
 - [ ] Create fresh-start script for cloned projects
 - [ ] Preserve only core bootstrap structure
 
+#### TASK-025: Refactor Task IDs to Sequential Numbering
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-01  
+**Estimate**: 2h  
+**Status**: pending  
+
+Apply the sequential-file-naming rule pattern to TASK.md task IDs.
+
+- [ ] Renumber all TASK-XXX IDs to use sequential numbering
+- [ ] Remove C prefix from completed tasks (use same sequence)
+- [ ] Update task-management rule to enforce sequential numbering
+- [ ] Update task commands to auto-generate next sequential ID
+- [ ] Ensure no gaps in numbering sequence
+
 ### Low Priority
+
+#### TASK-021: Design-Feature Template Check
+**Priority**: [LOW]  
+**Created**: 2025-08-30  
+**Estimate**: 1d  
+**Status**: pending  
+
+Update design-feature command to check for templates before searching for patterns.
+
+- [ ] Check for templates before searching for patterns in design-feature command
+- [ ] Update command documentation
 
 #### TASK-014: Advanced Git Features
 **Priority**: [LOW]  
@@ -288,6 +313,48 @@ Create rules for transparent data reporting.
 - [ ] Include verification steps users can perform
 - [ ] Add transparency about data sources
 
+#### TASK-022: Multiple Stakeholder Perspectives for Requirements Gathering
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-01  
+**Estimate**: 2d  
+**Status**: backlog  
+
+Enhance /gather-feature-requirements to capture perspectives from multiple stakeholder types (administrators, support staff, other developers). This includes gathering how different roles interact with features, documenting value propositions for each stakeholder, and adding stakeholder-specific acceptance criteria.
+
+**Context**: Originally planned for Week 2 but deferred as too advanced. Requires sophisticated conversation branching that may overwhelm users in early phases. Consider for Week 3 or later when base functionality is stable.
+
+- [ ] Design multi-stakeholder conversation branching system
+- [ ] Create stakeholder type templates (admin, support, developer, etc.)
+- [ ] Implement stakeholder-specific question sets
+- [ ] Add value proposition documentation for each role
+- [ ] Create stakeholder-specific acceptance criteria format
+- [ ] Test with various feature types and stakeholder combinations
+- [ ] Update /gather-feature-requirements command documentation
+
+#### TASK-023: Modular Command System Refactoring
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-01  
+**Estimate**: 1w  
+**Status**: backlog  
+
+Refactor command system to use modular, reusable components shared between commands. This would reduce code duplication and maintenance burden while improving consistency.
+
+**Context**: Identified during quick-feature command design. Current uncertainty about Claude Code's support for modular commands led to choosing parallel implementation approach. This refactoring should be considered once we better understand Claude Code's capabilities with modules.
+
+- [ ] Research Claude Code's module support capabilities
+- [ ] Design modular command architecture
+- [ ] Extract shared functionality from existing commands:
+  - [ ] Requirements extraction module
+  - [ ] Template service module
+  - [ ] Complexity analyzer module
+  - [ ] File naming service module
+  - [ ] Context preservation module
+- [ ] Refactor gather-feature-requirements to use modules
+- [ ] Refactor quick-feature to use modules
+- [ ] Create module testing framework
+- [ ] Document module interfaces and usage patterns
+- [ ] Update command documentation to reflect modular structure
+
 #### TASK-020: Miscellaneous Improvements
 **Priority**: [LOW]  
 **Created**: 2025-08-30  
@@ -328,6 +395,19 @@ Various small improvements and features.
 ## Completed
 
 ### Recent Completions
+
+#### TASK-024: Project Requirements Gathering System
+**Priority**: [HIGH]  
+**Completed**: 2025-09-01  
+
+Implemented comprehensive project requirements gathering system.
+
+- Implemented /gather-project-requirements command
+- Created three operation modes: new project, PLANNING.md update, external doc parsing
+- Added planning.template.md for consistent project documentation
+- Created sequential-file-naming rule for automatic file numbering
+- Reorganized 15+ feature files with sequential numbering
+- Integrated with feature gathering workflow
 
 #### TASK-C001: CLAUDE.md Standardization
 **Priority**: [HIGH]  

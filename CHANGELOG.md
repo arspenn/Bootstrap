@@ -7,7 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.7.0] - 2025-08-30
+## [0.8.0] - 2025-09-01
+
+### Added
+- **Project Requirements Gathering Command** - Interactive project-level requirements collection
+  - Created `/gather-project-requirements` command for project scope definition
+  - Supports three modes: new project creation, PLANNING.md updates, external document parsing
+  - Generates structured PLANNING.md with 5 essential sections
+  - Created planning.template.md for consistent project documentation
+  - Integrates with feature gathering workflow for comprehensive requirements management
+  
+- **Sequential File Naming Rule** - Enforces consistent numbering for features and designs
+  - Created sequential-file-naming rule for automatic numbering (###-kebab-case-title)
+  - Applies to features/ directory and designs/ directories
+  - Automatically finds next available number in sequence
+  - Converts titles to kebab-case format
+
+- **Quick Feature Command** - Streamlined feature creation for simple requirements
+  - Created `/quick-feature` command for rapid feature file generation
+  - Uses minimal template (feature-quick.template.md) for straightforward features
+  - Follows sequential naming convention automatically
+  - Integrates with existing design workflow
+
+### Changed
+- **Feature Files** - Reorganized with sequential numbering system
+  - Renamed 15+ feature files to follow ###-kebab-case-title.md format
+  - Improved discoverability and chronological tracking
+  - Maintains consistent ordering in file listings
+
+- **Template System** - Expanded with new templates
+  - Added planning.template.md for project requirements
+  - Added feature-quick.template.md for simple features
+  - Added feature-enhanced.template.md for complex features
+
+### Fixed
+- Template alignment between command output structure and actual template placeholders
+- Command documentation clarity for tool usage (MultiEdit vs Edit)
+
+### Developer Experience
+- Project requirements can now be gathered interactively before feature development
+- External specifications can be parsed and converted to PLANNING.md format
+- Existing PLANNING.md files can be updated while preserving custom sections
+- Sequential numbering prevents naming conflicts and improves organization
+- Quick feature creation reduces overhead for simple requirements
+
+## [0.7.0](https://github.com/arspenn/Bootstrap/commit/9c76130) - 2025-08-30
 
 ### Added
 - **Enhanced Task Management System** - Structured task tracking with metadata
@@ -45,7 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Git commits can reference tasks for better traceability
 - Migration tool (`/task-audit --migrate`) preserves task history
 
-## [0.6.0] - 2025-08-28
+## [0.6.0](https://github.com/arspenn/Bootstrap/commit/f5c0a0f) - 2025-08-28
 
 ### Added
 - **Framework Documentation Separation** - Complete reorganization of documentation
@@ -89,7 +133,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved token efficiency through concise rule structure
 - Comprehensive templates for creating new rules and commands
 
-## [0.5.0] - 2025-07-14
+## [0.5.0](https://github.com/arspenn/Bootstrap/commit/2b44800) - 2025-07-14
 
 ### Added
 - Critical git-safe file operations rule system to prevent accidental data loss
@@ -120,10 +164,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Default file operations now use git-safe commands to prevent accidental deletion of tracked files with uncommitted changes
 
-## [0.4.0] - 2025-07-12
+## [0.4.0](https://github.com/arspenn/Bootstrap/commit/af4a9aa) - 2025-07-12
 
 ### Added
-- Comprehensive changelog management system with semi-automated approach ([7938310](../../commit/7938310))
+- Comprehensive changelog management system with semi-automated approach ([7938310](https://github.com/arspenn/Bootstrap/commit/7938310))
 - Project management rules for changelog updates, format validation, and version management
 - Test file location rule to ensure tests are properly organized
 - Changelog entry template for consistent changelog entries
@@ -138,10 +182,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Template files standardized to use .template extension
 - Git documentation updated with clickable rule definition links
 
-## [0.3.0] - 2025-07-12
+## [0.3.0](https://github.com/arspenn/Bootstrap/commit/7938310) - 2025-07-12
 
 ### Added
-- Claude memory integration using @import mechanism ([fd47d3b](../../commit/fd47d3b))
+- Claude memory integration using @import mechanism ([fd47d3b](https://github.com/arspenn/Bootstrap/commit/fd47d3b))
 - MASTER_IMPORTS.md for centralized rule management
 - Comprehensive token usage benchmarks showing 83.6% reduction
 - Separation of rule instructions from documentation
@@ -151,10 +195,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation moved to separate files in .claude/docs/rules/
 - Token overhead reduced from 5,400 to 900 tokens
 
-## [0.2.0] - 2025-07-12
+## [0.2.0](https://github.com/arspenn/Bootstrap/commit/c9d297b) - 2025-07-12
 
 ### Added
-- Comprehensive Git control rules system ([c9d297b](../../commit/c9d297b))
+- Comprehensive Git control rules system ([c9d297b](https://github.com/arspenn/Bootstrap/commit/c9d297b))
   - git-add-safety: Prevents accidental staging of sensitive files
   - git-commit-format: Enforces Conventional Commits standard
   - git-push-validation: Pre-push safety checks
@@ -169,12 +213,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project scope expanded from simple Git rules to comprehensive AI framework
 
 ### Fixed
-- Security model updated to allow user preference overrides ([ad87b9f](../../commit/ad87b9f))
+- Security model updated to allow user preference overrides ([ad87b9f](https://github.com/arspenn/Bootstrap/commit/ad87b9f))
 
-## [0.1.0] - 2025-07-11
+## [0.1.0](https://github.com/arspenn/Bootstrap/commit/b8964e0) - 2025-07-11
 
 ### Added
-- Initial Bootstrap template structure ([b8964e0](../../commit/b8964e0))
+- Initial Bootstrap template structure ([b8964e0](https://github.com/arspenn/Bootstrap/commit/b8964e0))
 - Design-first workflow with commands:
   - design-feature: Create comprehensive feature designs
   - generate-prp: Generate implementation blueprints
@@ -185,12 +229,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Feature template system
 - Virtual environment support
 - Basic project structure and workflows
-
-[Unreleased]: https://github.com/user/repo/compare/v0.7.0...HEAD
-[0.7.0]: https://github.com/user/repo/compare/v0.6.0...v0.7.0
-[0.6.0]: https://github.com/user/repo/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/user/repo/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/user/repo/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/user/repo/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/user/repo/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/user/repo/releases/tag/v0.1.0

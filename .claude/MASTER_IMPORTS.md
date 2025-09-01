@@ -19,6 +19,7 @@
 @.claude/rules/project/task-management.md
 @.claude/rules/project/task-discovery.md
 @.claude/rules/project/test-file-location.md
+@.claude/rules/project/sequential-file-naming.md
 @.claude/rules/project/design-structure.md
 @.claude/rules/project/planning-context.md
 @.claude/rules/project/code-structure.md
