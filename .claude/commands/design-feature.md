@@ -285,7 +285,7 @@ Interactive software design exploration for feature implementation. This command
 
 Save artifacts in organized structure:
 ```
-designs/
+.sdlc/designs/
 ├── {feature-name}-design.md          # Main design document
 ├── {feature-name}-adrs/              # Architecture Decision Records
 │   ├── ADR-001-{decision-name}.md

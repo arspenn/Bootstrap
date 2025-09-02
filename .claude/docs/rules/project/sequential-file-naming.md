@@ -25,7 +25,7 @@ When implementing in a command:
 ```markdown
 # In command process section:
 1. Apply sequential-file-naming rule
-2. Get next number from features/
+2. Get next number from .sdlc/features/
 3. Convert title to kebab-case
 4. Create file: {number}-{title}.md
 ```
@@ -66,7 +66,7 @@ def to_kebab_case(title):
 
 ### Feature Files
 ```
-features/
+.sdlc/features/
 ├── 001-user-authentication.md
 ├── 002-password-reset.md
 ├── 003-two-factor-auth.md
@@ -75,7 +75,7 @@ features/
 
 ### Design Folders
 ```
-designs/
+.sdlc/designs/
 ├── 001-feature-authentication/
 ├── 002-feature-payment-system/
 ├── 003-refactor-database/

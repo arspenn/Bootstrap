@@ -40,12 +40,12 @@ validations:
 - Optional: `adrs/` folder for Architecture Decision Records  
 - Optional: `diagrams/` folder for visual documentation (Mermaid, images)
   - **MUST be inside the design folder** (e.g., `001-feature-name/diagrams/`)
-  - **NEVER at designs root level** (e.g., NOT `designs/feature-diagrams/`)
+  - **NEVER at designs root level** (e.g., NOT `.sdlc/designs/feature-diagrams/`)
   - Use relative paths in references (e.g., `[diagram](diagrams/file.mmd)`)
 
 ### Example Structure
 ```
-designs/
+.sdlc/designs/
 └── 001-feature-authentication/
     ├── design.md              # Main design document
     ├── adrs/                  # Architecture decisions

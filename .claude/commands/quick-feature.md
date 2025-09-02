@@ -59,11 +59,11 @@ Streamlined feature definition for small changes, bug fixes, and documentation u
 
 ### 5. **Generate Feature File**
    - Apply sequential-file-naming rule from .claude/rules/project/
-   - Get next sequential number from features/
+   - Get next sequential number from .sdlc/features/
    - Convert title to kebab-case
    - Create filename: ###-feature-title.md
    - Apply feature-quick.template.md
-   - Save to features/
+   - Save to .sdlc/features/
 
 ### 6. **Handle Escalation**
    If too complex:
@@ -79,11 +79,11 @@ Streamlined feature definition for small changes, bug fixes, and documentation u
 /quick-feature "Fix login button not responding on mobile"
 > Priority? (High/Medium/Low)
 High
-> Created: features/017-fix-login-button.md
+> Created: .sdlc/features/017-fix-login-button.md
 
 ### With Sufficient Context  
 /quick-feature "As a developer, I want to add debug logging to the API endpoints so that I can troubleshoot issues faster"
-> Created: features/018-add-debug-logging.md
+> Created: .sdlc/features/018-add-debug-logging.md
 
 ### Escalation Case
 /quick-feature "Redesign the entire authentication system"

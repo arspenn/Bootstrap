@@ -9,7 +9,7 @@ Bootstrap provides specialized Claude commands that guide you through software e
 ### `/design-feature`
 Interactive design exploration for feature implementation.
 
-**Usage**: `/design-feature features/FEATURE_NAME.md`
+**Usage**: `/design-feature .sdlc/features/FEATURE_NAME.md`
 
 **Process**:
 - Gathers requirements interactively
@@ -25,7 +25,7 @@ Interactive design exploration for feature implementation.
 ### `/generate-prp`
 Generate a Project Requirements Prompt from a design document.
 
-**Usage**: `/generate-prp designs/feature-name/design.md`
+**Usage**: `/generate-prp .sdlc/designs/feature-name/design.md`
 
 **Process**:
 - Analyzes the design document
@@ -38,7 +38,7 @@ Generate a Project Requirements Prompt from a design document.
 ### `/execute-prp`
 Execute a Project Requirements Prompt with validation.
 
-**Usage**: `/execute-prp PRPs/feature-name.md`
+**Usage**: `/execute-prp .sdlc/PRPs/feature-name.md`
 
 **Process**:
 - Loads the PRP document
@@ -71,7 +71,7 @@ For simple features, you can skip the design phase:
 
 ### design-feature creates:
 ```
-designs/
+.sdlc/designs/
 ├── {number}-feature-{name}/
 │   ├── design.md              # Main design document
 │   ├── adrs/                  # Architecture Decision Records
@@ -81,7 +81,7 @@ designs/
 
 ### generate-prp creates:
 ```
-PRPs/
+.sdlc/PRPs/
 └── {feature-name}.md          # Complete PRP document
 ```
 

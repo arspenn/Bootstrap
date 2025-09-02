@@ -10,7 +10,7 @@ Bootstrap implements a structured workflow that takes you from idea to implement
 Start by creating a feature request using the template:
 
 ```bash
-cp FEATURE_TEMPLATE.md features/FEATURE_YOUR_FEATURE.md
+cp FEATURE_TEMPLATE.md .sdlc/features/FEATURE_YOUR_FEATURE.md
 ```
 
 Include:
@@ -23,7 +23,7 @@ Include:
 For complex features, use the design command:
 
 ```bash
-/design-feature features/FEATURE_YOUR_FEATURE.md
+/design-feature .sdlc/features/FEATURE_YOUR_FEATURE.md
 ```
 
 This produces:
@@ -36,10 +36,10 @@ Transform your feature or design into an executable prompt:
 
 ```bash
 # From design
-/generate-prp designs/001-feature-your-feature/design.md
+/generate-prp .sdlc/designs/001-feature-your-feature/design.md
 
 # Or directly from feature
-/generate-prp features/FEATURE_YOUR_FEATURE.md
+/generate-prp .sdlc/features/FEATURE_YOUR_FEATURE.md
 ```
 
 The PRP contains:
@@ -52,7 +52,7 @@ The PRP contains:
 Execute the PRP to implement the feature:
 
 ```bash
-/execute-prp PRPs/your-feature.md
+/execute-prp .sdlc/PRPs/your-feature.md
 ```
 
 Claude will:
@@ -109,11 +109,11 @@ External Design → PRP → Implementation → Testing → Commit
 The workflow creates files in a structured manner:
 
 ```
-features/           # Feature requests
+.sdlc/features/     # Feature requests
 ├── FEATURE_AUTH.md
 ├── FEATURE_LOGGING.md
 
-designs/            # Design documents
+.sdlc/designs/      # Design documents
 ├── 001-feature-auth/
 │   ├── design.md
 │   └── adrs/
@@ -121,7 +121,7 @@ designs/            # Design documents
 │   ├── design.md
 │   └── adrs/
 
-PRPs/              # Implementation prompts
+.sdlc/PRPs/        # Implementation prompts
 ├── auth.md
 ├── logging.md
 

@@ -437,6 +437,19 @@ Various small improvements and features.
 
 ### Recent Completions
 
+#### TASK-028: Root Directory Cleanup
+**Priority**: [HIGH]  
+**Completed**: 2025-09-02  
+
+Cleaned up project root directory for alpha release preparation.
+
+- Deleted obsolete directories: benchmarks/, docs/, PRPs/, scripts/, tests/
+- Deleted FEATURE_TEMPLATE.md (replaced by framework templates)
+- Added responses/ to .gitignore (informal historical files)
+- Updated config.yaml to remove test directory references
+- Marked test-file-location rule as deprecated
+- Preserved git history for all deletions
+
 #### TASK-027: Template Consolidation and Standardization
 **Priority**: [HIGH]  
 **Completed**: 2025-09-01  

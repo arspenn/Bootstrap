@@ -12,7 +12,7 @@
 
 ### Rule Configuration
 ```yaml
-trigger: "file creation in features/ or designs/"
+trigger: "file creation in .sdlc/features/ or .sdlc/designs/"
 conditions:
   - creating_feature_file: true
   - creating_design_folder: true
@@ -31,7 +31,7 @@ validations:
 - Pattern: `###-kebab-case-title` (e.g., 001-fix-login-button.md)
 - Automatically finds next available number
 - Converts titles to kebab-case (lowercase, hyphens for spaces)
-- Applies to both features/ and designs/ directories
+- Applies to both .sdlc/features/ and .sdlc/designs/ directories
 
 ### Implementation Details
 

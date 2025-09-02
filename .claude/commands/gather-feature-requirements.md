@@ -156,12 +156,12 @@ Interactive requirements gathering to create feature specifications ready for de
 
 ### 7. **Save and Report Success**
    - Apply sequential-file-naming rule from .claude/rules/project/
-   - Get next sequential number from features/
+   - Get next sequential number from .sdlc/features/
    - Convert title to kebab-case
    - Generate filename: {number:03d}-{kebab-case-title}.md
-   - Save to features/{filename}
+   - Save to .sdlc/features/{filename}
    - Display file path
-   - Suggest next command: `/design-feature features/{filename}`
+   - Suggest next command: `/design-feature .sdlc/features/{filename}`
 
 ## Enhanced Output Structure
 
@@ -234,8 +234,8 @@ So that {benefit}
 
 ## Integration with Design-Feature
 
-- **Output to**: features/ directory
-- **Used by**: `/design-feature features/{filename}.md`
+- **Output to**: .sdlc/features/ directory
+- **Used by**: `/design-feature .sdlc/features/{filename}.md`
 - **Format**: Compatible with existing feature templates
 
 ## Quality Validation
@@ -270,8 +270,8 @@ So that we prevent invalid data from corrupting our database
 
 [Continues to gather acceptance criteria...]
 
-Feature requirements saved to: features/input-validation-system.md
-Ready for design phase: /design-feature features/input-validation-system.md
+Feature requirements saved to: .sdlc/features/input-validation-system.md
+Ready for design phase: /design-feature .sdlc/features/input-validation-system.md
 ```
 
 ### With Initial Context
@@ -299,8 +299,8 @@ yes
 
 [Continues if more scenarios needed...]
 
-Feature requirements saved to: features/auto-test-runner.md
-Ready for design phase: /design-feature features/auto-test-runner.md
+Feature requirements saved to: .sdlc/features/auto-test-runner.md
+Ready for design phase: /design-feature .sdlc/features/auto-test-runner.md
 ```
 
 ### With Partial User Story
@@ -318,8 +318,8 @@ The user is "end user"
 > Got it. Let's create acceptance criteria...
 [Continues with scenario gathering...]
 
-Feature requirements saved to: features/oauth-integration.md
-Ready for design phase: /design-feature features/oauth-integration.md
+Feature requirements saved to: .sdlc/features/oauth-integration.md
+Ready for design phase: /design-feature .sdlc/features/oauth-integration.md
 ```
 
 ## Implementation Patterns

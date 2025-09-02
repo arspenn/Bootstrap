@@ -16,7 +16,6 @@ defaults:
   
   # Testing defaults
   test_framework: "pytest"
-  test_directory: "tests/"
   min_test_cases: 3
   coverage_target: 80
   
@@ -76,11 +75,9 @@ tools:
 # Project paths
 paths:
   source_root: "."
-  tests_root: "tests/"
-  docs_root: "docs/"
-  designs_root: "designs/"
-  features_root: "features/"
-  prps_root: "PRPs/"
+  designs_root: ".sdlc/designs/"
+  features_root: ".sdlc/features/"
+  prps_root: ".sdlc/PRPs/"
 
 # Git-specific configuration
 git:

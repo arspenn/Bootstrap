@@ -27,14 +27,14 @@ Automated rules ensure consistency and best practices:
 ### Step 1: Create a Feature Request
 ```bash
 # Use the feature template
-cp FEATURE_TEMPLATE.md features/FEATURE_MY_NEW_FEATURE.md
+cp FEATURE_TEMPLATE.md .sdlc/features/FEATURE_MY_NEW_FEATURE.md
 # Edit to describe your feature
 ```
 
 ### Step 2: Design the Feature
 ```bash
 # Run the design command
-/design-feature features/FEATURE_MY_NEW_FEATURE.md
+/design-feature .sdlc/features/FEATURE_MY_NEW_FEATURE.md
 ```
 This will:
 - Gather requirements interactively
@@ -45,7 +45,7 @@ This will:
 ### Step 3: Generate Implementation Plan
 ```bash
 # Create a PRP (Project Requirements Prompt) from your design
-/generate-prp designs/my-feature/design.md
+/generate-prp .sdlc/designs/my-feature/design.md
 ```
 This creates a detailed PRP with:
 - All necessary context for Claude
@@ -56,7 +56,7 @@ This creates a detailed PRP with:
 ### Step 4: Execute Implementation
 ```bash
 # Execute the PRP
-/execute-prp PRPs/my-feature.md
+/execute-prp .sdlc/PRPs/my-feature.md
 ```
 Claude will:
 - Read the requirements prompt
@@ -75,9 +75,10 @@ Claude will:
 └── templates/       # Framework templates
 
 Project Root/
-├── features/        # Feature requests
-├── designs/         # Design documentation
-├── PRPs/           # Project Requirements Prompts
+├── .sdlc/           # SDLC artifacts
+│   ├── features/    # Feature requests
+│   ├── designs/     # Design documentation
+│   └── PRPs/       # Project Requirements Prompts
 ├── docs/           # Project documentation
 ├── tests/          # Test files
 └── src/            # Source code

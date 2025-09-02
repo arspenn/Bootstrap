@@ -7,7 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.9.0] - 2025-09-01
+## [0.10.0] - 2025-09-02
+
+### Added
+- **SDLC Directory Structure Rule** - Enforces centralized SDLC artifact organization
+  - Created sdlc-directory-structure rule with priority 700
+  - Enforces all SDLC artifacts must be in .sdlc/ hidden directory
+  - Prevents creation of features/, designs/, PRPs/ at root
+  - Comprehensive documentation for new structure
+
+### Changed
+- **SDLC Directory Consolidation** - Moved all SDLC artifacts to .sdlc/ directory
+  - Migrated 131 files from features/, designs/, PRPs/, docs/ADRs/ to .sdlc/
+  - Updated 471 path references across 25+ configuration files
+  - Preserved git history using git mv for all migrations
+  - Created .sdlc/README.md documenting new structure
+  - Updated MASTER_IMPORTS.md to include new enforcement rule
+
+- **Root Directory Cleanup** - Removed obsolete directories and files
+  - Deleted benchmarks/ directory (3 obsolete benchmark files)
+  - Deleted docs/ directory (placeholder documentation, real docs in .claude/docs/)
+  - Deleted PRPs/ directory (empty, migrated to .sdlc/PRPs/)
+  - Deleted scripts/ directory (unused adr-tools.py)
+  - Deleted tests/ directory (10 ineffective test files)
+  - Deleted FEATURE_TEMPLATE.md (replaced by framework templates)
+  - Added responses/ to .gitignore (informal historical files)
+
+### Fixed
+- Updated .claude/config.yaml to remove test directory references
+- Marked test-file-location rule as deprecated pending new test framework
+- Removed unmaintained docs/ADRs/INDEX.md file
+
+### Developer Experience
+- **Cleaner root directory** - Only essential files remain at project root
+- **Centralized SDLC artifacts** - All development documents in one hidden directory
+- **Improved discoverability** - Clear separation between code and SDLC artifacts
+- **Alpha-ready structure** - Repository organized for public release
+- **Enforced consistency** - Automatic prevention of future violations
+
+## [0.9.0] - 2025-09-01 [40e82f1](https://github.com/arspenn/Bootstrap/commit/40e82f1)
 
 ### Added
 - **Template Management Rule** - Enforces template location and naming standards

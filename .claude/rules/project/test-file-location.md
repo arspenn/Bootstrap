@@ -1,5 +1,8 @@
 # Rule: Test File Location
 
+## Status: Deprecated
+**Note**: Tests directory has been removed. This rule will be updated when new testing framework is implemented.
+
 ## Instructions
 
 ### Rule Metadata

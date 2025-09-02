@@ -20,11 +20,10 @@ conditions:
 actions:
   - create_adr: true
   - follow_template: ".claude/templates/adr.template.md"
-  - update_index: "docs/ADRs/INDEX.md"
   - validate_with_tools: "python scripts/adr-tools.py"
 locations:
-  project_wide: "docs/ADRs/"
-  design_specific: "designs/*/adrs/"
+  project_wide: ".sdlc/ADRs/"
+  design_specific: ".sdlc/designs/*/adrs/"
 validations:
   - proper_numbering: true
   - status_valid: ["proposed", "accepted", "deprecated", "superseded"]

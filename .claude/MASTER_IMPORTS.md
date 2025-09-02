@@ -24,6 +24,8 @@
 @.claude/rules/project/planning-context.md
 @.claude/rules/project/code-structure.md
 @.claude/rules/project/adr-management.md
+@.claude/rules/project/template-management.md
+@.claude/rules/project/sdlc-directory-structure.md
 
 ## Python Rules
 @.claude/rules/python/environment-management.md

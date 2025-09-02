@@ -24,6 +24,28 @@ Documenting architectural decisions provides:
 - **Evolution Tracking**: See how the system has changed over time
 - **Decision Accountability**: Clear record of who made decisions and when
 
+## ADR Organization
+
+We use a hybrid approach for organizing ADRs:
+- **Project-wide ADRs** are stored in `.sdlc/ADRs/` and affect the entire framework
+- **Design-specific ADRs** are stored with their features in `.sdlc/designs/*/adrs/` and document feature-specific decisions
+
+### Classification Criteria
+
+**Project-wide ADRs** include decisions that:
+- Affect multiple features or the entire codebase
+- Establish conventions or standards
+- Define technology choices used across features
+- Set security or performance policies
+- Impact the development workflow
+- Define architectural patterns or principles
+
+**Design-specific ADRs** include decisions that:
+- Only affect the specific feature implementation
+- Document trade-offs unique to that feature
+- Explain implementation choices within established conventions
+- Describe optimizations specific to the feature
+
 ## When This Rule Triggers
 
 The rule activates when:
@@ -35,14 +57,14 @@ The rule activates when:
 
 ## ADR Placement Criteria
 
-### Project-Wide ADRs (docs/ADRs/)
+### Project-Wide ADRs (.sdlc/ADRs/)
 Place ADRs here when they:
 - Affect multiple features or the entire codebase
 - Establish conventions or standards
 - Define technology choices or architectural patterns
 - Set security, performance, or workflow policies
 
-### Design-Specific ADRs (designs/*/adrs/)
+### Design-Specific ADRs (.sdlc/designs/*/adrs/)
 Place ADRs here when they:
 - Only affect that specific feature implementation
 - Document trade-offs unique to that feature
@@ -235,8 +257,8 @@ project:
     adr-management: enabled
   config:
     adr_template: ".claude/templates/adr.template.md"
-    project_adr_path: "docs/ADRs/"
-    design_adr_path: "designs/*/adrs/"
+    project_adr_path: ".sdlc/ADRs/"
+    design_adr_path: ".sdlc/designs/*/adrs/"
     index_file: "docs/ADRs/INDEX.md"
     validation_tool: "scripts/adr-tools.py"
 ```
