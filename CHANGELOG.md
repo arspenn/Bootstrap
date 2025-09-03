@@ -7,7 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.10.0] - 2025-09-02
+## [0.11.0] - 2025-09-03
+
+### Added
+- **Update Command** - Unified workflow for staging changes, updating changelog, and creating commits
+  - Created `/update` command for automated version management
+  - Intelligent version bump detection from commit messages and file changes
+  - Automatic CHANGELOG.md generation with categorized entries
+  - Safe file staging in logical batches
+  - Version synchronization between CHANGELOG.md and config.yaml
+  - Complete PRP, design document, and feature specification
+
+- **Insight Capture Command** - Capture and organize discoveries during development
+  - Created `/insight-capture` command for documenting learning moments
+  - Auto-classification into categories (pattern, gotcha, technique, discovery)
+  - Contextual snippet capture with file references
+  - Generated markdown files in .sdlc/insights/ directory
+  - Complete PRP, design document with 3 ADRs, and feature specification
+
+- **Reset Framework Command** - Reset Bootstrap framework to clean state
+  - Created `/reset-framework` command for framework reinitialization  
+  - Preserves user work while resetting framework files
+  - Stash and restore for uncommitted changes
+  - Three reset modes: framework-only, full reset, selective reset
+  - Complete PRP, design document with 3 ADRs, and feature specification
+
+- **Config Default Template** - Template for resetting configuration
+  - Created config-default.template.yaml for framework reset operations
+  - Preserves framework defaults for clean reinitialization
+
+### Changed
+- **TASK.md** - Updated with new command development tasks
+  - Added entries for update command implementation
+  - Modified status tracking for completed features
+
+### Fixed
+- **Version Synchronization** - Updated config.yaml version to match CHANGELOG.md
+  - Fixed version mismatch (was 0.4.0, now 0.11.0)
+  - Ensures consistency across version tracking files
+
+### In Progress
+- **Task Export Command** - Design phase for exporting tasks to external systems
+  - Created initial design document with ADR for natural language context
+  - Feature specification drafted but not yet implemented
+
+## [0.10.0] - 2025-09-02 [7fe95ab](https://github.com/arspenn/Bootstrap/commit/7fe95ab)
 
 ### Added
 - **SDLC Directory Structure Rule** - Enforces centralized SDLC artifact organization

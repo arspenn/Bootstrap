@@ -2,11 +2,11 @@
 # Project-specific settings and rule overrides
 
 project:
-  name: "Bootstrap"
-  description: "Bootstrap template for software design and development with Claude AI"
+  name: "YourProjectName"
+  description: "Your project description"
   language: "python"
   environment: "venv_linux"
-  version: "0.11.0"
+  version: "0.1.0"
 
 defaults:
   # Code structure defaults
@@ -52,8 +52,7 @@ features:
 # Environment variables
 environment:
   PYTHONPATH: "${project_root}"
-  DJANGO_SETTINGS_MODULE: "config.settings.local"  # If Django project
-  FLASK_ENV: "development"  # If Flask project
+  # Add project-specific environment variables here
 
 # Tool configurations
 tools:

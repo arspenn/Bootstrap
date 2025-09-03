@@ -433,6 +433,369 @@ Various small improvements and features.
 - [ ] Finish migration of design diagrams
 - [ ] .claude git rules index file generalization
 
+#### TASK-029: Determine .gitignore Handling in Cleanup Command
+**Priority**: [LOW]  
+**Created**: 2025-09-02  
+**Estimate**: 1d  
+**Status**: pending  
+
+Decide how the project cleanup command should handle .gitignore file.
+
+- [ ] Determine if .gitignore should be reset to a default template
+- [ ] Or if it should be kept as-is with Bootstrap-specific patterns
+- [ ] Consider creating a minimal .gitignore template for new projects
+- [ ] Document decision in cleanup command implementation
+
+### Future Update Command Enhancements
+
+#### Update Command - Task Integration
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Status**: Backlog  
+
+Add integration between /update command and /task-update command to automatically update task status when commits reference tasks.
+
+- [ ] Detect task references in commit messages
+- [ ] Update task status to "in-progress" or "completed"
+- [ ] Add commit references to task history
+- [ ] Link commits to task tracking
+
+#### Update Command - Insight Capture Integration  
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Status**: Backlog  
+
+Add integration between /update command and /insight-capture command to document discoveries during updates.
+
+- [ ] Detect when changes represent discoveries or insights
+- [ ] Prompt to capture insights before committing
+- [ ] Auto-generate insight documentation from changes
+- [ ] Link insights to relevant commits
+
+### Critical Alpha Release Gaps
+
+#### TASK-030: Create Init Command
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 2d  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Create /init command for project initialization.
+
+- [ ] Design command structure and arguments
+- [ ] Implement project initialization logic
+- [ ] Set up Python virtual environment (venv_linux)
+- [ ] Install dependencies from requirements.txt
+- [ ] Initialize git repository if not present
+- [ ] Set up initial configuration
+- [ ] Create project-specific directories
+- [ ] Generate initial PLANNING.md from template
+- [ ] Display welcome message and next steps
+
+#### TASK-031: Create Help Command
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 1d  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Create /help command listing all available commands.
+
+- [ ] Scan .claude/commands/ directory for available commands
+- [ ] Parse command descriptions from markdown files
+- [ ] Display categorized command list (SDLC, Git, Task, Utility)
+- [ ] Show brief description for each command
+- [ ] Include usage examples
+- [ ] Add "use /help <command>" for detailed info option
+
+#### TASK-032: Write Getting Started Guide
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 1d  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Create comprehensive Getting Started guide for first-time users.
+
+- [ ] Write installation instructions
+- [ ] Document system requirements
+- [ ] Create "Your First Project" walkthrough
+- [ ] Explain framework concepts (rules, commands, templates)
+- [ ] Show basic workflow from init to first commit
+- [ ] Add troubleshooting section
+- [ ] Include links to further documentation
+- [ ] Place in .claude/docs/guides/getting-started.md
+
+#### TASK-033: Create Command Reference Documentation
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 2d  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Create comprehensive command reference documentation.
+
+- [ ] Document all 12+ existing commands
+- [ ] Standardize documentation format
+- [ ] Include arguments, options, and examples for each
+- [ ] Add common use cases and workflows
+- [ ] Create command cheat sheet
+- [ ] Add troubleshooting for each command
+- [ ] Place in .claude/docs/reference/commands.md
+
+#### TASK-034: Create Example Project
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 3d  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Create minimal example project demonstrating framework usage.
+
+- [ ] Design simple but realistic project (e.g., todo app)
+- [ ] Implement using Bootstrap framework patterns
+- [ ] Show proper use of commands and rules
+- [ ] Include example PLANNING.md and TASK.md
+- [ ] Demonstrate feature development workflow
+- [ ] Add example tests and documentation
+- [ ] Create README explaining the example
+- [ ] Place in examples/todo-app/
+
+#### TASK-035: Fix README.md
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 1h  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Update README.md to accurately reflect current state.
+
+- [ ] Remove references to non-existent directories (tests/, benchmarks/)
+- [ ] Update project structure diagram
+- [ ] Fix command examples to use actual commands
+- [ ] Update Quick Start section with /init command
+- [ ] Ensure all links work correctly
+- [ ] Update feature list to match current state
+- [ ] Add Alpha Release notes section
+
+#### TASK-036: Add Installation Instructions
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 1d  
+**Status**: pending  
+**Blocks**: Alpha Release
+
+Create clear installation instructions for the framework.
+
+- [ ] Document prerequisites (Python 3.12+, git, etc.)
+- [ ] Provide step-by-step installation process
+- [ ] Include multiple installation methods (git clone, download, etc.)
+- [ ] Add verification steps to confirm installation
+- [ ] Document common installation issues and solutions
+- [ ] Add to both README.md and getting-started.md
+
+### Alpha Quality Improvements
+
+#### TASK-037: Create Status Command
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Estimate**: 2d  
+**Status**: pending  
+
+Implement /status command for framework health checks.
+
+- [ ] Check framework file integrity
+- [ ] Verify all required directories exist
+- [ ] Validate configuration files
+- [ ] Check Python environment status
+- [ ] Verify git repository state
+- [ ] Display framework version
+- [ ] Show loaded rules count
+- [ ] Report any issues found
+- [ ] Suggest fixes for common problems
+
+#### TASK-038: Create Config Command
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Estimate**: 2d  
+**Status**: pending  
+
+Implement /config command for interactive settings management.
+
+- [ ] Display current configuration
+- [ ] Allow editing specific settings
+- [ ] Validate configuration changes
+- [ ] Support configuration presets
+- [ ] Add configuration backup/restore
+- [ ] Include configuration documentation
+- [ ] Support both .claude/config.yaml and project settings
+
+#### TASK-039: Complete Git Merge Control Rules
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 3d  
+**Status**: pending  
+**Note**: This is continuation of TASK-001
+
+Complete implementation of Git merge control rules.
+
+- [ ] Finish git-merge-strategy rule implementation
+- [ ] Complete git-merge-conflict rule
+- [ ] Implement git-merge-validation rule
+- [ ] Add merge scenario tests
+- [ ] Document merge best practices
+- [ ] Integrate with existing git rules
+
+#### TASK-040: Add Troubleshooting Guide
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Estimate**: 1d  
+**Status**: pending  
+
+Create comprehensive troubleshooting guide.
+
+- [ ] Document common error messages and solutions
+- [ ] Add framework diagnostic steps
+- [ ] Include command-specific troubleshooting
+- [ ] Document rule conflict resolution
+- [ ] Add recovery procedures for broken states
+- [ ] Include FAQ section
+- [ ] Place in .claude/docs/guides/troubleshooting.md
+
+#### TASK-041: Create Framework Validation Script
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Estimate**: 1d  
+**Status**: pending  
+
+Create validation script to verify framework integrity.
+
+- [ ] Check all required files exist
+- [ ] Validate markdown syntax in commands
+- [ ] Verify rule format compliance
+- [ ] Check template availability
+- [ ] Validate configuration schema
+- [ ] Test command loading
+- [ ] Generate validation report
+- [ ] Include in /status command
+
+#### TASK-042: Clean Up Configuration File
+**Priority**: [MEDIUM]  
+**Created**: 2025-09-02  
+**Estimate**: 1h  
+**Status**: pending  
+
+Remove framework-specific settings from config.yaml.
+
+- [ ] Remove Django-specific settings
+- [ ] Remove Flask-specific settings
+- [ ] Keep only generic Python project settings
+- [ ] Update config template for new projects
+- [ ] Document configuration options
+- [ ] Add configuration schema validation
+
+### Post-Alpha Enhancements
+
+#### TASK-043: Create Interactive Onboarding Wizard
+**Priority**: [LOW]  
+**Created**: 2025-09-02  
+**Estimate**: 1w  
+**Status**: pending  
+
+Build interactive onboarding experience for new users.
+
+- [ ] Design conversation flow for project setup
+- [ ] Gather project requirements interactively
+- [ ] Generate initial configuration based on responses
+- [ ] Create customized PLANNING.md
+- [ ] Set up project-specific rules
+- [ ] Provide learning resources based on skill level
+- [ ] Include tutorial mode for first-time users
+
+#### TASK-044: Create Multiple Example Projects
+**Priority**: [LOW]  
+**Created**: 2025-09-02  
+**Estimate**: 2w  
+**Status**: pending  
+
+Develop variety of example projects for different use cases.
+
+- [ ] CLI tool example
+- [ ] Web API example
+- [ ] Data analysis project example
+- [ ] Library/package example
+- [ ] Full-stack application example
+- [ ] Each with complete documentation and tests
+
+#### TASK-045: Add Performance Benchmarks
+**Priority**: [LOW]  
+**Created**: 2025-09-02  
+**Estimate**: 1w  
+**Status**: pending  
+
+Create performance benchmarking system.
+
+- [ ] Measure rule loading performance
+- [ ] Track token usage for various operations
+- [ ] Benchmark command execution times
+- [ ] Compare with and without rules enabled
+- [ ] Create performance regression tests
+- [ ] Document optimization opportunities
+
+#### TASK-046: Create Framework Test Suite
+**Priority**: [LOW]  
+**Created**: 2025-09-02  
+**Estimate**: 1w  
+**Status**: pending  
+
+Build comprehensive test suite for framework.
+
+- [ ] Test all commands
+- [ ] Validate rule loading and application
+- [ ] Test template generation
+- [ ] Verify configuration management
+- [ ] Add integration tests for workflows
+- [ ] Create CI/CD pipeline for testing
+- [ ] Document testing approach
+
+#### TASK-047: Create Video Tutorials
+**Priority**: [LOW]  
+**Created**: 2025-09-02  
+**Estimate**: 2w  
+**Status**: pending  
+
+Produce video tutorial series for framework.
+
+- [ ] Getting Started tutorial (10 min)
+- [ ] Command overview walkthrough (15 min)
+- [ ] Feature development workflow (20 min)
+- [ ] Rule customization guide (15 min)
+- [ ] Advanced workflows and tips (20 min)
+- [ ] Troubleshooting common issues (10 min)
+
+### Pre-Alpha Testing Support
+
+#### TASK-048: Create Task Export Command
+**Priority**: [HIGH]  
+**Created**: 2025-09-02  
+**Estimate**: 30m  
+**Status**: pending  
+**Feature**: 023-task-export-command.md
+
+Create command to export individual tasks for knowledge transfer between projects.
+
+- [ ] Create `.claude/commands/task-export.md` command file
+- [ ] Mirror logic from `/task-add` command
+- [ ] Read task from TASK.md by ID
+- [ ] Read project name from `.claude/config.yaml`
+- [ ] Create export directory `exports/tasks/` if not exists
+- [ ] Generate self-contained markdown file with all task details
+- [ ] Include all metadata (Priority, Created, Estimate, Status)
+- [ ] Include subtasks and discovered items
+- [ ] Support optional destination path argument
+- [ ] Test with both current and completed tasks
+
 ## Completed
 
 ### Recent Completions
