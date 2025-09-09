@@ -1,0 +1,53 @@
+# Rule: Architecture Decision Records Management
+
+## Instructions
+
+### Rule Metadata
+- ID: project/adr-management
+- Status: Active
+- Security Level: Low
+- Token Impact: ~35 tokens per operation
+- Priority: 650
+- Dependencies: ["project/design-structure"]
+
+### Rule Configuration
+```yaml
+trigger: ["architectural decision", "design choice", "technology selection"]
+conditions:
+  - significant_decision: true
+  - affects_multiple_components: true
+  - long_term_implications: true
+actions:
+  - create_adr: true
+  - follow_template: ".claude/templates/adr.template.md"
+  - validate_with_tools: "python scripts/adr-tools.py"
+locations:
+  project_wide: ".sdlc/ADRs/"
+  design_specific: ".sdlc/designs/*/adrs/"
+validations:
+  - proper_numbering: true
+  - status_valid: ["proposed", "accepted", "deprecated", "superseded"]
+  - template_compliance: true
+  - index_updated: true
+criteria:
+  project_wide_when:
+    - "Affects multiple features"
+    - "Establishes conventions"
+    - "Defines technology choices"
+    - "Sets policies"
+  design_specific_when:
+    - "Only affects specific feature"
+    - "Documents feature trade-offs"
+    - "Within established conventions"
+```
+
+### ADR Guidelines
+- Use for significant architectural decisions
+- Follow the template strictly
+- Update the index after creation
+- Link related ADRs
+- Use validation tools
+
+---
+
+📚 **Full Documentation**: [.claude/docs/rules/project/adr-management.md](../../docs/rules/project/adr-management.md)

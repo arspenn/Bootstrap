@@ -26,24 +26,30 @@ Bootstrap aims to be the most developer-friendly AI framework by:
 
 ## 🚀 Quick Start
 
-1. Clone and setup:
+1. **Load Claude rules** (CRITICAL - Do this first in every conversation):
+```bash
+/load-rules
+```
+This ensures Claude has all project rules loaded properly. Without this, Claude may not follow project conventions.
+
+2. Clone and setup:
 ```bash
 git clone [your-repo-url] my-project
 cd my-project
 ```
 
-2. Review the Git control rules:
+3. Review the Git control rules:
 ```bash
 cat .claude/rules/git/*.md
 ```
 
-3. Configure your preferences:
+4. Configure your preferences:
 ```bash
 cp .claude/rules/config/user-preferences.template.yaml .claude/rules/config/user-preferences.yaml
 # Edit to enable/disable specific rules
 ```
 
-4. Start developing with AI safety rails in place!
+5. Start developing with AI safety rails in place!
 
 ## 📁 Project Structure
 
@@ -132,7 +138,7 @@ See [ROADMAP.md](ROADMAP.md) for complete development plan.
 
 ## 📚 Documentation
 
-- **For Users**: See `docs/rules/git/` for comprehensive guides
+- **For Users**: See `.claude/docs/rules/git/` for comprehensive guides
 - **For Contributors**: Check `docs/ADRs/` for design decisions
 - **For Developers**: Read `CLAUDE.md` for AI conventions
 

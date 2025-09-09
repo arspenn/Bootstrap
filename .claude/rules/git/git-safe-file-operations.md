@@ -4,9 +4,11 @@
 
 ### Rule Metadata
 - ID: git/git-safe-file-operations
-- Status: Active  
+- Status: Active
 - Security Level: Medium
-- Token Impact: ~75 tokens per file operation
+- Token Impact: ~40 tokens per operation
+- Priority: 650
+- Dependencies: []
 
 ### Rule Configuration
 ```yaml
@@ -15,9 +17,9 @@ conditions:
   - command_starts_with: ["rm", "rmdir", "mv"]
   - not_force_unsafe: true
 actions:
-  - check_git_repository: true
+  - check_git_repository: "{{config.git.require_git_check:true}}"
   - check_path_status: true
-  - block_if_unsafe: true
+  - block_if_unsafe: "{{config.git.block_if_uncommitted:true}}"
   - suggest_alternatives: true
 validations:
   - no_uncommitted_changes: true
@@ -29,12 +31,13 @@ error_handling:
   - no_automatic_fallback: true
 ```
 
-### Safety Checks
-- Check if in git repository
-- Run path-specific git status
-- Block if uncommitted changes detected
-- Suggest git alternatives for tracked files
+### Behavior
+- Checks Git status before file operations
+- Blocks unsafe operations on tracked files
+- Suggests Git alternatives (git rm, git mv)
+- Protects uncommitted changes
+- Shows clear error messages with solutions
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-safe-file-operations.md](../../../docs/rules/git/git-safe-file-operations.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-safe-file-operations.md](../../docs/rules/git/git-safe-file-operations.md)

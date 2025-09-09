@@ -1,0 +1,113 @@
+# Claude Configuration File
+# Project-specific settings and rule overrides
+
+project:
+  name: "Bootstrap"
+  description: "Bootstrap template for software design and development with Claude AI"
+  language: "python"
+  environment: "venv_linux"
+  version: "0.11.0"
+
+defaults:
+  # Code structure defaults
+  max_line_limit: 500
+  preferred_line_limit: 400
+  module_organization: "feature-based"
+  
+  # Testing defaults
+  test_framework: "pytest"
+  min_test_cases: 3
+  coverage_target: 80
+  
+  # Documentation defaults
+  docstring_style: "google"
+  documentation_language: "english"
+  readme_format: "markdown"
+  
+  # Python defaults
+  python_version: "3.12"
+  formatter: "black"
+  linter: "ruff"
+  type_checker: "mypy"
+  package_manager: "pip"
+
+# Rule-specific overrides
+overrides:
+  # Example: Override line limit for specific rule
+  # "project/code-structure":
+  #   max_line_limit: 600
+  
+  # Example: Disable specific rule
+  # "documentation/docstring-format":
+  #   enabled: false
+
+# Feature flags
+features:
+  auto_format_on_save: true
+  auto_lint_on_commit: true
+  strict_type_checking: false
+  require_tests_for_pr: true
+  auto_generate_docstrings: false
+
+# Environment variables
+environment:
+  PYTHONPATH: "${project_root}"
+  DJANGO_SETTINGS_MODULE: "config.settings.local"  # If Django project
+  FLASK_ENV: "development"  # If Flask project
+
+# Tool configurations
+tools:
+  black:
+    line_length: 88
+    target_version: ["py312"]
+  
+  ruff:
+    line_length: 88
+    select: ["E", "F", "W", "C90", "I", "N", "UP", "YTT", "ANN", "S", "BLE", "B", "A", "COM", "C4", "DTZ", "T10", "ISC", "ICN", "INP", "PIE", "T20", "PYI", "PT", "Q", "RET", "SIM", "TID", "ARG", "ERA", "PD", "PGH", "PL", "TRY", "NPY", "RUF"]
+    ignore: ["E501", "ANN101", "ANN102"]
+  
+  mypy:
+    python_version: "3.12"
+    warn_return_any: true
+    warn_unused_configs: true
+    disallow_untyped_defs: false
+
+# Project paths
+paths:
+  source_root: "."
+  designs_root: ".sdlc/designs/"
+  features_root: ".sdlc/features/"
+  prps_root: ".sdlc/PRPs/"
+
+# Git-specific configuration
+git:
+  # Safety settings
+  max_file_size: "10MB"
+  forbidden_patterns: ["*.env", "*.key", "*.pem", "*_secret*", "*password*"]
+  warn_on_binary: true
+  
+  # Branch management
+  default_branch: "main"
+  protected_branches: ["main", "master", "develop", "release/*"]
+  branch_pattern: "^(feature|fix|docs|refactor|test|chore)/.+-[a-f0-9]{7}$"
+  allowed_types: ["feature", "fix", "docs", "refactor", "test", "chore"]
+  
+  # Commit settings
+  commit_format: "conventional"
+  subject_max_length: 250
+  body_line_length: 72
+  commit_types: ["feat", "fix", "docs", "style", "refactor", "test", "chore", "perf", "ci", "build"]
+  require_body_for: ["feat", "fix", "refactor"]
+  
+  # Pull/Push strategies
+  prefer_rebase: true
+  force_push_protection: true
+  require_upstream_check: true
+  default_pull_strategy: "--rebase"
+  forbid_force_push_to: ["main", "master", "develop", "release/*"]
+  
+  # File operations
+  require_git_check: true
+  block_if_uncommitted: true
+  check_working_directory: "clean"
+  conflict_resolution_strategy: "manual"

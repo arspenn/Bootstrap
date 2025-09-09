@@ -1,0 +1,4 @@
+1. We need to develop this reference mechanism fully here. It should be similar to other string literal config files, with the rule having some way of referencing a specific line or data field in the config file. We still want to keep this config file as simple as possible though. So default values for rules should be placed in the rule documentation.
+2. Lets take this opportunity to fix any other issues with these rules. We should not only fix them based on what we have created in our standardization project, but try to fix known issues. If there are any new capabilities that are possible to be added, bring these to my attention.
+3. Assisn the rules priority first based on security, secondary based on impact.
+4. Use the new comprehensive format for these rules. Use the existing rules as a base, but expand them as needed.

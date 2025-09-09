@@ -6,7 +6,9 @@
 - ID: git/git-branch-naming
 - Status: Active
 - Security Level: Low
-- Token Impact: ~30 tokens per branch operation
+- Token Impact: ~25 tokens per operation
+- Priority: 300
+- Dependencies: []
 
 ### Rule Configuration
 ```yaml
@@ -18,16 +20,20 @@ actions:
   - auto_append_base_version: true
   - use_template: ".claude/templates/branch-name.template"
 validations:
-  - pattern: "^(feature|fix|docs|refactor|test|chore)/.+-[a-f0-9]{7}$"
-  - allowed_types: [feature, fix, docs, refactor, test, chore]
+  - pattern: "{{config.git.branch_pattern:^(feature|fix|docs|refactor|test|chore)/.+-[a-f0-9]{7}$}}"
+  - allowed_types: "{{config.git.allowed_types:[feature,fix,docs,refactor,test,chore]}}"
   - lowercase_only: true
   - use_hyphens: true
   - include_base_commit: true
 ```
 
-### Template Reference
-Uses template: `.claude/templates/branch-name.template`
+### Behavior
+- Enforces branch naming conventions
+- Pattern: {type}/{description}-{commit-hash}
+- Requires lowercase with hyphens
+- Auto-appends base commit hash
+- Uses branch name template
 
 ---
 
-📚 **Full Documentation**: [docs/rules/git/git-branch-naming.md](../../../docs/rules/git/git-branch-naming.md)
+📚 **Full Documentation**: [.claude/docs/rules/git/git-branch-naming.md](../../docs/rules/git/git-branch-naming.md)

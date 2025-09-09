@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant U as User
+    participant QF as quick-feature
+    participant CA as Complexity Analyzer
+    participant QG as Question Generator
+    participant FG as File Generator
+    participant EH as Escalation Handler
+    participant GFR as gather-feature-requirements
+    
+    U->>QF: /quick-feature "fix login button"
+    QF->>QF: Parse input
+    QF->>CA: Analyze complexity
+    
+    alt Simple Feature
+        CA-->>QF: Simple (1-2 files)
+        QF->>QG: Generate minimal questions
+        QG-->>U: Ask 1-2 clarifying questions
+        U->>QG: Provide answers
+        QG->>FG: Generate feature file
+        FG->>FG: Use feature-quick.template.md
+        FG-->>U: Created: features/001-fix-login-button.md
+    else Complex Feature
+        CA-->>QF: Complex (3+ files or tests)
+        QF->>EH: Prepare escalation
+        EH->>EH: Generate context summary
+        EH-->>U: Feature too complex, suggesting full requirements
+        EH-->>U: Context: "User wants to fix login button..."
+        U->>GFR: /gather-feature-requirements [context]
+        GFR-->>U: Continue with full process
+    else Sufficient Information
+        CA-->>QF: Input complete
+        QF->>FG: Generate directly
+        FG->>FG: Use feature-quick.template.md
+        FG-->>U: Created: features/001-feature-name.md
+    end

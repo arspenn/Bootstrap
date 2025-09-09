@@ -1,0 +1,6 @@
+1. We should do them individually in a sequential manner to ensure ease of roll-backs. We need to make sure we test each one, and more extensively than the normal testing. This is a critical process. There will be no need for compatibility, there are no other users.
+2. I think we should incorperate the rule priority in the metadata. Unless there is a more efficient way of representing it. Perhaps in the YAML itself?
+3. This version of CLAUDE.md is a verion in the bootstrap process of this project with the goal of continuious improvement and refinement. It is expected that this file will change dramaticaly over time, but we are not at the state where any other projects are reliant on this file. No backwards compatibility is needed.
+4. We need to add dependancies to metadata or the YAML itself. Or perhaps we could use a hierarchical index to indicate dependancies like class inheritance. May need to look at further possibilities of this.
+5. We should probably keep configurations seperate from the rules themselves inorder to make it easy to change the configurations of the rules that have different options. This may need to be a completely seperate process.
+6. Let's leave "AI Behavior Rules" alone for now. That will likely have to be a completely different process, and they seem to work just fine for now.
