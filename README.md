@@ -1,180 +1,167 @@
-# Bootstrap - AI Development Framework
+# Bootstrap - AI-Native SDLC Framework
 
-A comprehensive AI development framework that combines clean architecture with powerful automation. Bootstrap provides modular rules, intelligent commands, and AI-assisted workflows to accelerate software development while maintaining code quality and safety.
+Bootstrap is a comprehensive Software Development Lifecycle framework designed for AI-assisted development. It provides structured workflows, safety controls, and intelligent automation from requirements gathering through deployment.
 
-## 🎯 Vision
+## Key Concept
 
-Bootstrap aims to be the most developer-friendly AI framework by:
-- Starting with essential Git safety rules
-- Building toward comprehensive development automation
-- Maintaining clean, token-efficient architecture
-- Providing granular control over AI behaviors
+Bootstrap uses its own functionality to build itself - every feature is developed using Bootstrap's own rules, templates, and workflows. This self-bootstrapping approach ensures the framework is battle-tested and practical.
 
-## ✨ Current Features
+## 🎯 Core Features
 
-### Git Control Rules
-- **Safe Operations**: Prevent accidental commits of sensitive files
-- **Commit Standards**: Enforce Conventional Commits format
-- **Smart Branching**: Automated branch naming with base tracking
-- **Pull Safety**: Intelligent rebase/merge strategies
-- **Push Validation**: Pre-push checks and validations
+### Requirements & Design
+- **Structured Requirements Gathering** - Commands for project and feature requirements
+- **Design Documentation** - Organized design system with ADR support
+- **Project Planning** - Templates and workflows for SDLC planning
 
-### Memory Integration
-- **Efficient Imports**: 83.6% token reduction through smart loading
-- **Modular Rules**: One rule per file for maximum flexibility
-- **User Preferences**: Enable/disable rules without modifying core
+### Development Safety
+- **Git Control Rules** - Prevent accidental commits, force pushes, and sensitive file exposure
+- **Commit Standards** - Enforced Conventional Commits format
+- **Branch Management** - Automated naming and tracking
+- **File Operation Safety** - Protection against destructive operations
+
+### Task Management
+- **Integrated Tracking** - Tasks linked with git commits
+- **Sequential Numbering** - Organized task and document numbering
+- **Discovery System** - Track new tasks found during development
+
+### Framework Architecture
+- **Modular Rules** - One rule per file for maximum flexibility
+- **Token Optimization** - Achieved 83.6% reduction in context usage
+- **Command System** - High-level commands combining multiple operations
+- **Template Library** - Reusable templates for common patterns
 
 ## 🚀 Quick Start
 
-1. **Load Claude rules** (CRITICAL - Do this first in every conversation):
+### 1. Load Rules and Reset Framework (Required First Step)
 ```bash
 /load-rules
+/reset-framework
 ```
-This ensures Claude has all project rules loaded properly. Without this, Claude may not follow project conventions.
 
-2. Clone and setup:
+### 2. Initialize Your Project
 ```bash
-git clone [your-repo-url] my-project
-cd my-project
+# For new projects
+/gather-project-requirements
+
+# For feature development
+/gather-feature-requirements
+
+# For quick ideas
+/quick-feature "feature description"
 ```
 
-3. Review the Git control rules:
-```bash
-cat .claude/rules/git/*.md
-```
+### 3. Work Safely
+Bootstrap's rules automatically:
+- Block `git add .` and `git add -A`
+- Prevent commits of sensitive files
+- Enforce commit message standards
+- Validate before push operations
 
-4. Configure your preferences:
-```bash
-cp .claude/rules/config/user-preferences.template.yaml .claude/rules/config/user-preferences.yaml
-# Edit to enable/disable specific rules
-```
-
-5. Start developing with AI safety rails in place!
-
-## 📁 Project Structure
+## 📁 Structure
 
 ```
-.
-├── .claude/
-│   ├── MASTER_IMPORTS.md      # Single import point for all rules
-│   ├── rules/
-│   │   ├── git/              # Git control rules
-│   │   │   ├── git-add-safety.md
-│   │   │   ├── git-commit-format.md
-│   │   │   ├── git-push-validation.md
-│   │   │   ├── git-pull-strategy.md
-│   │   │   └── git-branch-naming.md
-│   │   └── config/           # User preferences
-│   └── templates/            # Message templates
-├── docs/
-│   ├── ADRs/                 # Architecture Decision Records
-│   └── rules/                # Comprehensive rule documentation
-├── features/                 # Feature planning documents
-├── designs/                  # Design documents
-├── PRPs/                     # Project Requirement Plans
-├── tests/                    # Test suites
-├── benchmarks/              # Performance benchmarks
-├── CLAUDE.md                # AI behavior configuration
-├── ROADMAP.md              # Development roadmap
-├── CREDITS.md              # Attributions
-└── README.md               # This file
+.claude/
+├── rules/              # Behavioral rules
+│   ├── git/           # Git safety and automation
+│   ├── project/       # Project management
+│   ├── python/        # Language-specific
+│   └── testing/       # Test requirements
+├── commands/          # Claude commands
+├── templates/         # Reusable templates
+└── MASTER_IMPORTS.md  # Central import file
+
+.sdlc/
+├── features/          # Feature specifications
+├── designs/           # Design documents
+├── PRPs/             # Project Requirement Plans
+└── ADRs/             # Architecture Decision Records
 ```
 
-## 🔄 How It Works
+## 🛠️ Current Capabilities
 
-### 1. Rule-Based Architecture
-Each rule is a small, focused file that defines specific behaviors:
-```yaml
-trigger: "git add"
-conditions:
-  - command_contains: ["add", "stage"]
-actions:
-  - forbid_commands: ["git add .", "git add -A"]
-  - require_explicit_paths: true
-```
+### Available Commands
+- `/load-rules` - Load framework configuration
+- `/gather-project-requirements` - Project planning
+- `/gather-feature-requirements` - Feature discovery
+- `/quick-feature` - Rapid feature capture
+- `/design-feature` - Design documentation
+- `/generate-prp` - Implementation planning
+- `/task-add`, `/task-update` - Task management
 
-### 2. Smart Imports
-CLAUDE.md imports all rules through a single master file:
-```
-@.claude/MASTER_IMPORTS.md
-```
+### Active Rules (24+)
+- Git operations safety
+- Commit format enforcement
+- Task-commit integration
+- File operation protection
+- Python environment management
+- Documentation standards
+- Testing requirements
 
-### 3. User Control
-Enable/disable rules without touching core files:
-```yaml
-git:
-  rules:
-    git-add-safety: enabled
-    git-commit-format: disabled  # Turn off if needed
-```
+### Templates
+- Project planning
+- Feature requirements
+- Design documents
+- Task management
+- Commit messages
+- ADR format
 
-## 🗺️ Roadmap Highlights
+## 📊 Metrics
 
-### Phase 2: Git Completion (Current)
-- [ ] Merge control rules
-- [ ] Tag management
-- [ ] Checkpoint system
+- **Token Usage**: <1000 tokens for full rule load
+- **Development Time**: Using Bootstrap for 6+ months
+- **Rules Coverage**: Git, project management, Python, testing
+- **Active Development**: Regular updates and improvements
 
-### Phase 3: Command Layer
-- [ ] High-level command abstractions
-- [ ] Flag inheritance system
-- [ ] Interactive workflows
+## 🗺️ Roadmap
 
-### Phase 4: Core Commands
-- [ ] `/build` - Build automation
-- [ ] `/test` - Testing orchestration  
-- [ ] `/review` - AI code review
-- [ ] `/analyze` - Code metrics
+### Phase 1: Foundation ✅
+- Core rule system
+- Git safety controls
+- Basic documentation
 
-See [ROADMAP.md](ROADMAP.md) for complete development plan.
+### Phase 2: Current Focus
+- Enhanced task management
+- Requirements commands
+- Template standardization
+- Documentation improvements
 
-## 🛠️ Design Philosophy
+### Phase 3: Planned
+- Testing framework
+- Deployment automation
+- Performance monitoring
+- Multi-AI support
 
-1. **One Rule Per File**: Maximum modularity and clarity
-2. **Token Efficiency**: Minimize context usage (current: <1000 tokens)
-3. **User Empowerment**: Immutable rules with preference overrides
-4. **Progressive Enhancement**: Start simple, add power gradually
-5. **Clean Imports**: No complex YAML anchors or references
+See [ROADMAP.md](ROADMAP.md) for detailed plans.
+
+## 💡 Philosophy
+
+1. **Self-Bootstrapping** - Use the framework to build the framework
+2. **Safety First** - Protective defaults with override options
+3. **Token Efficiency** - Minimize context usage
+4. **Progressive Enhancement** - Start simple, add as needed
+5. **Developer Control** - Automation without sacrificing flexibility
 
 ## 📚 Documentation
 
-- **For Users**: See `.claude/docs/rules/git/` for comprehensive guides
-- **For Contributors**: Check `docs/ADRs/` for design decisions
-- **For Developers**: Read `CLAUDE.md` for AI conventions
+- **Project Vision**: [PLANNING.md](PLANNING.md)
+- **Development Timeline**: [ROADMAP.md](ROADMAP.md)
+- **Version History**: [CHANGELOG.md](CHANGELOG.md)
+- **Rule Documentation**: `.claude/docs/rules/`
+- **Command Reference**: `.claude/commands/`
 
 ## 🤝 Contributing
 
-We welcome contributions! Priority areas:
-1. Git merge control rules (active development)
-2. Command abstraction design
-3. Documentation improvements
-4. Test coverage expansion
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## 🙏 Credits
-
-Bootstrap builds on great ideas from:
-- [SuperClaude](https://github.com/NomenAK/SuperClaude) - Command concepts
-- [Conventional Commits](https://www.conventionalcommits.org/) - Commit standards
-- [Cole Medin](https://github.com/coleam00) - AI development patterns
-
-See [CREDITS.md](CREDITS.md) for full attributions.
-
-## 📊 Performance
-
-- **Token Usage**: ~1000 tokens for all Git rules (83.6% reduction)
-- **Import Depth**: 2 levels (well under Claude's 5-hop limit)
-- **Rule Activation**: <10ms per rule check
-
-## 🎯 Why Bootstrap?
-
-Unlike monolithic AI frameworks, Bootstrap provides:
-- **Granular Control**: Enable exactly what you need
-- **Clean Architecture**: Simple patterns that scale
-- **Token Efficiency**: Do more with less context
-- **Future Proof**: Built for expansion without complexity
+Priority areas for contribution:
+- Additional safety rules
+- Command improvements
+- Template additions
+- Documentation updates
+- Test coverage
 
 ## 📄 License
 
-MIT License - See [LICENSE](LICENSE) for details
+MIT License - See [LICENSE](LICENSE)
+
+---
+
+*Bootstrap: Building better AI-assisted development workflows through recursive self-improvement.*

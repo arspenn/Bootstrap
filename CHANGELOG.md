@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1] - 2025-09-09
+
+### Changed
+- **Documentation Updates** - Comprehensive overhaul of project documentation
+  - Updated PLANNING.md with complete SDLC framework vision and objectives
+  - Overhauled README.md to accurately reflect Bootstrap's capabilities as a comprehensive SDLC framework
+  - Updated ROADMAP.md with realistic Q4 2025 timeline and removed outdated references
+
 ## [0.11.0] - 2025-09-03
 
 ### Added

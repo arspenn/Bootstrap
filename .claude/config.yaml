@@ -6,7 +6,7 @@ project:
   description: "Bootstrap template for software design and development with Claude AI"
   language: "python"
   environment: "venv_linux"
-  version: "0.11.0"
+  version: "0.11.1"
 
 defaults:
   # Code structure defaults
