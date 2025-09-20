@@ -61,6 +61,13 @@ Loaded from: .claude/config.yaml
   - Confirm: "{X} lines modified in {file}"
 
 ### Code Modification Safety
+
+- **Requirement for all modifications**
+  - Never replace information in a file with edited text simply because you can reuse a tiny bit of it
+  - Don't remove information in a file just because you want to maintain formatting similarity
+  - ONLY remove or replace information in a file if you need to (is redundant, is depreciated, has been refactored)
+  - This is crutially important in documentation because this may remove important context required for AI agents
+
 - **Requirement for deletion**: 
   - User must use: "delete", "remove", "clean up", or "get rid of"
   - Confirm: "This will delete {target}. Continue?"

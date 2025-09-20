@@ -1,0 +1,42 @@
+```mermaid
+graph TB
+    subgraph "User Interface"
+        CLI[Command Interface]
+    end
+
+    subgraph "4D Command Layer"
+        DETERMINE[/determine<br/>Requirements & Analysis]
+        DESIGN[/design<br/>Architecture & Planning]
+        DEFINE[/define<br/>Specifications & Tasks]
+        DO[/do<br/>Implementation & Validation]
+    end
+
+    subgraph "Embedded Intelligence"
+        PROMPTS[Active Prompts]
+        RULES[Rule Logic]
+        TEMPLATES[Output Templates]
+    end
+
+    subgraph "Deterministic Layer"
+        SCRIPTS[Safety Scripts]
+        VALIDATORS[Validators]
+        HOOKS[Git Hooks]
+    end
+
+    CLI --> DETERMINE
+    CLI --> DESIGN
+    CLI --> DEFINE
+    CLI --> DO
+
+    DETERMINE --> PROMPTS
+    DESIGN --> PROMPTS
+    DEFINE --> PROMPTS
+    DO --> PROMPTS
+
+    RULES --> PROMPTS
+    TEMPLATES --> PROMPTS
+
+    DO --> SCRIPTS
+    DO --> VALIDATORS
+    SCRIPTS --> HOOKS
+```
