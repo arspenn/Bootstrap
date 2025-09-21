@@ -406,82 +406,117 @@ git add "$@"
    - `{artifact-type}.template.md` for primary templates
    - `{artifact-type}-{variant}.template.md` for variants
 
-#### 1B: Command Implementation (Days 3-5)
+#### 1B: Script Implementation (Days 3-5) ✅ COMPLETE
 
-**Key Implementation Insights from Phase 1A:**
+**Implementation Status: COMPLETE**
+All support scripts have been implemented, reviewed, and tested. These scripts serve as tools that AI agents call during command execution, following ADR-011's division between deterministic operations (scripts) and intelligent judgment (AI).
 
-1. **Smart Template Selection**
-   - `/init` must ask or intelligently detect which charter mode (prototype/draft/ratified)
-   - `/define` must detect when to split into phases (>500 LOC or >3 components)
-   - `/design` must auto-split large designs into phases (>5 days or >5 components)
-   - Commands should handle partial template filling with TODO placeholders
+**⚠️ IMPORTANT: These scripts are finalized and should NOT be modified unless a breaking error is discovered.**
 
-2. **Lightweight Task Integration**
-   - TASK.md becomes simple DIP checklist only
-   - Don't over-engineer task tracking in commands
-   - Future comprehensive task system will use database + MCP
-   - Task references in DIPs should be minimal checkboxes
+**Implemented Scripts (15 total):**
 
-3. **Template Validation Levels**
-   - **Prototype mode**: Allow TODO placeholders, minimal validation
-   - **Draft mode**: Warn on missing sections but allow proceed
-   - **Ratified mode**: Strict validation, no missing required fields
-   - Progressive validation based on project maturity
+1. **Structure & Initialization Scripts**
+   - ✅ `init-structure.sh` - Creates .sdlc/ directory structure (requirements, designs, implementation, amendments, ADRs)
+   - ✅ `create-charter.sh` - Creates CHARTER.md from template (prototype/draft/ratified modes)
+   - ✅ `bootstrap-export.sh` - Exports minimal framework for distribution
 
-**Command Implementation Plan:**
+2. **Document Creation Scripts**
+   - ✅ `create-requirements.sh` - Creates sequentially numbered requirements documents
+   - ✅ `create-design-structure.sh` - Creates design folder with templates and subfolders (merged with template init)
+   - ✅ `create-dip-structure.sh` - Creates implementation folder with DIP template
+   - ✅ `create-amendment.sh` - Creates charter amendment documents
 
-1. **Create `/init` command**
-   - Reference `charter-*.template.md` variants
-   - Detect existing project structure
-   - Offer charter mode selection (prototype → draft → ratified)
-   - Create .sdlc/ directory structure
-   - Handle PLANNING.md migration if exists
+3. **Task Management Scripts**
+   - ✅ `extract-tasks-from-dip.sh` - Extracts "### Task N:" headers from DIP to create simple TASK.md
+   - ✅ `create-task-list.sh` - Creates or recreates TASK.md
+   - ✅ `add-tasks.sh` - Adds multiple tasks to TASK.md (accepts multiple arguments)
 
-2. **Create `/determine` command**
-   - Reference `requirements.template.md`
-   - Validate against charter principles
-   - Auto-generate sequential numbering
-   - Support [NEEDS CLARIFICATION] markers
-   - Create lightweight task entries
+4. **Environment & Stack Scripts**
+   - ✅ `detect-stack.sh` - Detects project stacks (Python, SvelteKit, Rust, SurrealDB, etc.)
+   - ✅ `check-environment.sh` - Validates environment setup for detected stacks
 
-3. **Create `/design` command**
-   - Reference `design.template.md` and `design-phase.template.md`
-   - Auto-detect when phasing needed (complexity thresholds)
-   - Create proper subfolder structure with diagrams/
-   - Link to requirements and charter
+5. **Execution & Safety Scripts**
+   - ✅ `run-tests.sh` - Runs tests based on detected stack
+   - ✅ `lint-check.sh` - Runs linters based on detected stack
+   - ✅ `git-safe-add.sh` - Prevents sensitive file commits with dry-run mode and gitignore suggestions
 
-4. **Create `/define` command**
-   - Reference `dip.template.md` and `dip-phase.template.md`
-   - Auto-split large implementations
-   - Generate minimal task checklists
-   - Preserve atomic operation boundaries
-   - Embed test specifications
+**Key Implementation Decisions:**
 
-5. **Create `/do` command**
-   - Reference DIPs for implementation
-   - Update lightweight task checkboxes
-   - Enforce test-first development
-   - No commits/pushes (user control)
-   - Track discovered tasks separately
+1. **POSIX Compliance** - All scripts use `#!/bin/sh` and avoid bash-specific features for maximum portability
+2. **No Project Root Parameters** - Scripts operate in current directory (where AI agent is active)
+3. **Clean Output for Parsing** - Scripts output key information on last line for AI parsing
+4. **Square Bracket Placeholders** - All use `[PLACEHOLDER]` syntax consistent with templates
+5. **Simple TASK.md Structure** - Just a checklist, no complex task management
+6. **Multi-Stack Support** - Handles Python, JavaScript/TypeScript, Rust, Go, Ruby, and more
 
-6. **Build support scripts**
-   - **Structure generation scripts** (reduce AI token usage):
-     - `init-structure.sh`: Create .sdlc/ directories
-     - `create-charter-template.sh`: Generate empty charter file
-     - `create-requirements.sh`: Generate numbered requirements file
-     - `create-design-structure.sh`: Generate design folder with subfolders
-     - `init-design-templates.sh`: Create empty design.md, ADRs, diagrams
-     - `create-dip-structure.sh`: Generate implementation folder
-     - `generate-task-checklist.sh`: Create TASK.md entries
-   - **Detection & validation scripts**:
-     - `detect-stack.sh`: Identify project languages/tools
-     - `check-environment.sh`: Validate stack setup (python venv, node_modules, etc)
-   - **Execution scripts**:
-     - `run-tests.sh`: Execute stack-appropriate test suite
-     - `lint-check.sh`: Run stack-appropriate linters
-   - **Safety scripts**:
-     - `git-safe-add.sh`: Prevent sensitive file commits (.env, .key, etc)
-   - Cross-platform compatibility (POSIX + Python fallbacks)
+**Script Usage by Commands:**
+
+- **`/init`**: Calls `init-structure.sh`, `detect-stack.sh`, `create-charter.sh`
+- **`/determine`**: Calls `create-requirements.sh`
+- **`/design`**: Calls `create-design-structure.sh`
+- **`/define`**: Calls `create-dip-structure.sh`, `extract-tasks-from-dip.sh`
+- **`/do`**: Calls `check-environment.sh`, `run-tests.sh`, `lint-check.sh`, `git-safe-add.sh`
+
+**Next Step: Command Implementation**
+With scripts complete, focus shifts to creating the 5 command files that will orchestrate these scripts.
+
+#### 1C: Command Implementation (Days 6-8)
+
+**Architectural Foundation:**
+Commands implement the core architectural decisions:
+- **ADR-001**: Commands embed rules directly, no separate rule loading
+- **ADR-002**: Follow the 4D+1 workflow (Init → Determine → Design → Define → Do)
+- **ADR-010**: Section-by-section interaction with user feedback loops
+- **ADR-011**: Clear division - scripts handle structure, AI handles content/judgment
+
+**Command File Structure:**
+
+Each command will be a markdown file in `.claude/commands/` that provides:
+1. **Workflow instructions** for the AI agent
+2. **Script invocations** at appropriate points (per ADR-011)
+3. **Section-by-section guidance** (per ADR-010)
+4. **Embedded rules** from existing Bootstrap rules (per ADR-001)
+5. **Decision points** for AI judgment
+
+**Commands to Implement:**
+
+1. **`/init.md`** - Project initialization
+   - Interactive charter mode selection (per ADR-006: prototype/draft/ratified)
+   - Stack detection and confirmation
+   - Script calls: `init-structure.sh`, `detect-stack.sh`, `create-charter.sh`
+   - Section-by-section charter filling with user feedback (ADR-010)
+
+2. **`/determine.md`** - Requirements gathering (ADR-002: D1)
+   - Interactive requirements elicitation
+   - Stakeholder identification
+   - Script calls: `create-requirements.sh`
+   - Progressive requirement building with [NEEDS CLARIFICATION] markers
+
+3. **`/design.md`** - Architecture planning (ADR-002: D2)
+   - Design type and complexity assessment
+   - Alternative exploration (minimum 2)
+   - Script calls: `create-design-structure.sh`
+   - AI judges phasing needs (per ADR-009: >5 days or >5 components)
+
+4. **`/define.md`** - Implementation definition (ADR-002: D3)
+   - DIP generation from design
+   - Task extraction and checklist creation
+   - Script calls: `create-dip-structure.sh`, `extract-tasks-from-dip.sh`
+   - AI determines splitting (per ADR-009: >500 LOC or >3 components)
+
+5. **`/do.md`** - Implementation execution (ADR-002: D4)
+   - Environment validation before starting (per ADR-011: scripts check, AI proceeds)
+   - Test-first development guidance
+   - Script calls: `check-environment.sh`, `run-tests.sh`, `lint-check.sh`, `git-safe-add.sh`
+   - Progress tracking in TASK.md (AI checks off completed items)
+
+**Command Design Principles:**
+- Commands are **workflow guides**, not programs (ADR-011)
+- **Scripts handle structure**, AI handles content (ADR-011)
+- **One question at a time** for user interaction (ADR-010)
+- **Progressive context** - each section builds on previous (ADR-010)
+- **"I don't know" is better than guessing** (Core principle)
+- **Version footers** track generation source (ADR-007)
 
 ### Phase 2: CLAUDE.md & Rule System Evolution (2-3 days)
 
