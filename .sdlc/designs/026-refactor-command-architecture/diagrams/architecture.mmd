@@ -4,7 +4,14 @@ graph TB
         CLI[Command Interface]
     end
 
-    subgraph "4D Command Layer"
+    subgraph "Context Layer (Always Loaded)"
+        CLAUDE[CLAUDE.md<br/>Universal Behaviors Only]
+        MASTER[MASTER_IMPORTS.md<br/>Quick Reference Guide]
+        CLAUDE -->|imports| MASTER
+    end
+
+    subgraph "4D+1 Command Layer"
+        INIT[/init<br/>Project Setup]
         DETERMINE[/determine<br/>Requirements & Analysis]
         DESIGN[/design<br/>Architecture & Planning]
         DEFINE[/define<br/>Specifications & Tasks]
@@ -12,31 +19,55 @@ graph TB
     end
 
     subgraph "Embedded Intelligence"
-        PROMPTS[Active Prompts]
-        RULES[Rule Logic]
-        TEMPLATES[Output Templates]
+        PROMPTS[Command Prompts<br/>with Embedded Rules]
+        TEMPLATES[.template.md Files<br/>External References]
+    end
+
+    subgraph "Rule Reference System (Not Loaded)"
+        direction LR
+        subgraph "Rule Categories"
+            CORE_RULES[Core Rules]
+            GIT_RULES[Git Rules]
+            STACK_RULES[Stack Rules<br/>Python/Node/Rust]
+            PROJECT_RULES[Project Type Rules<br/>API/CLI/WebApp]
+            PATTERN_RULES[Pattern Rules<br/>Testing/Deploy]
+        end
     end
 
     subgraph "Deterministic Layer"
-        SCRIPTS[Safety Scripts]
-        VALIDATORS[Validators]
+        SCRIPTS[Safety Scripts<br/>git-safe-add.sh]
+        VALIDATORS[Validators<br/>Stack Detection]
         HOOKS[Git Hooks]
     end
 
+    CLI --> INIT
     CLI --> DETERMINE
     CLI --> DESIGN
     CLI --> DEFINE
     CLI --> DO
 
+    INIT --> PROMPTS
     DETERMINE --> PROMPTS
     DESIGN --> PROMPTS
     DEFINE --> PROMPTS
     DO --> PROMPTS
 
-    RULES --> PROMPTS
-    TEMPLATES --> PROMPTS
+    PROMPTS -.->|references| TEMPLATES
+    PROMPTS -.->|embeds logic from| CORE_RULES
+    PROMPTS -.->|embeds logic from| GIT_RULES
+    PROMPTS -.->|embeds logic from| STACK_RULES
+    PROMPTS -.->|embeds logic from| PROJECT_RULES
 
     DO --> SCRIPTS
     DO --> VALIDATORS
+    INIT --> VALIDATORS
     SCRIPTS --> HOOKS
+
+    style CLAUDE fill:#e1f5e1
+    style MASTER fill:#e1f5e1
+    style CORE_RULES fill:#ffe6e6
+    style GIT_RULES fill:#ffe6e6
+    style STACK_RULES fill:#ffe6e6
+    style PROJECT_RULES fill:#ffe6e6
+    style PATTERN_RULES fill:#ffe6e6
 ```

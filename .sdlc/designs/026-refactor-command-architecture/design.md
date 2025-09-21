@@ -19,7 +19,7 @@ This refactoring represents a fundamental architectural shift from passive rule-
 
 ### Functional Requirements
 - **Command Execution**: AI agents execute commands with embedded safety and validation
-- **Workflow Clarity**: Clear 4D workflow (Determine → Design → Define → Do)
+- **Workflow Clarity**: Clear 4D+1 workflow (Init → Determine → Design → Define → Do)
 - **Rule Integration**: Rules become actionable prompts within commands, not passive context
 - **Multi-Agent Support**: Commands work across Claude, GPT, Cursor, etc.
 - **Deterministic Safety**: Critical operations use scripts, not AI interpretation
@@ -64,7 +64,7 @@ This refactoring represents a fundamental architectural shift from passive rule-
 
 ### Overview
 
-The refactored Bootstrap uses the **4D Workflow** with embedded intelligence:
+The refactored Bootstrap uses the **4D+1 Workflow** with embedded intelligence:
 
 ```
 /init (once) → /determine → /design → /define → /do
@@ -83,11 +83,28 @@ Each command contains:
 
 See [Architecture Diagram](diagrams/architecture.mmd) for the complete system architecture.
 
-The architecture consists of four main layers:
+The architecture consists of five main layers:
 1. **User Interface** - Command line interface for user interaction
-2. **4D Command Layer** - The four primary workflow commands
-3. **Embedded Intelligence** - Rules and templates embedded into prompts
-4. **Deterministic Layer** - Scripts and validators for guaranteed safety
+2. **Context Layer** - CLAUDE.md and MASTER_IMPORTS.md (always loaded)
+3. **4D+1 Command Layer** - The five primary workflow commands (init, determine, design, define, do)
+4. **Embedded Intelligence** - Command prompts with embedded rules and template references
+5. **Deterministic Layer** - Scripts and validators for guaranteed safety
+
+### Command Philosophy
+
+Commands are **detailed workflow instructions** for AI agents, not executable programs. Each command:
+- Provides human-level instructions (not machine code)
+- Emphasizes **interactive, conversational execution**
+- Uses **decision hierarchy**: User instructions → AI judgment → Ask for clarity
+- Leverages scripts for structure generation to reduce token usage
+- Implements **section-by-section workflows** for granular feedback
+
+Key principles:
+1. **Scripts handle structure**: Create files, directories, boilerplate
+2. **AI handles content**: Fill templates, make decisions, interact with user
+3. **One question at a time**: Maintain conversational flow
+4. **Progressive context**: Each section informed by previous interactions
+5. **"I don't know" is better than guessing**
 
 ### Command Structure
 
@@ -98,25 +115,30 @@ New command - not a direct merge but inspired by:
 
 ```yaml
 Core Function: One-time project setup and charter creation
-Embedded Logic:
-  - Create .sdlc/ directory structure
-  - Initialize CHARTER.md with appropriate mode
-  - Detect project stack (Python/Node/etc)
-  - Setup initial TASK.md if needed
-  - Migrate existing PLANNING.md if present
-Charter Creation:
-  - Prototype mode: Minimal, allows empty sections
-  - Draft mode: All sections, but changeable
-  - Ratified mode: Only via explicit upgrade
+Interactive Process:
+  - Ask user: "What charter mode? (prototype/draft/ratified)"
+  - Ask user: "Project name and description?"
+  - Detect stack automatically, confirm with user
+  - Migrate PLANNING.md if exists (ask permission)
+Section-by-Section:
+  - Create structure via script first
+  - Fill charter sections one at a time
+  - Get user feedback after each section
+  - Apply learnings to subsequent sections
+Scripts:
+  - init-structure.sh: Creates .sdlc/ directories
+  - detect-stack.sh: Identifies languages/tools
+  - create-charter-template.sh: Generates empty charter
+Embedded Rules:
+  - Progressive validation based on mode
+  - File safety checks before operations
+  - Git awareness for existing repos
 Outputs:
-  - CHARTER.md (with selected mode)
+  - CHARTER.md in root (for visibility)
   - .sdlc/ directory structure
   - Initial configuration files
 Templates:
   - charter-{mode}.template.md (prototype/draft/ratified)
-Scripts:
-  - detect-stack.sh (identifies languages/tools)
-  - init-structure.sh (creates directories)
 Note: Idempotent - safe to run multiple times
 ```
 
@@ -130,13 +152,28 @@ Core Function: Establish what needs to be built and why
 Prerequisites:
   - CHARTER.md must exist (run /init first)
   - Validates against charter principles
+Interactive Process:
+  - Ask: "What feature/capability are we gathering requirements for?"
+  - Ask: "Who are the stakeholders?" (one at a time if multiple)
+  - Ask: "What problem does this solve?"
+  - Build requirements through conversation
+Section-by-Section:
+  - Script creates structure: requirements file with empty sections
+  - Fill Executive Summary → get feedback
+  - Fill User Scenarios → get feedback
+  - Fill Functional Requirements → get feedback
+  - Continue through all sections
+Scripts:
+  - create-requirements.sh: Generate numbered file structure with empty template
 Embedded Rules:
-  - Read CHARTER.md for context and constraints
   - Sequential numbering (###-kebab-case pattern)
-  - Stakeholder identification
-  - Success criteria definition
-  - Risk assessment
-  - Create/update TASK.md entries
+  - Use [NEEDS CLARIFICATION] markers liberally
+  - Stakeholder sign-off tracking
+  - Success criteria must be measurable
+Question Tracking:
+  - Add all uncertainties to TodoWrite
+  - Ask one at a time
+  - User answers may eliminate later questions
 Output: .sdlc/requirements/{number}-{name}.md
 Templates:
   - requirements.template.md
@@ -153,24 +190,38 @@ Merges:
 
 ```yaml
 Core Function: Decide how to build it
+Interactive Process:
+  - Ask: "What are we designing? (feature/system/refactor)"
+  - Ask: "What's the estimated complexity?"
+  - AI judges if phasing needed (>5 days or >5 components)
+  - Explore alternatives through conversation
+Section-by-Section:
+  - Script creates: design folder, empty templates, ADR stubs
+  - Fill Executive Summary → get feedback
+  - Fill Requirements Analysis → get feedback
+  - Explore 2+ alternatives → discuss trade-offs
+  - Fill chosen approach details → get feedback
+  - Create diagrams as needed → review
+Scripts:
+  - create-design-structure.sh: Generate numbered folder with templates
+  - init-design-templates.sh: Create design.md, ADRs, diagram stubs
 Embedded Rules:
   - Sequential numbering (###-{type}-{name}/)
-  - Always create subfolder structure:
-    - design.md (main design document)
-    - phase-{n}-{name}.md (for large designs)
-    - adrs/ (design-specific ADRs)
-    - diagrams/ (visual documentation)
-  - Alternative evaluation (min 2 options)
-  - Integration point identification
-  - Performance/security considerations
-  - Automatic phase separation (>5 days or >5 components)
+  - Always evaluate minimum 2 alternatives
+  - Performance/security addressed explicitly
+  - AI suggests phasing for complex designs
+  - Diagrams in subfolder, not root
+Decision Points:
+  - User can override phasing suggestions
+  - User picks from alternatives or suggests new ones
+  - User approves final design before proceeding
 Output: .sdlc/designs/{number}-{type}-{name}/design.md
 Templates:
   - design.template.md
   - design-phase.template.md (for phased work)
   - adr.template.md (for ADRs)
+  - diagram-*.template.md (for visuals)
 Integration: Validates against CHARTER.md principles
-Note: Large designs automatically split into phases
 ```
 
 #### /define (Implementation Definition)
@@ -181,24 +232,39 @@ Merges:
 
 ```yaml
 Core Function: Generate implementation prompts (DIPs)
+Interactive Process:
+  - Review design with user
+  - AI analyzes complexity and suggests splitting approach
+  - Discuss natural boundaries for splitting
+  - Confirm implementation approach
+Section-by-Section:
+  - Script creates: implementation folder, DIP templates
+  - Fill Context & Constraints → review
+  - Define implementation tasks → get feedback
+  - Add test specifications → review
+  - Create validation requirements → confirm
+  - Generate TASK.md checklist → review
+Scripts:
+  - create-dip-structure.sh: Generate implementation folder
+  - generate-task-checklist.sh: Create TASK.md entries
 Embedded Rules:
-  - Creates DIP(s) from design (single or multiple)
-  - Always create subfolder structure
-  - Automatic separation when >500 LOC or >3 components
-  - Preserves atomicity for transactional operations
-  - Lightweight task checklist for progress tracking
-  - Git commit integration requirements
-  - Test specifications embedded in prompts
-  - Self-contained implementation instructions
+  - AI judges when to split (>500 LOC or >3 components)
+  - Preserve atomicity for transactions
+  - Test specifications required
+  - Git commit guidelines included
+  - Self-contained instructions
+Key Principle:
+  - DIP should be executable by another AI with minimal context
+  - But still allow for questions during execution
 Outputs:
   - Always: .sdlc/implementation/{number}-{name}/
   - Single DIP: dip.md
   - Multiple DIPs: {letter}-{component}-dip.md
-  - TASK.md updates (lightweight checklist per DIP)
+  - TASK.md updates (lightweight checklist)
 Templates:
-  - dip.template.md (for implementation prompts)
-Trade-off: Dual tracking for resumability vs token efficiency
-Strategy: Split at natural boundaries, maintain atomic operations
+  - dip.template.md (single phase)
+  - dip-phase.template.md (multi phase)
+Note: This is the least interactive command since DIPs are meant to be comprehensive
 ```
 
 #### /do (Implementation)
@@ -208,21 +274,39 @@ Merges:
 
 ```yaml
 Core Function: Execute the DIP to build the solution
-Embedded Rules:
-  - Test-first development (write tests, then code)
-  - Code style enforcement (stack-specific linters)
-  - Stack environment checks (detected at init)
-  - File safety (no overwriting without reading first)
-  - Progress tracking in TASK.md
+Interactive Process:
+  - Read DIP with user
+  - Confirm understanding of requirements
+  - Ask clarification if DIP has ambiguities
+  - Report progress at each major step
+  - Ask for help when blocked
+Execution Flow:
+  - Implement each DIP task sequentially
+  - Write tests first (if applicable)
+  - Implement code to pass tests
+  - Run validation after each component
+  - Update TASK.md checkboxes as completed
+  - Track discovered issues/tasks
 Scripts:
-  - check-environment.sh (validates stack setup)
-  - run-tests.sh (executes stack test runner)
-  - lint-check.sh (runs stack linters)
+  - check-environment.sh: Validate stack setup
+  - run-tests.sh: Execute test suite
+  - lint-check.sh: Run code quality checks
+Embedded Rules:
+  - Test-first development preferred
+  - Read files before modification
+  - Code style per stack standards
+  - Progress updates in TASK.md
+  - No automatic commits/pushes
+Interaction Points:
+  - When tests fail: Ask for guidance
+  - When requirements unclear: Seek clarification
+  - When discovering new tasks: Confirm with user
+  - When blocked: Explain issue, ask for help
 Integration:
   - Updates TASK.md checkboxes as tasks complete
   - Adds discovered tasks to separate section
   - NO commits, NO pushes, NO changelog updates
-Note: Review and commit are separate commands for user control
+Note: User maintains control over git operations
 ```
 
 ### Future Supporting Commands
@@ -296,34 +380,108 @@ git add "$@"
 
 ### Phase 1: Command Creation (Week 1)
 
-#### 1A: Template Refresh (Days 1-2)
-1. **Audit existing templates**
-   - Review all in `.claude/templates/`
-   - Identify gaps for new commands
-   - Note spec-kit features to incorporate
+#### 1A: Template Refresh (Days 1-2) ✅ COMPLETE
+1. **Audit existing templates** ✅
+   - Reviewed all in `.claude/templates/`
+   - Identified gaps for new commands
+   - Incorporated spec-kit clarity
 
-2. **Create new templates**
-   - `charter.template.md` (3 modes: prototype/draft/ratified)
-   - `requirements.template.md` (merge Bootstrap + spec-kit formats)
-   - `dip.template.md` (Design Implementation Prompt)
+2. **Create new templates** ✅
+   - `charter-prototype.template.md` (minimal for rapid prototyping)
+   - `charter-draft.template.md` (comprehensive for active development)
+   - `charter-ratified.template.md` (formal with amendment process)
    - `amendment.template.md` (for charter changes)
+   - `requirements.template.md` (comprehensive requirements gathering)
+   - `dip.template.md` (single-phase implementation prompt)
+   - `dip-phase.template.md` (multi-phase implementation)
+   - `design-phase.template.md` (for phased design work)
+   - `diagram-*.template.md` (architecture, flow, sequence, ER diagrams)
 
-3. **Update existing templates**
-   - Add version footers to all
-   - Incorporate spec-kit's clarity
-   - Ensure consistent structure
+3. **Update existing templates** ✅
+   - Added version footers to all
+   - Updated adr, task, command, rule templates to new comprehensive style
+   - Trimmed redundancy while keeping essential information
 
-4. **Template naming convention**
+4. **Template naming convention** ✅
    - `{artifact-type}.template.md` for primary templates
    - `{artifact-type}-{variant}.template.md` for variants
 
 #### 1B: Command Implementation (Days 3-5)
-1. Create `/init` command referencing `charter.template.md`
-2. Create `/determine` command referencing `requirements.template.md`
-3. Create `/design` command referencing existing design templates
-4. Create `/define` command referencing `dip.template.md`
-5. Create `/do` command with embedded safety logic
-6. Build deterministic safety scripts
+
+**Key Implementation Insights from Phase 1A:**
+
+1. **Smart Template Selection**
+   - `/init` must ask or intelligently detect which charter mode (prototype/draft/ratified)
+   - `/define` must detect when to split into phases (>500 LOC or >3 components)
+   - `/design` must auto-split large designs into phases (>5 days or >5 components)
+   - Commands should handle partial template filling with TODO placeholders
+
+2. **Lightweight Task Integration**
+   - TASK.md becomes simple DIP checklist only
+   - Don't over-engineer task tracking in commands
+   - Future comprehensive task system will use database + MCP
+   - Task references in DIPs should be minimal checkboxes
+
+3. **Template Validation Levels**
+   - **Prototype mode**: Allow TODO placeholders, minimal validation
+   - **Draft mode**: Warn on missing sections but allow proceed
+   - **Ratified mode**: Strict validation, no missing required fields
+   - Progressive validation based on project maturity
+
+**Command Implementation Plan:**
+
+1. **Create `/init` command**
+   - Reference `charter-*.template.md` variants
+   - Detect existing project structure
+   - Offer charter mode selection (prototype → draft → ratified)
+   - Create .sdlc/ directory structure
+   - Handle PLANNING.md migration if exists
+
+2. **Create `/determine` command**
+   - Reference `requirements.template.md`
+   - Validate against charter principles
+   - Auto-generate sequential numbering
+   - Support [NEEDS CLARIFICATION] markers
+   - Create lightweight task entries
+
+3. **Create `/design` command**
+   - Reference `design.template.md` and `design-phase.template.md`
+   - Auto-detect when phasing needed (complexity thresholds)
+   - Create proper subfolder structure with diagrams/
+   - Link to requirements and charter
+
+4. **Create `/define` command**
+   - Reference `dip.template.md` and `dip-phase.template.md`
+   - Auto-split large implementations
+   - Generate minimal task checklists
+   - Preserve atomic operation boundaries
+   - Embed test specifications
+
+5. **Create `/do` command**
+   - Reference DIPs for implementation
+   - Update lightweight task checkboxes
+   - Enforce test-first development
+   - No commits/pushes (user control)
+   - Track discovered tasks separately
+
+6. **Build support scripts**
+   - **Structure generation scripts** (reduce AI token usage):
+     - `init-structure.sh`: Create .sdlc/ directories
+     - `create-charter-template.sh`: Generate empty charter file
+     - `create-requirements.sh`: Generate numbered requirements file
+     - `create-design-structure.sh`: Generate design folder with subfolders
+     - `init-design-templates.sh`: Create empty design.md, ADRs, diagrams
+     - `create-dip-structure.sh`: Generate implementation folder
+     - `generate-task-checklist.sh`: Create TASK.md entries
+   - **Detection & validation scripts**:
+     - `detect-stack.sh`: Identify project languages/tools
+     - `check-environment.sh`: Validate stack setup (python venv, node_modules, etc)
+   - **Execution scripts**:
+     - `run-tests.sh`: Execute stack-appropriate test suite
+     - `lint-check.sh`: Run stack-appropriate linters
+   - **Safety scripts**:
+     - `git-safe-add.sh`: Prevent sensitive file commits (.env, .key, etc)
+   - Cross-platform compatibility (POSIX + Python fallbacks)
 
 ### Phase 2: CLAUDE.md & Rule System Evolution (2-3 days)
 
@@ -521,6 +679,8 @@ The following Architecture Decision Records document the key design choices:
 - [ADR-007: Command Versioning](adrs/ADR-007-command-versioning.md) - Version footers track what generated each artifact without retroactive updates
 - [ADR-008: Template Architecture](adrs/ADR-008-template-architecture.md) - External templates referenced by commands for maintainability
 - [ADR-009: Automatic Phase Separation](adrs/ADR-009-automatic-phase-separation.md) - Smart splitting of large designs and DIPs into manageable chunks
+- [ADR-010: Section-by-Section Interaction](adrs/ADR-010-section-by-section-interaction.md) - Granular feedback loops for document creation and AI learning
+- [ADR-011: Script vs AI Responsibilities](adrs/ADR-011-script-vs-ai-responsibilities.md) - Clear boundaries between deterministic scripts and AI agent judgment
 
 ## Implementation Strategy
 
@@ -543,6 +703,6 @@ Since Bootstrap is still in pre-alpha (v0.x.x), this is an internal refactoring:
 
 This refactoring solves the fundamental context problem while preserving the framework's valuable safety and structure innovations. By embedding intelligence directly into commands and using deterministic scripts for critical operations, we achieve spec-kit's simplicity with Bootstrap's power.
 
-The 4D workflow (Determine → Design → Define → Do) provides a memorable, logical progression that guides users through the entire SDLC while maintaining flexibility for different project styles.
+The 4D+1 workflow (Init → Determine → Design → Define → Do) provides a memorable, logical progression that guides users through the entire SDLC while maintaining flexibility for different project styles.
 
 This refactoring represents evolution, not revolution - preserving what works while fixing what doesn't. As a pre-alpha framework, Bootstrap can make these fundamental improvements without disrupting existing users, using itself as the test case for the new architecture.

@@ -1,66 +1,128 @@
-# Framework Templates
+# Bootstrap Templates
 
-This directory contains templates for creating Bootstrap framework components.
+This directory contains templates for the Bootstrap framework's 4D+1 command architecture and supporting components.
 
-## Available Templates
+## Template Categories
 
-### rule.template.md
-Template for creating new rules in `.claude/rules/`.
+### 🎯 Core Workflow Templates (4D+1)
 
-**Usage**: Copy and fill in the placeholders to create a new rule.
+#### Charter Templates (`/init` command)
+- **charter.template.md** - Base template with all sections
+- **charter-prototype.template.md** - Minimal for rapid prototyping
+- **charter-draft.template.md** - Full charter, changeable during development
+- **charter-ratified.template.md** - Formal charter with amendment process
 
-### command.template.md
-Template for creating new Claude commands in `.claude/commands/`.
+#### Requirements Template (`/determine` command)
+- **requirements.template.md** - Comprehensive requirements gathering
 
-**Usage**: Define new commands following this structure.
+#### Design Templates (`/design` command)
+- **design.template.md** - Standard design document
+- **design-phase.template.md** - For breaking large designs into phases
 
-### rule-doc.template.md
-Template for creating rule documentation in `.claude/docs/rules/`.
+#### Implementation Templates (`/define` command)
+- **dip.template.md** - Design Implementation Prompt (single-phase)
+- **dip-phase.template.md** - Design Implementation Prompt (multi-phase)
 
-**Usage**: Create comprehensive documentation for each rule.
+### 📊 Diagram Templates
+- **diagram-architecture.template.md** - System architecture diagrams (Mermaid)
+- **diagram-flow.template.md** - Process and data flow diagrams
+- **diagram-sequence.template.md** - Interaction sequence diagrams
+- **diagram-entity-relationship.template.md** - Database ER diagrams
 
-### config-section.template.yaml
-Template for adding new configuration sections to `.claude/config.yaml`.
+### 🔧 Supporting Templates
+- **amendment.template.md** - Charter amendment proposals
+- **adr.template.md** - Architecture Decision Records
+- **task.template.md** - Task management entries
+- **task-discovered.template.md** - Tasks discovered during implementation
+- **task-commit.template.md** - Task-focused commit messages
 
-**Usage**: Add new configuration categories following this pattern.
+### 🏗️ Framework Templates
+- **command.template.md** - Creating new Bootstrap commands
+- **rule.template.md** - Creating new rules
+- **rule-doc.template.md** - Rule documentation
+- **README.template.md** - Folder structure documentation
 
-## Using Templates
+### 📁 Legacy Templates (Being Phased Out)
+- **feature-design.template.md** - Old design format
+- **feature-enhanced.template.md** - Old requirements format
+- **feature-quick.template.md** - Quick feature documentation
+- **planning.template.md** - Project planning
+- **prp-base.template.md** - Base PRP template
 
-1. **Copy the appropriate template**
-   ```bash
-   cp .claude/templates/rule.template.md .claude/rules/category/new-rule.md
-   ```
+### ⚙️ Configuration Templates
+- **branch-name.template** - Git branch naming
+- **changelog-entry.template** - Changelog entries
+- **commit-message.template** - Commit message format
+- **config-default.template.yaml** - Default configuration
+- **config-section.template.yaml** - Configuration sections
 
-2. **Replace placeholders**
-   - Replace `{placeholder}` with actual values
-   - Remove optional sections if not needed
-   - Ensure all links and references are correct
+## Template Usage
 
-3. **Follow the patterns**
-   - Maintain consistent formatting
-   - Use appropriate metadata values
-   - Include all required sections
+### For New Projects (`/init`)
+1. Choose charter variant based on project maturity:
+   - **Prototype**: Exploring ideas, POCs
+   - **Draft**: Active development, requirements changing
+   - **Ratified**: Stable project, formal governance
 
-## Template Placeholders
+2. Fill placeholders marked with `[PLACEHOLDER_NAME]`
 
-Common placeholders used:
-- `{Rule Name}` - Human-readable rule name
-- `{rule-name}` - Kebab-case rule identifier
-- `{category}` - Rule category (git, project, testing, etc.)
-- `{Priority}` - Rule priority (0-1000)
-- `{default_value}` - Default configuration value
+3. Version starts at 0.0.1 (prototype), 0.1.0 (draft), or 1.0.0 (ratified)
+
+### For Requirements (`/determine`)
+Use **requirements.template.md** to capture:
+- User scenarios and acceptance criteria
+- Functional and non-functional requirements
+- Scope boundaries and dependencies
+- Success metrics
+
+### For Design (`/design`)
+- Use **design.template.md** for standard features
+- Use **design-phase.template.md** when effort >5 days
+- Create diagrams using the diagram templates
+
+### For Implementation (`/define`)
+- Use **dip.template.md** for single-phase work
+- Use **dip-phase.template.md** for complex multi-phase features
+- DIPs are self-contained prompts for AI agents
+
+## Template Standards
+
+### Placeholder Convention
+All templates use `[PLACEHOLDER_NAME]` format for consistency.
+
+### Version Footers
+All templates include:
+```
+---
+*Generated by Bootstrap [COMMAND] v[VERSION] on [DATE]*
+```
+
+### Metadata Headers
+Templates include YAML frontmatter when needed:
+```yaml
+---
+name: "Template Name"
+description: "Template purpose"
+---
+```
 
 ## Creating New Templates
 
-When creating new templates:
-1. Follow existing template patterns
-2. Include clear placeholders with descriptive names
-3. Add usage instructions in comments
-4. Update this README with the new template
+When creating templates:
+1. Use `[BRACKETS]` for all placeholders
+2. Include clear sections with guidance
+3. Add version footer at the end
+4. Update this index
+5. Consider if it fits the 4D+1 workflow
 
-## Best Practices
+## Template Selection Logic
 
-- Keep templates comprehensive but not overwhelming
-- Include examples where helpful
-- Maintain consistency with existing components
-- Document all required and optional sections
+AI agents will select templates based on context:
+- Project mode determines charter variant
+- Feature complexity determines design approach
+- Implementation size determines DIP type
+
+No hardcoded selection logic needed - agents choose based on the situation.
+
+---
+*Updated for Bootstrap v0.12.0 - 4D+1 Command Architecture*
