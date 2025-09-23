@@ -1,0 +1,75 @@
+{
+  "$schema": "https://docs.claude.com/schemas/hooks.json",
+  "description": "Bootstrap Framework session logging hooks - References: https://docs.claude.com/en/docs/claude-code/hooks-guide",
+  "hooks": {
+    "SessionStart": [
+      {
+        "description": "Creates session folder and initializes metadata on conversation start",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=.sdlc/logs/session-$(date +%Y%m%d-%H%M%S) && mkdir -p $SESSION_DIR && echo $CLAUDE_SESSION_ID > .sdlc/logs/current-session.txt && echo $SESSION_DIR > .sdlc/logs/current-session-dir.txt && echo '{\\\"session_id\\\": \\\"'$CLAUDE_SESSION_ID'\\\", \\\"started\\\": \\\"'$(date -Iseconds)'\\\", \\\"model\\\": \\\"'$CLAUDE_MODEL'\\\", \\\"cwd\\\": \\\"'$CLAUDE_CWD'\\\"}' > $SESSION_DIR/session-metadata.json\""
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "description": "Logs all user inputs to console.log",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] USER:' >> $SESSION_DIR/console.log && echo '$CLAUDE_USER_PROMPT' | sed 's/^/  /' >> $SESSION_DIR/console.log\""
+      }
+    ],
+    "PreToolUse": [
+      {
+        "description": "Logs tool invocations with parameters",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] TOOL: $CLAUDE_TOOL_NAME' >> $SESSION_DIR/tools.log && echo '$CLAUDE_TOOL_INPUT' | jq -r '.' 2>/dev/null | sed 's/^/  /' >> $SESSION_DIR/tools.log\""
+      }
+    ],
+    "PostToolUse": [
+      {
+        "description": "Logs tool execution results",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] RESULT: $CLAUDE_TOOL_NAME completed' >> $SESSION_DIR/tools.log && if [ -n \\\"$CLAUDE_TOOL_OUTPUT\\\" ]; then echo '$CLAUDE_TOOL_OUTPUT' | head -100 | sed 's/^/  /' >> $SESSION_DIR/tools.log; fi\""
+      }
+    ],
+    "PreCompact": [
+      {
+        "description": "Saves state before compaction for potential resumption",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '{\\\"compaction_time\\\": \\\"'$(date -Iseconds)'\\\", \\\"conversation_turns\\\": '$CLAUDE_CONVERSATION_TURNS', \\\"context_usage\\\": \\\"$CLAUDE_CONTEXT_USAGE\\\"}' > $SESSION_DIR/compaction-state.json && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] COMPACTION: Context window compacted' >> $SESSION_DIR/console.log\""
+      }
+    ],
+    "SessionEnd": [
+      {
+        "description": "Marks session completion",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] SESSION END' >> $SESSION_DIR/console.log && echo '{\\\"ended\\\": \\\"'$(date -Iseconds)'\\\"}' >> $SESSION_DIR/session-metadata.json\""
+      }
+    ],
+    "Notification": [
+      {
+        "description": "Logs system notifications and messages",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] NOTIFICATION: $CLAUDE_NOTIFICATION_TYPE' >> $SESSION_DIR/console.log && echo '$CLAUDE_NOTIFICATION_MESSAGE' | sed 's/^/  /' >> $SESSION_DIR/console.log\""
+      }
+    ],
+    "Stop": [
+      {
+        "description": "Logs when Claude finishes responding",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] CLAUDE: Response completed' >> $SESSION_DIR/console.log\""
+      }
+    ],
+    "SubagentStop": [
+      {
+        "description": "Logs when subagent tasks complete",
+        "type": "command",
+        "command": "bash -c \"SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback') && echo '[$(date +\\\"%Y-%m-%d %H:%M:%S\\\")] SUBAGENT: Task completed - $CLAUDE_SUBAGENT_NAME' >> $SESSION_DIR/console.log\""
+      }
+    ]
+  },
+  "configuration": {
+    "log_directory": ".sdlc/logs",
+    "fallback_directory": ".sdlc/logs/fallback",
+    "max_output_lines": 100,
+    "timestamp_format": "%Y-%m-%d %H:%M:%S"
+  }
+}

@@ -460,7 +460,7 @@ All support scripts have been implemented, reviewed, and tested. These scripts s
 **Next Step: Command Implementation**
 With scripts complete, focus shifts to creating the 5 command files that will orchestrate these scripts.
 
-#### 1C: Command Implementation (Days 6-8)
+#### 1C: Command Implementation with Multi-Agent Architecture (Days 6-8)
 
 **Architectural Foundation:**
 Commands implement the core architectural decisions:
@@ -468,55 +468,203 @@ Commands implement the core architectural decisions:
 - **ADR-002**: Follow the 4D+1 workflow (Init → Determine → Design → Define → Do)
 - **ADR-010**: Section-by-section interaction with user feedback loops
 - **ADR-011**: Clear division - scripts handle structure, AI handles content/judgment
+- **ADR-012** (NEW): Multi-agent architecture with diverse domain expertise
 
-**Command File Structure:**
+**Multi-Agent System Architecture:**
+
+Each command execution leverages a sophisticated multi-agent system:
+
+1. **Primary Agent: Requirements Engineer**
+   - PhD-level expertise in project's main domain
+   - Expert in at least 2 subdomains based on context availability
+   - Initial point of contact with user for requirements clarification
+   - Determines when sufficient context exists to proceed
+   - Launches Project Manager when ready to execute
+
+2. **Coordinator Agent: Project Manager**
+   - Always designated for every command execution
+   - Coordinates all sub-agent activities
+   - Manages workflow between sub-agents
+   - Ensures consistency across agent outputs
+   - Facilitates round-table discussions
+
+3. **Specialized Sub-Agents (Domain-Diverse)**
+   - Assigned personalities from ANY domain relevant to task:
+     - Technical: Software architects, database experts, security specialists
+     - Scientific: Astrophysicists, epidemiologists, mechanical engineers
+     - Business: Public policy experts, financial analysts, market researchers
+     - Creative: UX designers, professional opera singers, creative writers
+     - Domain-specific: Whatever expertise the project requires
+   - Each sub-agent maintains personality throughout entire process
+   - Sub-agents can interact directly with user
+   - User can directly address any sub-agent
+
+4. **Agent Interaction Model: Round-Table Meeting**
+   - User is the main stakeholder (multi-user support planned for future)
+   - Sub-agents form the implementation team
+   - Background research phase: Each agent researches independently
+   - Interactive phase: All agents return for collaborative discussion
+   - Direct communication paths between all participants
+   - Consensus building through structured discussion
+
+5. **Personality Assignment Strategy:**
+   - **At Init**: If scope is well-defined, personalities determined immediately
+   - **At Determine**: Personalities selected based on requirements discovery
+   - **Progressive Refinement**: Each 4D step examines previous outputs to adjust team
+   - **Consistency Priority**: Once assigned, personalities maintained throughout
+   - **Flexibility Requirement**: Can add specialists as new domains emerge
+
+6. **Agent Thinking Mode Requirements:**
+   - **MANDATORY**: All agents use "HARDEST thinking mode"
+   - **Trigger**: Explicitly include "Ultrathink" statement in agent prompts
+   - **Claude Code Specific**: This triggers deepest reasoning capabilities
+   - **Other Models**: Adapt trigger for model-specific deep thinking modes
+
+7. **Context Window Management:**
+   - **Estimation**: Each agent estimates context window usage
+   - **State Recording**: Before hitting limits, record complete state
+   - **Auto-Compact Handling**: Resume from recorded state after compaction
+   - **Background Processing** (CONFIRMED via Anthropic docs):
+     - Claude Code Task tool enables sub-agent invocations ([Tool Use Overview](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview))
+     - Multiple tools can execute in parallel within single response ([New API Capabilities](https://www.anthropic.com/news/agent-capabilities-api))
+     - Agents communicate through separate working scratchpads ([Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices))
+     - Background tasks supported via Claude Code SDK ([Claude Code Overview](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview))
+     - Sub-agents can operate independently while preserving main context
+     - Ultrathink mode enhances deep reasoning during execution
+
+8. **Comprehensive Logging System:**
+   - **Claude Code SDK Hook Integration** ([Hooks Guide](https://docs.claude.com/en/docs/claude-code/hooks-guide)):
+     - SessionStart hook creates session folder automatically
+     - PreToolUse/PostToolUse hooks capture all tool interactions
+     - UserPromptSubmit hook logs all user inputs
+     - PreCompact hook saves state before compaction
+     - Stop/SubagentStop hooks track completion events
+     - Session ID available from SDKSystemMessage for folder naming
+
+   - **Hook-Based Implementation** (Available NOW via Claude Code):
+     ```json
+     {
+       "hooks": [
+         {
+           "type": "SessionStart",
+           "command": "mkdir -p .sdlc/logs/session-$(date +%Y%m%d-%H%M%S) && echo $CLAUDE_SESSION_ID > .sdlc/logs/current-session.txt"
+         },
+         {
+           "type": "UserPromptSubmit",
+           "command": "echo \"[$(date)] USER: $CLAUDE_USER_PROMPT\" >> .sdlc/logs/$(cat .sdlc/logs/current-session.txt)/console.log"
+         },
+         {
+           "type": "PreToolUse",
+           "command": "echo \"[$(date)] TOOL: $CLAUDE_TOOL_NAME with $CLAUDE_TOOL_INPUT\" >> .sdlc/logs/$(cat .sdlc/logs/current-session.txt)/tools.log"
+         }
+       ]
+     }
+     ```
+
+   - **Complete Log Structure** (Achievable with hooks + agent):
+     ```
+     .sdlc/logs/
+     └── session-{YYYY-MM-DD-HH-MM-SS}/    # Hook creates on SessionStart
+         ├── console.log                   # UserPromptSubmit hook captures
+         ├── tools.log                     # PreToolUse/PostToolUse hooks
+         ├── session-metadata.json         # Hook writes session_id, model, etc.
+         ├── transcript.jsonl              # Hook captures full JSONL stream
+         ├── compaction-state.json         # CompactBoundaryMessage hook
+         └── commands/                     # Agent-created detailed logs
+             └── {command}-{timestamp}/
+                 ├── agent-reasoning.log    # Agent writes thoughts
+                 ├── decisions.json         # Agent logs decisions
+                 ├── subagents/            # Task tool sub-agent logs
+                 │   ├── project-manager.log
+                 │   ├── {specialist}-1.log
+                 │   └── interaction.log
+                 └── execution-summary.md
+     ```
+
+   - **TypeScript SDK Enhanced Logging** (For developers):
+     - onMessage() callbacks for real-time message capture
+     - onToolUse() handlers for tool interaction monitoring
+     - withLogger() for multi-level logging control
+     - Live session tracking with full history access
+
+   - **Implementation Strategy**:
+     - Bootstrap includes `.claude/hooks.json` configuration
+     - Hooks automatically create session structure
+     - Agents write detailed logs during execution
+     - Complete capture without manual intervention
+   - **Token Preservation**: All logs written to files, not context window
+
+9. **Stack Detection Enhancement:**
+   - Handle unknown stack at initialization
+   - First task may be stack determination
+   - Sub-agents with relevant expertise assigned for detection
+   - Progressive discovery through project analysis
+
+**Command File Structure (Enhanced):**
 
 Each command will be a markdown file in `.claude/commands/` that provides:
 1. **Workflow instructions** for the AI agent
-2. **Script invocations** at appropriate points (per ADR-011)
-3. **Section-by-section guidance** (per ADR-010)
-4. **Embedded rules** from existing Bootstrap rules (per ADR-001)
-5. **Decision points** for AI judgment
+2. **Multi-agent orchestration** directives
+3. **Ultrathink mode** activation
+4. **Script invocations** at appropriate points (per ADR-011)
+5. **Section-by-section guidance** (per ADR-010)
+6. **Embedded rules** from existing Bootstrap rules (per ADR-001)
+7. **Personality assignment** logic
+8. **Logging directives** for comprehensive capture
+9. **Context window** management instructions
+10. **Decision points** for AI judgment
 
-**Commands to Implement:**
+**Commands to Implement (with Multi-Agent Support):**
 
 1. **`/init.md`** - Project initialization
-   - Interactive charter mode selection (per ADR-006: prototype/draft/ratified)
-   - Stack detection and confirmation
+   - Requirements Engineer assesses project scope
+   - Launches domain-appropriate sub-agents
+   - Interactive charter mode selection (per ADR-006)
+   - Stack detection with specialist agents if unknown
    - Script calls: `init-structure.sh`, `detect-stack.sh`, `create-charter.sh`
-   - Section-by-section charter filling with user feedback (ADR-010)
+   - All agent thoughts logged to `.sdlc/logs/init-{timestamp}/`
 
 2. **`/determine.md`** - Requirements gathering (ADR-002: D1)
-   - Interactive requirements elicitation
-   - Stakeholder identification
+   - Requirements Engineer leads elicitation
+   - Project Manager coordinates specialist input
+   - Domain experts provide context-specific requirements
+   - Round-table validation of requirements
    - Script calls: `create-requirements.sh`
-   - Progressive requirement building with [NEEDS CLARIFICATION] markers
+   - Comprehensive logging of all agent reasoning
 
 3. **`/design.md`** - Architecture planning (ADR-002: D2)
-   - Design type and complexity assessment
-   - Alternative exploration (minimum 2)
+   - Technical architects lead design
+   - Domain experts validate approach
+   - Creative specialists suggest innovations
+   - Alternative exploration with diverse perspectives
    - Script calls: `create-design-structure.sh`
-   - AI judges phasing needs (per ADR-009: >5 days or >5 components)
+   - Each agent's design rationale logged
 
 4. **`/define.md`** - Implementation definition (ADR-002: D3)
-   - DIP generation from design
-   - Task extraction and checklist creation
+   - Project Manager coordinates DIP creation
+   - Technical specialists define components
+   - Quality experts specify testing approach
    - Script calls: `create-dip-structure.sh`, `extract-tasks-from-dip.sh`
-   - AI determines splitting (per ADR-009: >500 LOC or >3 components)
+   - Task assignment considers agent expertise
 
 5. **`/do.md`** - Implementation execution (ADR-002: D4)
-   - Environment validation before starting (per ADR-011: scripts check, AI proceeds)
-   - Test-first development guidance
+   - Specialized implementers for each component
+   - Test specialists validate approach
+   - Project Manager tracks progress
    - Script calls: `check-environment.sh`, `run-tests.sh`, `lint-check.sh`, `git-safe-add.sh`
-   - Progress tracking in TASK.md (AI checks off completed items)
+   - Detailed implementation logs per agent
 
-**Command Design Principles:**
+**Command Design Principles (Enhanced):**
 - Commands are **workflow guides**, not programs (ADR-011)
+- **Multi-agent orchestration** for complex reasoning
+- **Ultrathink mode** for deepest analysis
 - **Scripts handle structure**, AI handles content (ADR-011)
 - **One question at a time** for user interaction (ADR-010)
 - **Progressive context** - each section builds on previous (ADR-010)
 - **"I don't know" is better than guessing** (Core principle)
 - **Version footers** track generation source (ADR-007)
+- **Comprehensive logging** of all agent thoughts
+- **Domain diversity** in agent personalities
 
 ### Phase 2: CLAUDE.md & Rule System Evolution (2-3 days)
 
@@ -716,6 +864,7 @@ The following Architecture Decision Records document the key design choices:
 - [ADR-009: Automatic Phase Separation](adrs/ADR-009-automatic-phase-separation.md) - Smart splitting of large designs and DIPs into manageable chunks
 - [ADR-010: Section-by-Section Interaction](adrs/ADR-010-section-by-section-interaction.md) - Granular feedback loops for document creation and AI learning
 - [ADR-011: Script vs AI Responsibilities](adrs/ADR-011-script-vs-ai-responsibilities.md) - Clear boundaries between deterministic scripts and AI agent judgment
+- [ADR-012: Multi-Agent Architecture](adrs/ADR-012-multi-agent-architecture.md) - Domain-diverse sub-agents with Requirements Engineer leadership and comprehensive logging
 
 ## Implementation Strategy
 
@@ -740,4 +889,22 @@ This refactoring solves the fundamental context problem while preserving the fra
 
 The 4D+1 workflow (Init → Determine → Design → Define → Do) provides a memorable, logical progression that guides users through the entire SDLC while maintaining flexibility for different project styles.
 
+The multi-agent architecture with Requirements Engineer leadership, domain-diverse sub-agents, and comprehensive logging transforms command execution into sophisticated collaborative problem-solving sessions while maintaining user control as the primary stakeholder.
+
 This refactoring represents evolution, not revolution - preserving what works while fixing what doesn't. As a pre-alpha framework, Bootstrap can make these fundamental improvements without disrupting existing users, using itself as the test case for the new architecture.
+
+## References
+
+### Official Anthropic Documentation
+- [Claude Code Overview](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) - Core Claude Code capabilities
+- [Claude Code Hooks Guide](https://docs.claude.com/en/docs/claude-code/hooks-guide) - Hook types and implementation
+- [Claude Code SDK Sessions](https://docs.claude.com/en/docs/claude-code/sdk/sdk-sessions) - Session management API
+- [Tool Use with Claude](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview) - Parallel tool execution
+- [Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices) - Agent communication patterns
+- [New API Capabilities](https://www.anthropic.com/news/agent-capabilities-api) - Advanced agent features
+- [How Anthropic Teams Use Claude Code](https://www.anthropic.com/news/how-anthropic-teams-use-claude-code) - Internal usage patterns
+
+### Community Resources
+- [Task/Agent Tools](https://claudelog.com/mechanics/task-agent-tools/) - Sub-agent implementation details
+- [Enhancing Claude Code with MCP Servers and Subagents](https://dev.to/oikon/enhancing-claude-code-with-mcp-servers-and-subagents-29dd) - Advanced sub-agent patterns
+- [Claude Code Prompts & Tool Definitions](https://aiengineerguide.com/blog/claude-code-prompt/) - Prompt engineering for agents

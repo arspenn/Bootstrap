@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Multi-agent architecture** - Enhanced command execution with sub-agent coordination
+  - Requirements Engineer personality for initial context gathering
+  - Support for diverse sub-agent personalities via Task tool
+  - Comprehensive logging of agent reasoning and decisions
+
+- **Session logging hooks** - Automatic capture of conversation history
+  - Created `.claude/hooks.json` configuration
+  - Hooks for SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, etc.
+  - Session folders with timestamped organization
+
+### Changed
+- **Command architecture design** - Updated phase 1c with multi-agent enhancements
+  - Integrated parallel sub-agent execution capabilities
+  - Added context window management strategies
+  - Updated with official Claude Code documentation references
+
 ## [0.11.1] - 2025-09-09
 
 ### Changed
