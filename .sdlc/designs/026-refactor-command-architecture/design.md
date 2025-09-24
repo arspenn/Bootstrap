@@ -2,11 +2,11 @@
 title: Bootstrap Command Refactoring Design
 status: draft
 created: 2025-09-20
-updated: 2025-09-20
+updated: 2025-09-24
 type: system
 author: AI Assistant
-tags: [refactor, architecture, commands, framework]
-estimated_effort: 4 weeks
+tags: [refactor, architecture, commands, framework, multi-agent]
+estimated_effort: 3 weeks (21 days)
 ---
 
 # Bootstrap Command Refactoring Design Document
@@ -14,6 +14,8 @@ estimated_effort: 4 weeks
 ## Executive Summary
 
 This refactoring represents a fundamental architectural shift from passive rule-based context loading to active command-driven execution. By merging Bootstrap's comprehensive SDLC framework with spec-kit's simplicity and embedding behavioral rules directly into commands, we create a system that actually works within AI context limitations while maintaining safety and structure.
+
+**Important Update (2025-09-24):** Discovery of automatic JSONL session logging in Claude Code has simplified our implementation timeline from 4 weeks to 3 weeks. The existing JSONL logs already capture Task tool interactions and sub-agent communications, eliminating the need for custom logging infrastructure in the MVP.
 
 ## Requirements
 
@@ -378,15 +380,17 @@ git add "$@"
 
 ## Implementation Plan
 
-### Phase 1: Command Creation (Week 1)
+This plan outlines the development phases for the command refactoring architecture.
 
-#### 1A: Template Refresh (Days 1-2) ✅ COMPLETE
-1. **Audit existing templates** ✅
-   - Reviewed all in `.claude/templates/`
-   - Identified gaps for new commands
-   - Incorporated spec-kit clarity
+### Phase 1: Command Creation (Days 1-7)
 
-2. **Create new templates** ✅
+#### 1A: Template Refresh (Days 1-2)
+1. **Audit existing templates**
+   - Review all in `.claude/templates/`
+   - Identify gaps for new commands
+   - Incorporate spec-kit clarity
+
+2. **Create new templates**
    - `charter-prototype.template.md` (minimal for rapid prototyping)
    - `charter-draft.template.md` (comprehensive for active development)
    - `charter-ratified.template.md` (formal with amendment process)
@@ -397,23 +401,21 @@ git add "$@"
    - `design-phase.template.md` (for phased design work)
    - `diagram-*.template.md` (architecture, flow, sequence, ER diagrams)
 
-3. **Update existing templates** ✅
-   - Added version footers to all
-   - Updated adr, task, command, rule templates to new comprehensive style
-   - Trimmed redundancy while keeping essential information
+3. **Update existing templates**
+   - Add version footers to all
+   - Update adr, task, command, rule templates to new comprehensive style
+   - Trim redundancy while keeping essential information
 
-4. **Template naming convention** ✅
+4. **Template naming convention**
    - `{artifact-type}.template.md` for primary templates
    - `{artifact-type}-{variant}.template.md` for variants
 
-#### 1B: Script Implementation (Days 3-5) ✅ COMPLETE
+#### 1B: Script Implementation (Days 3-5)
 
-**Implementation Status: COMPLETE**
-All support scripts have been implemented, reviewed, and tested. These scripts serve as tools that AI agents call during command execution, following ADR-011's division between deterministic operations (scripts) and intelligent judgment (AI).
+**Target Implementation:**
+Support scripts that AI agents will call during command execution, following ADR-011's division between deterministic operations (scripts) and intelligent judgment (AI).
 
-**⚠️ IMPORTANT: These scripts are finalized and should NOT be modified unless a breaking error is discovered.**
-
-**Implemented Scripts (15 total):**
+**Planned Scripts (15 total):**
 
 1. **Structure & Initialization Scripts**
    - ✅ `init-structure.sh` - Creates .sdlc/ directory structure (requirements, designs, implementation, amendments, ADRs)
@@ -534,67 +536,24 @@ Each command execution leverages a sophisticated multi-agent system:
      - Sub-agents can operate independently while preserving main context
      - Think hard mode enhances extended reasoning during execution
 
-8. **Comprehensive Logging System:**
-   - **Claude Code SDK Hook Integration** ([Hooks Guide](https://docs.claude.com/en/docs/claude-code/hooks-guide)):
-     - SessionStart hook creates session folder automatically
-     - PreToolUse/PostToolUse hooks capture all tool interactions
-     - UserPromptSubmit hook logs all user inputs
-     - PreCompact hook saves state before compaction
-     - Stop/SubagentStop hooks track completion events
-     - Session ID available from SDKSystemMessage for folder naming
+8. **Logging System (Simplified via JSONL Discovery):**
+   - **Current State**: Claude Code automatically generates JSONL session logs
+     - Location: `~/.claude/projects/{project-path}/{session-id}.jsonl`
+     - Contents: Full conversation, Task tool invocations, sub-agent sidechains, timestamps
+     - **Discovery**: Existing JSONL provides sufficient multi-agent traceability
 
-   - **Hook-Based Implementation** (Available NOW via Claude Code):
-     ```json
-     {
-       "hooks": [
-         {
-           "type": "SessionStart",
-           "command": "mkdir -p .sdlc/logs/session-$(date +%Y%m%d-%H%M%S) && echo $CLAUDE_SESSION_ID > .sdlc/logs/current-session.txt"
-         },
-         {
-           "type": "UserPromptSubmit",
-           "command": "echo \"[$(date)] USER: $CLAUDE_USER_PROMPT\" >> .sdlc/logs/$(cat .sdlc/logs/current-session.txt)/console.log"
-         },
-         {
-           "type": "PreToolUse",
-           "command": "echo \"[$(date)] TOOL: $CLAUDE_TOOL_NAME with $CLAUDE_TOOL_INPUT\" >> .sdlc/logs/$(cat .sdlc/logs/current-session.txt)/tools.log"
-         }
-       ]
-     }
-     ```
-
-   - **Complete Log Structure** (Achievable with hooks + agent):
-     ```
-     .sdlc/logs/
-     └── session-{YYYY-MM-DD-HH-MM-SS}/    # Hook creates on SessionStart
-         ├── console.log                   # UserPromptSubmit hook captures
-         ├── tools.log                     # PreToolUse/PostToolUse hooks
-         ├── session-metadata.json         # Hook writes session_id, model, etc.
-         ├── transcript.jsonl              # Hook captures full JSONL stream
-         ├── compaction-state.json         # CompactBoundaryMessage hook
-         └── commands/                     # Agent-created detailed logs
-             └── {command}-{timestamp}/
-                 ├── agent-reasoning.log    # Agent writes thoughts
-                 ├── decisions.json         # Agent logs decisions
-                 ├── subagents/            # Task tool sub-agent logs
-                 │   ├── project-manager.log
-                 │   ├── {specialist}-1.log
-                 │   └── interaction.log
-                 └── execution-summary.md
-     ```
-
-   - **TypeScript SDK Enhanced Logging** (For developers):
-     - onMessage() callbacks for real-time message capture
-     - onToolUse() handlers for tool interaction monitoring
-     - withLogger() for multi-level logging control
-     - Live session tracking with full history access
+   - **MVP Logging Requirements**:
+     - Rely on automatic JSONL generation (no custom implementation needed)
+     - Task tool invocations with parameters are captured
+     - Sub-agent execution in sidechains is tracked
+     - Tool use by sub-agents is recorded
+     - Results returned from sub-agents are logged
 
    - **Implementation Strategy**:
-     - Bootstrap includes `.claude/hooks.json` configuration
-     - Hooks automatically create session structure
-     - Agents write detailed logs during execution
-     - Complete capture without manual intervention
-   - **Token Preservation**: All logs written to files, not context window
+     - No additional logging infrastructure needed for MVP
+     - Agents can optionally output reasoning summaries to user
+     - Complex logging deferred to Future Enhancements section
+   - **Token Preservation**: JSONL logs are external to context window
 
 9. **Stack Detection Enhancement:**
    - Handle unknown stack at initialization
@@ -741,7 +700,7 @@ Commands accept arguments for flexibility:
    - Interactive charter mode selection (per ADR-006)
    - Stack detection with specialist agents if unknown
    - Script calls: `init-structure.sh`, `detect-stack.sh`, `create-charter.sh`
-   - All agent thoughts logged to `.sdlc/logs/init-{timestamp}/`
+   - All agent interactions captured in JSONL session log
 
 2. **`/determine.md`** - Requirements gathering (ADR-002: D1)
    - Requirements Engineer leads elicitation
@@ -749,7 +708,7 @@ Commands accept arguments for flexibility:
    - Domain experts provide context-specific requirements
    - Round-table validation of requirements
    - Script calls: `create-requirements.sh`
-   - Comprehensive logging of all agent reasoning
+   - Agent reasoning captured in JSONL session log
 
 3. **`/design.md`** - Architecture planning (ADR-002: D2)
    - Technical architects lead design
@@ -757,7 +716,7 @@ Commands accept arguments for flexibility:
    - Creative specialists suggest innovations
    - Alternative exploration with diverse perspectives
    - Script calls: `create-design-structure.sh`
-   - Each agent's design rationale logged
+   - Design rationale included in agent outputs
 
 4. **`/define.md`** - Implementation definition (ADR-002: D3)
    - Project Manager coordinates DIP creation
@@ -771,7 +730,7 @@ Commands accept arguments for flexibility:
    - Test specialists validate approach
    - Project Manager tracks progress
    - Script calls: `check-environment.sh`, `run-tests.sh`, `lint-check.sh`, `git-safe-add.sh`
-   - Detailed implementation logs per agent
+   - Implementation progress tracked in JSONL
 
 **Command Design Principles (Enhanced):**
 - Commands are **workflow guides**, not programs (ADR-011)
@@ -782,10 +741,10 @@ Commands accept arguments for flexibility:
 - **Progressive context** - each section builds on previous (ADR-010)
 - **"I don't know" is better than guessing** (Core principle)
 - **Version footers** track generation source (ADR-007)
-- **Comprehensive logging** of all agent thoughts
+- **Automatic JSONL logging** captures agent interactions
 - **Domain diversity** in agent personalities
 
-### Phase 2: CLAUDE.md & Rule System Evolution (2-3 days)
+### Phase 2: CLAUDE.md & Rule System Evolution (Days 8-10)
 
 #### 2A: CLAUDE.md Reorganization
 1. **Keep Universal Behaviors Only**
@@ -848,7 +807,7 @@ Commands accept arguments for flexibility:
    - `/update` only touches framework config
    - Clear boundary between framework and project
 
-### Phase 3: Rule Expansion & Documentation (Week 2)
+### Phase 3: Rule Expansion & Documentation (Days 11-14)
 
 #### 3A: Rule System Transformation
 1. **From Constraints to References**
@@ -964,7 +923,7 @@ For this specific task, you must:
 
 ## Output Requirements
 - **Documentation**: Complete requirements in `.sdlc/requirements/`
-- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/requirements-engineer.log`
+- **Logging**: Reasoning captured in JSONL session log (automatic)
 - **Deliverables**: Requirements document, acceptance criteria, risk analysis
 ```
 
@@ -1003,7 +962,7 @@ For this specific task, you must:
 
 ## Output Requirements
 - **Documentation**: Progress reports, decision logs
-- **Logging**: Log all coordination to `.sdlc/logs/session-*/subagents/project-manager.log`
+- **Logging**: Coordination tracked in JSONL session log (automatic)
 - **Deliverables**: Integrated team outputs, status summaries
 ```
 
@@ -1042,7 +1001,7 @@ For this specific task, you must:
 
 ## Output Requirements
 - **Documentation**: Architecture diagrams, design documents, ADRs
-- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/technical-architect.log`
+- **Logging**: Technical decisions captured in JSONL session log (automatic)
 - **Deliverables**: System design, component specifications, interface definitions
 ```
 
@@ -1081,7 +1040,7 @@ For this specific task, you must:
 
 ## Output Requirements
 - **Documentation**: Test plans, test cases, quality reports
-- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/qa-specialist.log`
+- **Logging**: QA reasoning captured in JSONL session log (automatic)
 - **Deliverables**: Test strategies, quality metrics, risk assessments
 ```
 
@@ -1120,7 +1079,7 @@ For this specific task, you must:
 
 ## Output Requirements
 - **Documentation**: Domain models, compliance checklists
-- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/domain-expert.log`
+- **Logging**: Domain insights captured in JSONL session log (automatic)
 - **Deliverables**: Domain specifications, validation rules
 ```
 
@@ -1148,7 +1107,7 @@ This approach provides:
 3. Easy customization through template parameters
 4. Clear documentation of each agent's role
 
-### Phase 4: Stack Modularization (Week 3)
+### Phase 4: Stack Modularization (Days 15-17)
 1. **Implement Multi-Stack Support**
    - Convert language-specific rules to patterns
    - Add configuration sections per stack
@@ -1159,7 +1118,7 @@ This approach provides:
    - Legacy format converters
    - Validation tools
 
-### Phase 5: Polish (Week 4)
+### Phase 5: Polish (Days 18-21)
 1. Multi-agent testing
 2. Documentation overhaul
 3. Marketing materials
@@ -1227,13 +1186,39 @@ Since Bootstrap is still in pre-alpha (v0.x.x), this is an internal refactoring:
 4. Update documentation and examples
 5. Remove deprecated commands in v0.13.0
 
+## Future Enhancements
+
+The following features are deferred to post-MVP implementation as the current JSONL logging provides sufficient traceability:
+
+### Advanced Logging Infrastructure
+- **Custom Hook-Based Logging**: Implement `.claude/hooks.json` for automated session structure creation
+- **Structured Log Directories**: Create `.sdlc/logs/session-*/` hierarchy with command-specific subdirectories
+- **Agent Reasoning Logs**: Separate `agent-reasoning.log` files per sub-agent
+- **Decision Tracking**: JSON-formatted decision points with alternatives considered
+- **Interaction Logs**: Detailed inter-agent communication traces
+- **Execution Summaries**: Auto-generated markdown summaries of each command execution
+
+### Enhanced Session Management
+- **Session Metadata**: Capture model versions, timestamps, configuration state
+- **Compaction State Preservation**: Save and restore context across compaction boundaries
+- **Session Replay**: Ability to replay entire sessions from logs
+- **Log Analysis Tools**: Scripts to extract insights from session logs
+
+### Developer Experience
+- **TypeScript SDK Integration**: Enhanced logging via SDK callbacks
+- **Real-time Monitoring**: Live session tracking with streaming updates
+- **Debug Mode**: Verbose logging option for troubleshooting
+- **Log Aggregation**: Cross-session analysis and pattern detection
+
+These enhancements can be implemented incrementally once the core command architecture is proven and stable.
+
 ## Conclusion
 
 This refactoring solves the fundamental context problem while preserving the framework's valuable safety and structure innovations. By embedding intelligence directly into commands and using deterministic scripts for critical operations, we achieve spec-kit's simplicity with Bootstrap's power.
 
 The 4D+1 workflow (Init → Determine → Design → Define → Do) provides a memorable, logical progression that guides users through the entire SDLC while maintaining flexibility for different project styles.
 
-The multi-agent architecture with Requirements Engineer leadership, domain-diverse sub-agents, and comprehensive logging transforms command execution into sophisticated collaborative problem-solving sessions while maintaining user control as the primary stakeholder.
+The multi-agent architecture with Requirements Engineer leadership and domain-diverse sub-agents transforms command execution into sophisticated collaborative problem-solving sessions. Automatic JSONL logging provides complete traceability without implementation overhead, while maintaining user control as the primary stakeholder.
 
 This refactoring represents evolution, not revolution - preserving what works while fixing what doesn't. As a pre-alpha framework, Bootstrap can make these fundamental improvements without disrupting existing users, using itself as the test case for the new architecture.
 
