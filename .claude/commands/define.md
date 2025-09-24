@@ -148,11 +148,16 @@ Use Task tool:
 - prompt: "You are a Project Manager coordinating DIP creation. Think hard about creating clear, executable instructions.
 
   Your task:
-  1. Launch these specialists IN PARALLEL using Task tool:
+  1. Launch these specialists using Task tool (follow .claude/rules/project/sub-agent-limits.md):
+     Phase 1 (max 2 agents):
      - Technical Architect: Define implementation architecture and patterns
      - Lead Developer: Specify code structure, files, functions
+
+     Phase 2 (max 2 agents):
      - QA Specialist: Define test cases and validation criteria
      - DevOps Engineer: Specify configuration and deployment
+
+     Phase 3 (single agent):
      - Documentation Specialist: Define documentation requirements
 
   2. Each specialist provides for their domain:
@@ -306,6 +311,11 @@ Next steps:
 ```
 
 ## Embedded Rules
+
+### From `sub-agent-limits.md`:
+- Maximum 2 sub-agents can execute in parallel
+- Use phased execution with complementary agent pairs
+- JavaScript memory constraints require sequential phases
 
 ### From `task-management.md`:
 - Tasks in TASK.md as simple checklist

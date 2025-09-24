@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.2] - 2024-09-24 [47d8c05]
+
+### Added
+- **Memory Optimization Strategy (ADR-013)** - Documented 2-agent parallel execution limit to prevent JavaScript heap exhaustion
+- **Sub-Agent Limits Rule** - Enforces maximum 2 concurrent sub-agents with phased execution patterns
+
+### Changed
+- **Multi-Agent Architecture** - Updated all commands and ADR-012 to use paired sequential processing (max 2 agents)
+- **Requirements & Design Docs** - Added memory constraint specifications and updated agent limits
+
+### Fixed
+- **JavaScript Memory Exhaustion** - Resolved crashes from running >2 concurrent sub-agents
+
 ## [0.12.1] - 2024-09-24 [1fca2ed]
 
 ### Added

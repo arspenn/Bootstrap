@@ -123,17 +123,25 @@ Use Task tool:
 - prompt: "You are a Project Manager coordinating architectural design. Think hard about creating robust, scalable solutions.
 
   Your task:
-  1. Launch these specialists IN PARALLEL using Task tool:
+  1. Launch these specialists using Task tool (follow .claude/rules/project/sub-agent-limits.md):
      $(if complex_project):
+     Phase 1 (max 2 agents):
      - Technical Architect: Design overall system architecture
      - Performance Engineer: Analyze scalability and performance
+
+     Phase 2 (max 2 agents):
      - Security Specialist: Identify security considerations
      - Database Architect: Design data models and storage
+
+     Phase 3 (max 2 agents):
      - DevOps Engineer: Plan deployment and infrastructure
      - Domain Expert: Validate business logic architecture
      $(else):
+     Phase 1 (max 2 agents):
      - Technical Architect: Design system architecture
      - QA Specialist: Ensure testability
+
+     Phase 2 (single agent):
      - DevOps Engineer: Plan deployment
 
   2. Each specialist must provide:
@@ -254,6 +262,11 @@ Next steps:
 ```
 
 ## Embedded Rules
+
+### From `sub-agent-limits.md`:
+- Maximum 2 sub-agents can execute in parallel
+- Use phased execution with complementary agent pairs
+- JavaScript memory constraints require sequential phases
 
 ### From `design-structure.md`:
 - Design folder structure: ###-{type}-{name}/

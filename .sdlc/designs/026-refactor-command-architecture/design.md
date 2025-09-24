@@ -17,6 +17,8 @@ This refactoring represents a fundamental architectural shift from passive rule-
 
 **Important Update (2025-09-24):** Discovery of automatic JSONL session logging in Claude Code has simplified our implementation timeline from 4 weeks to 3 weeks. The existing JSONL logs already capture Task tool interactions and sub-agent communications, eliminating the need for custom logging infrastructure in the MVP.
 
+**Critical Update (2025-09-24):** JavaScript memory exhaustion discovered with >2 concurrent agents. Design updated to enforce maximum 2-agent parallel execution through paired sequential processing. See ADR-013 for detailed memory optimization strategy.
+
 ## Requirements
 
 ### Functional Requirements
@@ -583,7 +585,7 @@ Each command execution leverages a sophisticated multi-agent system:
 
 Each command will be a markdown file in `.claude/commands/` that provides:
 1. **Workflow instructions** for the AI agent
-2. **Multi-agent orchestration** directives
+2. **Multi-agent orchestration** directives (max 2 agents in parallel)
 3. **Think hard mode** activation
 4. **Script invocations** at appropriate points (per ADR-011)
 5. **Section-by-section guidance** (per ADR-010)
@@ -734,7 +736,7 @@ Commands accept arguments for flexibility:
 
 **Command Design Principles (Enhanced):**
 - Commands are **workflow guides**, not programs (ADR-011)
-- **Multi-agent orchestration** for complex reasoning
+- **Multi-agent orchestration** for complex reasoning (2-agent max per phase)
 - **Think hard mode** for extended analysis
 - **Scripts handle structure**, AI handles content (ADR-011)
 - **One question at a time** for user interaction (ADR-010)
@@ -1167,7 +1169,8 @@ The following Architecture Decision Records document the key design choices:
 - [ADR-009: Automatic Phase Separation](adrs/ADR-009-automatic-phase-separation.md) - Smart splitting of large designs and DIPs into manageable chunks
 - [ADR-010: Section-by-Section Interaction](adrs/ADR-010-section-by-section-interaction.md) - Granular feedback loops for document creation and AI learning
 - [ADR-011: Script vs AI Responsibilities](adrs/ADR-011-script-vs-ai-responsibilities.md) - Clear boundaries between deterministic scripts and AI agent judgment
-- [ADR-012: Multi-Agent Architecture](adrs/ADR-012-multi-agent-architecture.md) - Domain-diverse sub-agents with Requirements Engineer leadership and comprehensive logging
+- [ADR-012: Multi-Agent Architecture](adrs/ADR-012-multi-agent-architecture.md) - Domain-diverse sub-agents with Requirements Engineer leadership and comprehensive logging (Updated for 2-agent max)
+- [ADR-013: Memory Optimization Strategy](adrs/ADR-013-memory-optimization-strategy.md) - Paired sequential execution to prevent JavaScript heap exhaustion
 
 ## Implementation Strategy
 

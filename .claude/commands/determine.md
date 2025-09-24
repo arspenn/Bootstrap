@@ -98,9 +98,12 @@ Use Task tool:
 - prompt: "You are a Project Manager coordinating requirements analysis. Think hard about completeness and clarity.
 
   Your task:
-  1. Launch these specialists IN PARALLEL using Task tool:
+  1. Launch these specialists using Task tool (follow .claude/rules/project/sub-agent-limits.md):
+     Phase 1 (max 2 agents in parallel):
      - Business Analyst: Extract user stories, workflows, business rules
      - Technical Architect: Identify technical constraints, dependencies, integration points
+
+     Phase 2 (max 2 agents in parallel):
      - QA Specialist: Define acceptance criteria, test scenarios, quality metrics
      - Security Expert: Specify security requirements, compliance needs
   2. Synthesize all perspectives into cohesive requirements
@@ -185,6 +188,11 @@ Next steps:
 ```
 
 ## Embedded Rules
+
+### From `sub-agent-limits.md`:
+- Maximum 2 sub-agents can execute in parallel
+- Use phased execution with complementary agent pairs
+- JavaScript memory constraints require sequential phases
 
 ### From `sequential-file-naming.md`:
 - Requirements files use pattern: ###-{kebab-case-feature}.md

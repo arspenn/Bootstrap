@@ -26,6 +26,7 @@
 @.claude/rules/project/adr-management.md
 @.claude/rules/project/template-management.md
 @.claude/rules/project/sdlc-directory-structure.md
+@.claude/rules/project/sub-agent-limits.md
 
 ## Python Rules
 @.claude/rules/python/environment-management.md
