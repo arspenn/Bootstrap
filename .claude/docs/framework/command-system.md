@@ -2,124 +2,142 @@
 
 ## Overview
 
-Bootstrap provides specialized Claude commands that guide you through software engineering workflows. These commands implement structured processes for design, planning, and implementation.
+Bootstrap uses the **4D+1 Workflow** - five commands that guide projects from initialization through implementation:
 
-## Available Commands
+```
+/init → /determine → /design → /define → /do
+```
 
-### `/design-feature`
-Interactive design exploration for feature implementation.
+## Core Commands
 
-**Usage**: `/design-feature .sdlc/features/FEATURE_NAME.md`
+### `/init` - Initialize Project
+Sets up project structure and charter.
+
+**Usage**: `/init` or `/init "project-name"`
+
+**Creates**:
+- `CHARTER.md` with project principles
+- `.sdlc/` directory structure
+- Initial configuration
+
+**Modes**:
+- `prototype` - Rapid experimentation
+- `draft` - Active development
+- `ratified` - Stable with amendments
+
+### `/determine` - Gather Requirements
+Interactive requirements elicitation.
+
+**Usage**: `/determine` or `/determine existing-req.md "refine for scale"`
+
+**Creates**: `.sdlc/requirements/{number}-{name}.md`
 
 **Process**:
-- Gathers requirements interactively
-- Explores design alternatives
-- Creates Architecture Decision Records (ADRs)
-- Generates comprehensive design documentation
+- Identifies stakeholders
+- Clarifies problem space
+- Defines success criteria
+- Validates against charter
 
-**When to use**:
-- Feature requirements are unclear or complex
-- Multiple implementation approaches exist
-- The feature impacts multiple system components
+### `/design` - Architecture Planning
+Explores implementation alternatives.
 
-### `/generate-prp`
-Generate a Project Requirements Prompt from a design document.
+**Usage**: `/design` or `/design existing-design.md`
 
-**Usage**: `/generate-prp .sdlc/designs/feature-name/design.md`
-
-**Process**:
-- Analyzes the design document
-- Researches codebase patterns
-- Adds implementation context
-- Creates executable requirements with validation gates
-
-**Output**: A comprehensive PRP document for one-pass implementation
-
-### `/execute-prp`
-Execute a Project Requirements Prompt with validation.
-
-**Usage**: `/execute-prp .sdlc/PRPs/feature-name.md`
+**Creates**: `.sdlc/designs/{number}-{type}-{name}/`
+- `design.md` - Architecture document
+- `adrs/` - Decision records
+- `diagrams/` - Visual representations
 
 **Process**:
-- Loads the PRP document
-- Implements tasks in order
-- Runs validation after each step
-- Fixes issues automatically
+- Evaluates 2+ alternatives
+- Documents trade-offs
+- Creates ADRs for key decisions
 
-## Standard Workflow
+### `/define` - Implementation Definition
+Generates detailed implementation prompts (DIPs).
 
-```
-1. Create Feature Request (using FEATURE_TEMPLATE.md)
-   ↓
-2. /design-feature → Design Document + ADRs
-   ↓
-3. /generate-prp → Project Requirements Prompt
-   ↓
-4. /execute-prp → Implemented Feature
-```
+**Usage**: `/define` or `/define design.md`
 
-For simple features, you can skip the design phase:
-```
-1. Create Feature Request
-   ↓
-2. /generate-prp → Project Requirements Prompt
-   ↓
-3. /execute-prp → Implemented Feature
-```
+**Creates**: `.sdlc/implementation/{number}-{name}/`
+- Single: `dip.md`
+- Phased: `{letter}-{component}-dip.md`
+- Updates `TASK.md` checklist
 
-## Command Output Structure
+### `/do` - Execute Implementation
+Builds the solution from DIP specifications.
 
-### design-feature creates:
-```
-.sdlc/designs/
-├── {number}-feature-{name}/
-│   ├── design.md              # Main design document
-│   ├── adrs/                  # Architecture Decision Records
-│   │   └── ADR-001-{decision}.md
-│   └── diagrams/              # Optional diagrams
+**Usage**: `/do` or `/do 5` (specific task)
+
+**Process**:
+- Implements code and tests
+- Runs validation checks
+- Updates task progress
+- NO automatic commits
+
+## Workflow Patterns
+
+**Standard Feature**:
+```bash
+/init → /determine → /design → /define → /do
 ```
 
-### generate-prp creates:
+**Quick Fix**:
+```bash
+/determine → /define → /do  # Skip design for simple changes
 ```
-.sdlc/PRPs/
-└── {feature-name}.md          # Complete PRP document
+
+**Complex Refactor**:
+```bash
+/determine → /design → /define → /do  # Design critical
 ```
 
-### execute-prp creates:
-- Implementation files as specified in the PRP
-- Test files
-- Updated documentation
-- Modified existing files
+## Multi-Agent Architecture
 
-## Command Files
+Commands leverage specialized AI agents:
+- **Requirements Engineer** - Primary user interface
+- **Project Manager** - Coordinates team
+- **Technical Architects** - System design
+- **QA Specialists** - Test strategies
+- **Domain Experts** - Specialized knowledge
 
-Commands are defined in `.claude/commands/`:
-- `design-feature.md`
-- `generate-prp.md`
-- `execute-prp.md`
+## File Organization
 
-Each command file contains:
-- Process description
-- When to use/skip
-- Expected inputs and outputs
-- Integration with other commands
+```
+CHARTER.md                    # Project principles
+TASK.md                       # Active tasks
+.sdlc/
+├── requirements/             # /determine outputs
+├── designs/                  # /design outputs
+├── implementation/           # /define outputs
+└── amendments/               # Charter updates
+```
 
-## What is a PRP?
+## Command Arguments
 
-A **Project Requirements Prompt (PRP)** is a document format designed to give Claude all context needed for implementation:
-- Complete requirements and goals
-- Codebase context and examples
-- Step-by-step implementation tasks
-- Validation commands to run
-- Error patterns and fixes
+Commands support flexible arguments:
+```bash
+/design                       # Interactive
+/design existing.md           # Iterate
+/design existing.md "scale"   # Refine
+/do                          # All tasks
+/do 5                        # Specific task
+```
 
-PRPs enable Claude to implement features in one pass with automatic validation and error correction.
+## Supporting Scripts
+
+Commands use deterministic scripts in `.claude/scripts/`:
+- Structure creation (`init-structure.sh`)
+- Stack detection (`detect-stack.sh`)
+- Document generation (`create-*.sh`)
+- Testing (`run-tests.sh`, `lint-check.sh`)
+- Git safety (`git-safe-add.sh`)
 
 ## Best Practices
 
-1. **Use design-feature for complex features** - It helps clarify requirements
-2. **Review generated artifacts** - Ensure they meet your needs before proceeding
-3. **Follow the workflow** - Feature → Design → PRP → Execute
-4. **Let commands complete** - They include validation and error correction
+1. **Always start with /init** - Establishes project charter
+2. **Never skip /determine** - Understanding is critical
+3. **Use /design for complexity** - Prevents costly mistakes
+4. **Trust /do validation** - Automatic error correction
+5. **Review before commits** - User maintains control
 
-For detailed command documentation, see individual command files in `.claude/commands/`.
+For detailed command documentation, see `.claude/commands/`.

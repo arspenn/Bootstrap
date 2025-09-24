@@ -2,148 +2,142 @@
 
 ## Overview
 
-Bootstrap is a comprehensive software engineering framework designed to work seamlessly with Claude AI. It provides structured workflows for designing features, generating implementation plans, and executing them with built-in validation and testing.
+Bootstrap uses the **4D+1 Workflow** - a structured approach that guides projects from initialization through implementation with AI-powered multi-agent support.
 
-## Core Concepts
+## Core Workflow
 
-### 1. Document-Driven Development
-Everything starts with documentation. Features are specified in markdown, designs are documented before implementation, and all decisions are recorded.
-
-### 2. Command-Based Workflow
-Bootstrap uses Claude commands to guide you through each phase:
-- `design-feature` - Interactive design exploration
-- `generate-prp` - Create detailed implementation prompts
-- `execute-prp` - Execute implementation with validation
-
-### 3. Rule System
-Automated rules ensure consistency and best practices:
-- Git operations follow safety rules
-- Commits use conventional format
-- Documentation stays updated
-- Tests are required
+```
+/init → /determine → /design → /define → /do
+```
 
 ## Quick Start
 
-### Step 1: Create a Feature Request
+### Step 1: Initialize Your Project
 ```bash
-# Use the feature template
-cp FEATURE_TEMPLATE.md .sdlc/features/FEATURE_MY_NEW_FEATURE.md
-# Edit to describe your feature
+/init
 ```
+Choose your charter mode:
+- `prototype` - Quick experiments
+- `draft` - Active development
+- `ratified` - Stable projects
 
-### Step 2: Design the Feature
-```bash
-# Run the design command
-/design-feature .sdlc/features/FEATURE_MY_NEW_FEATURE.md
-```
-This will:
-- Gather requirements interactively
-- Explore design alternatives
-- Create ADRs for key decisions
-- Generate comprehensive design documentation
+Creates `CHARTER.md` and `.sdlc/` structure.
 
-### Step 3: Generate Implementation Plan
+### Step 2: Determine Requirements
 ```bash
-# Create a PRP (Project Requirements Prompt) from your design
-/generate-prp .sdlc/designs/my-feature/design.md
+/determine
 ```
-This creates a detailed PRP with:
-- All necessary context for Claude
-- Step-by-step implementation tasks
-- Validation gates
-- Success criteria
+Interactive requirements gathering:
+- Identifies what to build and why
+- Clarifies success criteria
+- Validates against charter
 
-### Step 4: Execute Implementation
+Creates: `.sdlc/requirements/{number}-{name}.md`
+
+### Step 3: Design Architecture (Optional)
 ```bash
-# Execute the PRP
-/execute-prp .sdlc/PRPs/my-feature.md
+/design
 ```
-Claude will:
-- Read the requirements prompt
-- Implement all tasks in order
-- Run validation after each step
-- Fix any issues automatically
-- Ensure all tests pass
+For complex features:
+- Explores 2+ alternatives
+- Documents trade-offs
+- Creates ADRs
+
+Creates: `.sdlc/designs/{number}-{type}-{name}/`
+
+### Step 4: Define Implementation
+```bash
+/define
+```
+Generates detailed implementation prompts:
+- Breaks work into tasks
+- Specifies tests
+- Updates TASK.md
+
+Creates: `.sdlc/implementation/{number}-{name}/dip.md`
+
+### Step 5: Do Implementation
+```bash
+/do
+```
+Executes the plan:
+- Implements code and tests
+- Runs validation
+- Updates progress
 
 ## Project Structure
 
 ```
-.claude/              # Framework configuration and rules
-├── docs/            # Framework documentation (you are here)
-├── rules/           # Automated behavior rules
-├── commands/        # Available Claude commands
-└── templates/       # Framework templates
-
-Project Root/
-├── .sdlc/           # SDLC artifacts
-│   ├── features/    # Feature requests
-│   ├── designs/     # Design documentation
-│   └── PRPs/       # Project Requirements Prompts
-├── docs/           # Project documentation
-├── tests/          # Test files
-└── src/            # Source code
+CHARTER.md           # Project principles
+TASK.md             # Active tasks
+.sdlc/
+├── requirements/   # What to build
+├── designs/        # How to build it
+├── implementation/ # Detailed plans
+└── amendments/     # Charter updates
 ```
 
-## Key Files
+## Multi-Agent System
 
-- **CLAUDE.md** - Main configuration file that loads rules
-- **PLANNING.md** - Project architecture and plans
-- **TASK.md** - Current tasks and todos
-- **CHANGELOG.md** - Project change history
+Commands use specialized AI agents:
+- **Requirements Engineer** - Your primary interface
+- **Project Manager** - Coordinates team
+- **Domain Experts** - Specialized knowledge
+- **Technical Architects** - System design
+- **QA Specialists** - Test strategies
 
-## What is a PRP?
+## Key Concepts
 
-A **Project Requirements Prompt (PRP)** is a specialized document format designed to give Claude Code all the context and instructions needed to successfully implement a feature. Unlike traditional requirements documents, PRPs are:
+### Document-Driven Development
+Everything starts with clear documentation - requirements before design, design before code.
 
-- **Context-rich**: Include all necessary documentation, examples, and gotchas
-- **Executable**: Contain validation commands Claude can run
-- **Self-correcting**: Include error patterns and fixes
-- **Complete**: Provide everything needed for one-pass implementation
+### Deterministic Safety
+Critical operations use scripts, not AI interpretation, ensuring consistent behavior.
+
+### Progressive Refinement
+Commands accept previous outputs for iteration:
+```bash
+/design existing.md "make it more scalable"
+```
 
 ## Next Steps
 
-1. Read the [Rule System Guide](rule-system.md) to understand automated behaviors
-2. Learn about [Configuration](configuration.md) options
-3. Explore the [Workflow Guide](workflow.md) for detailed processes
-4. Check [Command System](command-system.md) for available commands
+1. Run `/init` to set up your project
+2. Use `/determine` to clarify what you're building
+3. Apply `/design` for complex features
+4. Generate plans with `/define`
+5. Build with `/do`
 
 ## Best Practices
 
-1. **Always design before implementing** - Use `design-feature` for complex features
-2. **Follow the workflow** - Feature → Design → PRP → Execute
-3. **Let rules guide you** - They enforce best practices automatically
-4. **Document everything** - Decisions, designs, and changes
-5. **Test continuously** - Validation gates ensure quality
+1. **Never skip /determine** - Understanding is critical
+2. **Use /design for complexity** - Prevents costly mistakes
+3. **Trust the validation** - Automatic error correction
+4. **Review before commits** - You maintain control
+5. **Leverage multi-agent expertise** - Specialists provide depth
 
 ## Getting Help
 
-- Framework documentation: `.claude/docs/`
-- Project documentation: `docs/`
-- Rule explanations: `.claude/docs/rules/`
-- Command help: `.claude/commands/`
+- Command details: `.claude/commands/`
+- Workflow guide: [workflow.md](workflow.md)
+- Command system: [command-system.md](command-system.md)
+- Rule system: [rule-system.md](rule-system.md)
 
-## Common Commands
+## Common Patterns
 
+**New Feature:**
 ```bash
-# Check current tasks
-cat TASK.md
-
-# View active rules
-cat .claude/MASTER_IMPORTS.md
-
-# See project architecture
-cat PLANNING.md
-
-# Review recent changes
-cat CHANGELOG.md
+/init → /determine → /design → /define → /do
 ```
 
-## Tips for Success
+**Bug Fix:**
+```bash
+/determine → /define → /do
+```
 
-1. **Trust the process** - The workflow is designed to prevent mistakes
-2. **Be specific in features** - Clear requirements lead to better designs
-3. **Use existing patterns** - Bootstrap provides many examples
-4. **Validate often** - Run tests frequently during development
-5. **Keep documentation current** - Update as you work
+**Refactor:**
+```bash
+/determine → /design → /define → /do
+```
 
-Remember: Bootstrap handles the complexity so you can focus on building great software.
+Bootstrap handles complexity through structured workflows and multi-agent collaboration, letting you focus on building great software.
