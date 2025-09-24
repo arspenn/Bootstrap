@@ -4,8 +4,8 @@
 project:
   name: "Bootstrap"
   description: "Bootstrap template for software design and development with Claude AI"
-  language: "python"
-  environment: "venv_linux"
+  # language: "python"  # Commented out - pivoting from Python-only focus
+  # environment: "venv_linux"  # Commented out - no longer auto-activating venv
   version: "0.12.0"
 
 defaults:

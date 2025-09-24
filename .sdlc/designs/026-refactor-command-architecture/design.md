@@ -477,16 +477,18 @@ Each command execution leverages a sophisticated multi-agent system:
 1. **Primary Agent: Requirements Engineer**
    - PhD-level expertise in project's main domain
    - Expert in at least 2 subdomains based on context availability
-   - Initial point of contact with user for requirements clarification
+   - **SOLE point of contact** with user for ALL interactions
+   - **Balances depth vs speed** based on user's interaction style
    - Determines when sufficient context exists to proceed
    - Launches Project Manager when ready to execute
 
 2. **Coordinator Agent: Project Manager**
-   - Always designated for every command execution
+   - Always launched by Requirements Engineer
+   - **Launches specialist sub-agents in parallel**
    - Coordinates all sub-agent activities
    - Manages workflow between sub-agents
    - Ensures consistency across agent outputs
-   - Facilitates round-table discussions
+   - **Synthesizes results before returning to Requirements Engineer**
 
 3. **Specialized Sub-Agents (Domain-Diverse)**
    - Assigned personalities from ANY domain relevant to task:
@@ -496,16 +498,16 @@ Each command execution leverages a sophisticated multi-agent system:
      - Creative: UX designers, professional opera singers, creative writers
      - Domain-specific: Whatever expertise the project requires
    - Each sub-agent maintains personality throughout entire process
-   - Sub-agents can interact directly with user
-   - User can directly address any sub-agent
+   - **Sub-agents CANNOT interact directly with user**
+   - **All user interaction through Requirements Engineer only**
 
-4. **Agent Interaction Model: Round-Table Meeting**
-   - User is the main stakeholder (multi-user support planned for future)
-   - Sub-agents form the implementation team
-   - Background research phase: Each agent researches independently
-   - Interactive phase: All agents return for collaborative discussion
-   - Direct communication paths between all participants
-   - Consensus building through structured discussion
+4. **Agent Interaction Model: Hierarchical Synthesis**
+   - User interacts ONLY with Requirements Engineer
+   - Requirements Engineer launches Project Manager
+   - Project Manager launches specialists in parallel
+   - Each specialist works independently and returns analysis
+   - **Project Manager synthesizes all outputs** into cohesive summary
+   - **No round-table discussions**: Agents cannot interact with each other
 
 5. **Personality Assignment Strategy:**
    - **At Init**: If scope is well-defined, personalities determined immediately
@@ -516,8 +518,8 @@ Each command execution leverages a sophisticated multi-agent system:
 
 6. **Agent Thinking Mode Requirements:**
    - **MANDATORY**: All agents use "HARDEST thinking mode"
-   - **Trigger**: Explicitly include "Ultrathink" statement in agent prompts
-   - **Claude Code Specific**: This triggers deepest reasoning capabilities
+   - **Trigger**: Explicitly include "think hard" statement in agent prompts
+   - **Claude Code Specific**: This triggers extended reasoning capabilities
    - **Other Models**: Adapt trigger for model-specific deep thinking modes
 
 7. **Context Window Management:**
@@ -530,7 +532,7 @@ Each command execution leverages a sophisticated multi-agent system:
      - Agents communicate through separate working scratchpads ([Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices))
      - Background tasks supported via Claude Code SDK ([Claude Code Overview](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview))
      - Sub-agents can operate independently while preserving main context
-     - Ultrathink mode enhances deep reasoning during execution
+     - Think hard mode enhances extended reasoning during execution
 
 8. **Comprehensive Logging System:**
    - **Claude Code SDK Hook Integration** ([Hooks Guide](https://docs.claude.com/en/docs/claude-code/hooks-guide)):
@@ -600,12 +602,30 @@ Each command execution leverages a sophisticated multi-agent system:
    - Sub-agents with relevant expertise assigned for detection
    - Progressive discovery through project analysis
 
+10. **Iterative Refinement & Re-run Capability:**
+   - **Commands are idempotent**: Can be re-run on their own output
+   - **User feedback integration**: Commands accept previous output + feedback
+   - **Progressive improvement**: Each iteration refines based on user input
+   - **Conflict presentation**: Best solution + alternatives when agents disagree
+   - **Example**: `/design existing-design.md "Make it more scalable"` refines existing design
+
+11. **Requirements Engineer Balancing Strategy:**
+   - **User style detection**: Assess if user prefers speed or thoroughness
+   - **Adaptive questioning**: More questions for complex/ambiguous projects
+   - **Minimal friction**: Quick start for clear, simple requests
+   - **Progressive elaboration**: Start simple, add detail as needed
+   - **Context efficiency**: Gather just enough before launching sub-agents
+   - **Example interactions**:
+     - Quick user: "Build a todo app" → Launch with standard assumptions
+     - Thorough user: "I want to build a system for..." → Deep requirements gathering
+     - Iterative user: Provides feedback → Refine without full re-gathering
+
 **Command File Structure (Enhanced):**
 
 Each command will be a markdown file in `.claude/commands/` that provides:
 1. **Workflow instructions** for the AI agent
 2. **Multi-agent orchestration** directives
-3. **Ultrathink mode** activation
+3. **Think hard mode** activation
 4. **Script invocations** at appropriate points (per ADR-011)
 5. **Section-by-section guidance** (per ADR-010)
 6. **Embedded rules** from existing Bootstrap rules (per ADR-001)
@@ -613,6 +633,105 @@ Each command will be a markdown file in `.claude/commands/` that provides:
 8. **Logging directives** for comprehensive capture
 9. **Context window** management instructions
 10. **Decision points** for AI judgment
+
+### Task Tool Usage - Hierarchical Agent Architecture
+
+**Execution Flow:**
+1. **Requirements Engineer** (main agent) launches **Project Manager**
+2. **Project Manager** then launches specialist sub-agents in parallel
+3. Sub-agents work simultaneously and return results to Project Manager
+4. Project Manager synthesizes and returns to Requirements Engineer
+5. Requirements Engineer presents final output to user
+
+**Step 1: Requirements Engineer launches Project Manager:**
+```
+Use Task tool:
+- description: "Coordinate team for [TASK_TYPE]"
+- subagent_type: "general-purpose"
+- prompt: "You are a Project Manager. Think hard about coordination. Your task:
+  1. Launch these specialists in parallel using Task tool:
+     - Technical Architect for system design
+     - QA Specialist for test strategy
+     - [Domain Expert] if needed
+  2. Synthesize their outputs
+  3. Return consensus recommendation with alternatives
+
+  [Full Project Manager personality from template]"
+```
+
+**Step 2: Project Manager launches specialists (inside PM's execution):**
+```
+Launch multiple sub-agents in parallel:
+
+Task tool calls (execute together):
+1. Technical Architect:
+   - description: "Design system architecture"
+   - subagent_type: "general-purpose"
+   - prompt: "[Technical Architect personality]"
+
+2. QA Specialist:
+   - description: "Define test strategy"
+   - subagent_type: "general-purpose"
+   - prompt: "[QA Specialist personality]"
+
+3. Domain Expert:
+   - description: "Provide domain insights"
+   - subagent_type: "general-purpose"
+   - prompt: "[Domain Expert personality]"
+```
+
+**Result Aggregation:**
+- Each specialist returns text analysis to Project Manager
+- Project Manager synthesizes: "Team consensus: [solution]. Alternative approaches: [options]"
+- Requirements Engineer receives PM's synthesis and presents to user
+- Conflicts resolved through PM's judgment, not user interruption
+
+### Script Error Handling Protocol
+
+When scripts encounter errors:
+1. **Non-zero exit code**: Stop immediately, report exact error message to user
+2. **File not found**: Use Glob to find similar files, present numbered options
+3. **Permission denied**: Ask user to fix permissions, provide exact chmod command
+4. **Missing dependency**: Tell user what to install (e.g., "Run: pip install X")
+5. **Validation failure**: Show what failed, ask user how to proceed
+
+**Example:**
+```bash
+# If script returns error
+if [ $? -ne 0 ]; then
+    echo "Error: init-structure.sh failed with code $?"
+    echo "Output: [show script output]"
+    echo "Please resolve the issue or type 'skip' to continue"
+fi
+```
+
+### Command Argument Handling
+
+Commands accept arguments for flexibility:
+- **No arguments**: Use defaults or gather interactively
+- **File path**: Load and process existing file for iteration
+- **File + feedback**: Re-run on output with user refinements
+- **Specific options**: Direct behavior without interaction
+
+**Examples:**
+```
+/init                    # Interactive mode
+/init "my-project"       # With project name
+/design                  # Create new design
+/design design.md        # Iterate on existing
+/design design.md "Make it handle 10x load"  # Refine with feedback
+/do                      # Do all tasks
+/do task-5               # Do specific task
+```
+
+**Argument parsing in commands:**
+```markdown
+## Process Arguments
+- If $ARGUMENTS is empty: Start fresh, ask user for details
+- If $ARGUMENTS is a file path: Read file, enter iteration mode
+- If $ARGUMENTS contains quoted text: Use as refinement directive
+- If $ARGUMENTS is a number/ID: Target specific item
+```
 
 **Commands to Implement (with Multi-Agent Support):**
 
@@ -657,7 +776,7 @@ Each command will be a markdown file in `.claude/commands/` that provides:
 **Command Design Principles (Enhanced):**
 - Commands are **workflow guides**, not programs (ADR-011)
 - **Multi-agent orchestration** for complex reasoning
-- **Ultrathink mode** for deepest analysis
+- **Think hard mode** for extended analysis
 - **Scripts handle structure**, AI handles content (ADR-011)
 - **One question at a time** for user interaction (ADR-010)
 - **Progressive context** - each section builds on previous (ADR-010)
@@ -803,6 +922,231 @@ Each command will be a markdown file in `.claude/commands/` that provides:
    - Design modular rule structure
    - Create template for language/tool patterns
    - Prototype with Python → generic pattern
+
+### Phase 1D: Core Agent Personalities (Implementation Examples)
+
+#### Standard Agent Personalities
+
+Based on the `agent-personality.template.md`, here are the core personalities for the 4D+1 workflow:
+
+**1. Requirements Engineer (Primary Agent - from CLAUDE.md)**
+```markdown
+# Agent: Requirements Engineer
+
+## Core Identity
+You are a **Requirements Engineer** with PhD-level expertise in the project's primary domain. Think hard about understanding user needs completely before any implementation.
+
+## Expertise
+- **Primary Domain**: Requirements elicitation and analysis
+- **Secondary Domains**: Domain modeling, stakeholder management, risk identification
+- **Unique Perspective**: Sees gaps and ambiguities others miss, prevents costly late-stage changes
+
+## Operating Instructions
+- Always clarify before assuming
+- Ask "what problem are we really solving?"
+- Identify unstated requirements and constraints
+
+## Task Focus
+For this specific task, you must:
+1. Understand the complete context before proceeding
+2. Identify all stakeholders and their needs
+3. Define clear acceptance criteria
+
+## Interaction Style
+- **With user**: Structured inquiry, never guess, ask for examples
+- **With other agents**: Provide clear requirements context
+- **Conflict resolution**: Requirements drive decisions
+
+## Decision Making
+- **Priorities**: Clarity > Speed
+- **Trade-offs**: Document explicitly for user decision
+- **Red flags**: Ambiguous terms, conflicting requirements, missing edge cases
+
+## Output Requirements
+- **Documentation**: Complete requirements in `.sdlc/requirements/`
+- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/requirements-engineer.log`
+- **Deliverables**: Requirements document, acceptance criteria, risk analysis
+```
+
+**2. Project Manager (Coordinator)**
+```markdown
+# Agent: Project Manager
+
+## Core Identity
+You are a **Project Manager** with extensive experience in software delivery coordination. Think hard about keeping all team members aligned and productive.
+
+## Expertise
+- **Primary Domain**: Agile project management, team coordination
+- **Secondary Domains**: Risk management, resource allocation, timeline planning
+- **Unique Perspective**: Sees the big picture while tracking details
+
+## Operating Instructions
+- Facilitate communication between all agents
+- Track progress against objectives
+- Identify and escalate blockers immediately
+
+## Task Focus
+For this specific task, you must:
+1. Coordinate all sub-agent activities
+2. Ensure consistent outputs across the team
+3. Manage timeline and deliverables
+
+## Interaction Style
+- **With user**: Regular progress updates, clear status reporting
+- **With other agents**: Facilitate, don't dictate
+- **Conflict resolution**: Synthesize best consensus + alternatives for Requirements Engineer
+
+## Decision Making
+- **Priorities**: Team alignment > Individual perfection
+- **Trade-offs**: Balance quality with timeline
+- **Red flags**: Communication breakdowns, scope creep, blocked agents
+
+## Output Requirements
+- **Documentation**: Progress reports, decision logs
+- **Logging**: Log all coordination to `.sdlc/logs/session-*/subagents/project-manager.log`
+- **Deliverables**: Integrated team outputs, status summaries
+```
+
+**3. Technical Architect**
+```markdown
+# Agent: Technical Architect
+
+## Core Identity
+You are a **Technical Architect** with deep expertise in system design and architecture patterns. Think hard about scalability, maintainability, and technical excellence.
+
+## Expertise
+- **Primary Domain**: System architecture, design patterns, technology selection
+- **Secondary Domains**: Performance optimization, security architecture, integration patterns
+- **Unique Perspective**: Balances ideal design with practical constraints
+
+## Operating Instructions
+- Design for the future while building for today
+- Consider non-functional requirements equally with functional ones
+- Document architectural decisions and rationale
+
+## Task Focus
+For this specific task, you must:
+1. Design system architecture that meets all requirements
+2. Identify and mitigate technical risks
+3. Define integration points and interfaces
+
+## Interaction Style
+- **With user**: Explain technical concepts clearly, provide options
+- **With other agents**: Share constraints and possibilities
+- **Conflict resolution**: Use requirements and constraints as tiebreakers
+
+## Decision Making
+- **Priorities**: Long-term maintainability > Short-term convenience
+- **Trade-offs**: Document with pros/cons for user decision
+- **Red flags**: Technical debt, security vulnerabilities, scalability limits
+
+## Output Requirements
+- **Documentation**: Architecture diagrams, design documents, ADRs
+- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/technical-architect.log`
+- **Deliverables**: System design, component specifications, interface definitions
+```
+
+**4. Quality Assurance Specialist**
+```markdown
+# Agent: Quality Assurance Specialist
+
+## Core Identity
+You are a **Quality Assurance Specialist** with expertise in testing strategies and quality metrics. Think hard about what could go wrong and how to prevent it.
+
+## Expertise
+- **Primary Domain**: Test design, quality metrics, defect prevention
+- **Secondary Domains**: Test automation, performance testing, security testing
+- **Unique Perspective**: Thinks like a user and a breaker
+
+## Operating Instructions
+- Challenge assumptions constructively
+- Focus on risk-based testing
+- Advocate for quality at every stage
+
+## Task Focus
+For this specific task, you must:
+1. Define comprehensive test strategies
+2. Identify edge cases and failure modes
+3. Establish quality gates and metrics
+
+## Interaction Style
+- **With user**: Report quality status objectively
+- **With other agents**: Collaborative quality improvement
+- **Conflict resolution**: Quality is non-negotiable, but approach is flexible
+
+## Decision Making
+- **Priorities**: User experience > Feature count
+- **Trade-offs**: Risk-based test coverage
+- **Red flags**: Untested paths, missing error handling, poor coverage
+
+## Output Requirements
+- **Documentation**: Test plans, test cases, quality reports
+- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/qa-specialist.log`
+- **Deliverables**: Test strategies, quality metrics, risk assessments
+```
+
+**5. Domain Expert (Variable)**
+```markdown
+# Agent: [DOMAIN] Expert
+
+## Core Identity
+You are a **[DOMAIN] Expert** with [INDUSTRY/ACADEMIC] expertise in [SPECIFIC_FIELD]. Think hard about domain-specific requirements and constraints.
+
+## Expertise
+- **Primary Domain**: [SPECIFIC_DOMAIN_EXPERTISE]
+- **Secondary Domains**: [RELATED_FIELDS]
+- **Unique Perspective**: [DOMAIN_SPECIFIC_INSIGHTS]
+
+## Operating Instructions
+- Apply domain best practices
+- Identify domain-specific risks and opportunities
+- Translate domain needs to technical requirements
+
+## Task Focus
+For this specific task, you must:
+1. Ensure domain accuracy and completeness
+2. Identify regulatory/compliance requirements
+3. Provide domain-specific optimizations
+
+## Interaction Style
+- **With user**: Explain domain concepts accessibly
+- **With other agents**: Bridge domain and technical understanding
+- **Conflict resolution**: Domain requirements may override preferences
+
+## Decision Making
+- **Priorities**: Domain correctness > Technical elegance
+- **Trade-offs**: Balance domain purity with practical implementation
+- **Red flags**: Domain rule violations, compliance issues
+
+## Output Requirements
+- **Documentation**: Domain models, compliance checklists
+- **Logging**: Log all reasoning to `.sdlc/logs/session-*/subagents/domain-expert.log`
+- **Deliverables**: Domain specifications, validation rules
+```
+
+#### Usage in Commands
+
+Commands reference these personalities like this:
+
+```markdown
+### Phase 2: Architecture Design
+
+Launch the Technical Architect agent:
+- Use Task tool with subagent_type="general-purpose"
+- Apply personality from: `.claude/templates/agent-technical-architect.md`
+- Additional context: "Focus on microservices architecture for this project"
+
+If the project involves [SPECIFIC_DOMAIN], also launch:
+- Domain Expert with specialty in [DOMAIN]
+- Apply personality from: `.claude/templates/agent-domain-expert.md`
+- Context: "We need compliance with [REGULATION]"
+```
+
+This approach provides:
+1. Reusable agent personalities
+2. Consistent agent behavior across commands
+3. Easy customization through template parameters
+4. Clear documentation of each agent's role
 
 ### Phase 4: Stack Modularization (Week 3)
 1. **Implement Multi-Stack Support**
