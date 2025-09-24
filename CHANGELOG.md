@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.1] - 2024-09-24 [1fca2ed]
+
+### Added
+- **4D+1 Workflow Commands** - Complete implementation of new command architecture
+  - `/init` - Project initialization with charter creation
+  - `/determine` - Requirements gathering with stakeholder interaction
+  - `/design` - Architecture planning with alternative exploration
+  - `/define` - DIP generation for implementation specifications
+  - `/do` - Execution command for building solutions
+- **Supporting Scripts** - 15 POSIX-compliant shell scripts for deterministic operations
+  - Structure creation, stack detection, document generation
+  - Testing and linting scripts for multiple languages
+  - Git safety operations with forbidden pattern detection
+- **Project Charter (CHARTER.md)** - Established comprehensive project charter in draft mode
+  - Core principles including AI-native multi-agent integration
+  - Broader vision extending beyond SDLC to any structured decision-making domain
+  - Technology stack clarification (Markdown + POSIX shell scripts only)
+- **Architecture Decision Records**
+  - ADR-010: 4D+1 Workflow Architecture (project-wide)
+  - ADR-012: Multi-Agent Architecture Pattern (design-specific)
+
+### Changed
+- **Documentation overhaul** - Updated all framework docs for new workflow
+  - `workflow.md` reduced by 41% while documenting 4D+1 commands
+  - `command-system.md` completely rewritten with new commands
+  - `getting-started.md` streamlined with new workflow
+- **Command requirements** - Added explicit CHARTER.md and ADR reading instructions
+  - Commands now load project context before execution
+  - Multi-agent prompts reference charter principles
+
+### Fixed
+- **Command token claims** - Corrected unrealistic <500 token claim (actual: 600-1600 tokens)
+- **Stack detection** - Fixed to correctly identify Bootstrap as Markdown + Shell only
+
 ## [0.12.0] - 2025-09-23 [6029369]
 
 ### Added

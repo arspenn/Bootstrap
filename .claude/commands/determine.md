@@ -52,6 +52,11 @@ Parse arguments:
 - If $ARGUMENTS is a file path: Read and iterate on existing requirements
 - If $ARGUMENTS is text: Use as feature/capability name
 
+**Important:** Before gathering requirements:
+1. Read CHARTER.md to understand project context, principles, and constraints
+2. Check .sdlc/ADRs/ for existing architectural decisions that may impact requirements
+3. Review any related design ADRs in .sdlc/designs/*/adrs/ if iterating on existing features
+
 ### 2. **Interactive Gathering** (Section-by-Section)
 
 **Step 1: Feature Identification**
@@ -107,7 +112,7 @@ Use Task tool:
   - Problem: $PROBLEM_STATEMENT
   - Stakeholders: $STAKEHOLDERS
   - Success Criteria: $SUCCESS_CRITERIA
-  - Charter Principles: [Extract from CHARTER.md]
+  - Charter Principles: [Read CHARTER.md and extract relevant principles]
 
   Each specialist should provide:
   - Must-have requirements (P0)

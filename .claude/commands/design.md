@@ -60,6 +60,12 @@ echo "Existing designs:"
 ls -la .sdlc/designs/ 2>/dev/null || echo "  None found"
 ```
 
+**Essential Context Loading:**
+1. Read CHARTER.md for project principles, technology decisions, and constraints
+2. Review .sdlc/ADRs/ for all project-level architectural decisions
+3. Check related .sdlc/designs/*/adrs/ for patterns from similar features
+4. Use these decisions to inform and constrain design alternatives
+
 Parse arguments:
 - Empty: Ask which requirements to design for
 - File path: Use specified requirements or iterate on existing design
@@ -148,7 +154,7 @@ Use Task tool:
   - Requirements: [Load from requirements file]
   - Constraints: $CONSTRAINTS
   - Complexity: $COMPLEXITY_ASSESSMENT
-  - Technology Stack: [From CHARTER.md]
+  - Technology Stack: [Read CHARTER.md for stack and constraints]
 
   Consider these architectural patterns:
   - Microservices vs Monolith

@@ -57,7 +57,15 @@ Parse arguments:
 - Design path: Use specified design
 - Component name: Define specific component only
 
-### 2. **Complexity Analysis**
+### 2. **Context Loading**
+
+**Load critical context:**
+1. Read CHARTER.md for technology stack and constraints
+2. Review design's ADRs in .sdlc/designs/{number}/adrs/ for all decisions made
+3. Check .sdlc/ADRs/ for project-wide implementation patterns
+4. Understand existing code patterns from similar implementations
+
+### 3. **Complexity Analysis**
 
 Read design and assess implementation complexity:
 
@@ -90,7 +98,7 @@ else:
     dip_mode = "single"
 ```
 
-### 3. **Interactive Gathering**
+### 4. **Interactive Gathering**
 
 **Step 1: Design Selection**
 If not in arguments:
@@ -117,7 +125,7 @@ Accept this phasing? (yes/no/customize)"
 - test-after: Write tests after implementation
 Choose: [test-first recommended]"
 
-### 4. **Script Execution**
+### 5. **Script Execution**
 
 ```bash
 # Create DIP structure
@@ -129,7 +137,7 @@ DESIGN_NAME=$(basename $(dirname $DESIGN_PATH))
 DIP_DIR=".sdlc/implementation/001-$DESIGN_NAME"
 ```
 
-### 5. **Multi-Agent DIP Generation**
+### 6. **Multi-Agent DIP Generation**
 
 Launch implementation planning team:
 
@@ -165,7 +173,7 @@ Use Task tool:
   Context:
   - Design: $DESIGN_PATH
   - Components: $COMPONENT_LIST
-  - Technology Stack: [from CHARTER.md]
+  - Technology Stack: [Read CHARTER.md for technology decisions]
   - Code Style: [from project conventions]
   - Complexity: $COMPLEXITY_ASSESSMENT
   - Phasing: $DIP_MODE
@@ -184,7 +192,7 @@ Use Task tool:
   Reference: Load Project Manager from .claude/agents/project-manager.md"
 ```
 
-### 6. **DIP Content Creation**
+### 7. **DIP Content Creation**
 
 **Templates to use:**
 - Single DIP: `.claude/templates/dip.template.md`
@@ -252,7 +260,7 @@ Create multiple DIPs:
 - `$DIP_DIR/b-enhanced-dip.md` - Enhanced features
 - `$DIP_DIR/c-optimization-dip.md` - Polish and optimization
 
-### 7. **Task List Generation**
+### 8. **Task List Generation**
 
 ```bash
 # Extract tasks from DIP(s) to create/update TASK.md
@@ -266,7 +274,7 @@ echo "..."
 echo "Total tasks: $(grep -c "^- \[ \]" TASK.md)"
 ```
 
-### 8. **Validation & Reporting**
+### 9. **Validation & Reporting**
 
 ```bash
 # Verify DIP creation
