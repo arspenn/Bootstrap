@@ -17,8 +17,8 @@ _Add any new tasks found during implementation_
 - [x] Add logic-design-expert access to all agents for boundary validation
 - [x] Update logic-design-expert to create detailed validation logs
 - [x] Configure Stenographer to monitor validation logs
-- [ ] CRITICAL: Update Node.js memory to 20GB (currently hitting 16GB limit)
-- [ ] Document memory requirements in ADR-013 or new ADR
+- [ ] CRITICAL: Update Node.js memory to 20GB using: export NODE_OPTIONS="--max-old-space-size=20480"
+- [x] Document memory requirements in ADR-014
 - [ ] Add memory check to `/init` command (warn if < 20GB available)
 - [ ] Create system requirements document specifying 20GB RAM minimum
 - [ ] Update Project Manager to check available memory before launching agents
