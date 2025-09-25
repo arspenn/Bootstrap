@@ -29,7 +29,7 @@ DATE=$(date +%Y-%m-%d)
 cat > "$TASK_FILE" << EOF
 # Implementation Tasks
 
-_Generated from: $DIP_NAME on $DATE_
+_Generated from: $DIP_NAME on ${DATE}_
 
 EOF
 
