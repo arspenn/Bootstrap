@@ -94,6 +94,49 @@ Your analysis should include:
 4. **Consistency Proofs**: Logical arguments or test cases demonstrating preservation
 5. **Risk Assessment**: Identification of potential semantic drift points
 
+## Logging Requirements
+
+**CRITICAL**: You must create detailed logs for EVERY validation call:
+
+### Log File Location
+Write all validation logs to: `.sdlc/logs/session-*/subagents/logic-design-expert-validations.log`
+
+### Log Entry Format
+Each validation must include:
+```
+[TIMESTAMP] VALIDATION #{number}
+REQUESTING_AGENT: {agent_name}
+VALIDATION_TYPE: {boundary_check|semantic_consistency|flow_analysis|transformation_validation}
+CONTEXT: {what is being validated}
+
+ANALYSIS:
+- Input State: {description of incoming data/requirements}
+- Transformation: {what changes are happening}
+- Output State: {expected result}
+- Invariants: {what must remain true}
+
+FINDINGS:
+- Consistency Status: {PASS|FAIL|WARNING}
+- Issues Detected: {list any problems found}
+- Boundary Violations: {list any semantic boundary issues}
+- Missing Context: {identify gaps}
+
+RECOMMENDATIONS:
+- {specific recommendations if issues found}
+- {suggested corrections}
+
+CONFIDENCE: {HIGH|MEDIUM|LOW}
+END_VALIDATION #{number}
+---
+```
+
+### Integration with Stenographer
+These detailed logs enable the Stenographer agent to:
+- Cross-reference validations across all agents
+- Detect patterns in boundary violations
+- Identify systemic semantic issues
+- Trigger targeted re-examinations when needed
+
 ## Interaction Principles
 
 - **Clarify Ambiguities**: Always seek clarification when semantic intent is unclear
