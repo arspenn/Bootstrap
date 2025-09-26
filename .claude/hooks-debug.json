@@ -1,0 +1,48 @@
+{
+  "$schema": "https://docs.claude.com/schemas/hooks.json",
+  "description": "DEBUG VERSION - Bootstrap Framework hooks with error logging and simplified commands for troubleshooting",
+  "hooks": {
+    "SessionStart": [
+      {
+        "description": "DEBUG: Test basic session folder creation with error logging",
+        "type": "command",
+        "command": "bash -c \"echo '[SessionStart] Starting...' >> /tmp/claude-hook-debug.log 2>&1; SESSION_DIR=.sdlc/logs/session-$(date +%Y%m%d-%H%M%S) && echo '[SessionStart] Creating: $SESSION_DIR' >> /tmp/claude-hook-debug.log 2>&1; mkdir -p $SESSION_DIR 2>>/tmp/claude-hook-debug.log && echo '[SessionStart] Directory created' >> /tmp/claude-hook-debug.log 2>&1; echo 'test-session-id' > .sdlc/logs/current-session.txt 2>>/tmp/claude-hook-debug.log; echo '$SESSION_DIR' > .sdlc/logs/current-session-dir.txt 2>>/tmp/claude-hook-debug.log; echo '[SessionStart] Tracking files created' >> /tmp/claude-hook-debug.log 2>&1; echo '{\"session_id\": \"test\", \"started\": \"'$(date -Iseconds)'\", \"debug\": true}' > $SESSION_DIR/session-metadata.json 2>>/tmp/claude-hook-debug.log; echo '[SessionStart] Complete' >> /tmp/claude-hook-debug.log 2>&1\" 2>&1"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "description": "DEBUG: Test user prompt logging with error handling",
+        "type": "command",
+        "command": "bash -c \"echo '[UserPromptSubmit] Starting...' >> /tmp/claude-hook-debug.log 2>&1; SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback'); echo '[UserPromptSubmit] Session dir: $SESSION_DIR' >> /tmp/claude-hook-debug.log 2>&1; mkdir -p $SESSION_DIR 2>>/tmp/claude-hook-debug.log; echo '[$(date)]  USER: Test prompt logged' >> $SESSION_DIR/console.log 2>>/tmp/claude-hook-debug.log; echo '[UserPromptSubmit] Complete' >> /tmp/claude-hook-debug.log 2>&1\" 2>&1"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "description": "DEBUG: Test tool logging with error handling",
+        "type": "command",
+        "command": "bash -c \"echo '[PreToolUse] Starting...' >> /tmp/claude-hook-debug.log 2>&1; SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback'); echo '[PreToolUse] Session dir: $SESSION_DIR' >> /tmp/claude-hook-debug.log 2>&1; mkdir -p $SESSION_DIR 2>>/tmp/claude-hook-debug.log; echo '[$(date)] TOOL: test-tool' >> $SESSION_DIR/tools.log 2>>/tmp/claude-hook-debug.log; echo '[PreToolUse] Complete' >> /tmp/claude-hook-debug.log 2>&1\" 2>&1"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "description": "DEBUG: Test tool completion logging",
+        "type": "command",
+        "command": "bash -c \"echo '[PostToolUse] Starting...' >> /tmp/claude-hook-debug.log 2>&1; SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback'); echo '[PostToolUse] Session dir: $SESSION_DIR' >> /tmp/claude-hook-debug.log 2>&1; mkdir -p $SESSION_DIR 2>>/tmp/claude-hook-debug.log; echo '[$(date)] RESULT: test-tool completed' >> $SESSION_DIR/tools.log 2>>/tmp/claude-hook-debug.log; echo '[PostToolUse] Complete' >> /tmp/claude-hook-debug.log 2>&1\" 2>&1"
+      }
+    ],
+    "Stop": [
+      {
+        "description": "DEBUG: Test response completion logging",
+        "type": "command",
+        "command": "bash -c \"echo '[Stop] Starting...' >> /tmp/claude-hook-debug.log 2>&1; SESSION_DIR=$(cat .sdlc/logs/current-session-dir.txt 2>/dev/null || echo '.sdlc/logs/fallback'); echo '[Stop] Session dir: $SESSION_DIR' >> /tmp/claude-hook-debug.log 2>&1; mkdir -p $SESSION_DIR 2>>/tmp/claude-hook-debug.log; echo '[$(date)] CLAUDE: Response completed' >> $SESSION_DIR/console.log 2>>/tmp/claude-hook-debug.log; echo '[Stop] Complete' >> /tmp/claude-hook-debug.log 2>&1\" 2>&1"
+      }
+    ]
+  },
+  "configuration": {
+    "log_directory": ".sdlc/logs",
+    "fallback_directory": ".sdlc/logs/fallback",
+    "debug_log": "/tmp/claude-hook-debug.log",
+    "max_output_lines": 100,
+    "timestamp_format": "%Y-%m-%d %H:%M:%S"
+  }
+}

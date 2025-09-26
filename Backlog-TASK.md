@@ -91,7 +91,32 @@ Implement duplicate detection for task management.
 
 ### Medium Priority
 
-#### TASK-006: Framework Improvements
+#### TASK-006: PLANNING.md Shared Workspace Enhancement
+**Priority**: [MEDIUM]
+**Created**: 2025-09-25
+**Estimate**: 3-4 weeks
+**Status**: pending
+**Prerequisites**: Phase 1 (serial 3-agent architecture) must be stable
+
+Implement PLANNING.md as universal shared workspace for all agents to enable persistent state, better debugging, and natural recovery.
+
+- [ ] Design PLANNING.md templates for each command type
+- [ ] Implement workspace initialization in Executor
+- [ ] Add unified agent-collaboration.log
+- [ ] Update all agents to read/write PLANNING.md
+- [ ] Add section-based ownership to prevent conflicts
+- [ ] Implement progressive summarization for long operations
+- [ ] Test failure recovery scenarios
+- [ ] Document PLANNING.md workflow
+
+**Value Proposition**:
+- Natural failure recovery through file persistence
+- Real-time progress visibility for users
+- Simplified state management (file-based vs memory)
+- Git-based versioning and rollback
+- Better debugging through human-readable state
+
+#### TASK-007: Framework Improvements
 **Priority**: [MEDIUM]  
 **Created**: 2025-08-30  
 **Estimate**: 1w  

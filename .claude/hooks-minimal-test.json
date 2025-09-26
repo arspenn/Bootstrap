@@ -1,0 +1,34 @@
+{
+  "$schema": "https://docs.claude.com/schemas/hooks.json",
+  "description": "Minimal test hooks to verify basic execution",
+  "hooks": {
+    "SessionStart": [
+      {
+        "description": "Minimal session start test",
+        "type": "command",
+        "command": "echo 'HOOK_TEST: SessionStart executed at $(date)' >> /tmp/claude-hook-test.log"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "description": "Minimal user prompt test",
+        "type": "command",
+        "command": "echo 'HOOK_TEST: UserPromptSubmit executed at $(date)' >> /tmp/claude-hook-test.log"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "description": "Minimal tool use test",
+        "type": "command",
+        "command": "echo 'HOOK_TEST: PreToolUse executed at $(date)' >> /tmp/claude-hook-test.log"
+      }
+    ],
+    "Stop": [
+      {
+        "description": "Minimal response stop test",
+        "type": "command",
+        "command": "echo 'HOOK_TEST: Stop executed at $(date)' >> /tmp/claude-hook-test.log"
+      }
+    ]
+  }
+}
